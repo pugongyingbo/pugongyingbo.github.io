@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh_CN" lang="zh_CN">
 <head>
   <link href="http://gmpg.org/xfn/11" rel="profile">
@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
   
-  <title>My Blog</title>
+  <title>Hello Hugo &middot; My Blog</title>
   
 
   
@@ -26,12 +26,11 @@
   <link rel="shortcut icon" href="/favicon.png">
 
   
-  <link href="http://www.pugongyingbo.com/index.xml" rel="alternate" type="application/rss+xml" title="My Blog" />
+  <link href="" rel="alternate" type="application/rss+xml" title="My Blog" />
 </head>
 
-<body class=" ">
-
-<div class="sidebar">
+	<body class=" ">
+		<div class="sidebar">
   <div class="container sidebar-sticky">
     <div class="sidebar-about">
       <a href="http://www.pugongyingbo.com/"><h1>My Blog</h1></a>
@@ -50,121 +49,11 @@
 </div>
 
 
-    <div class="content container">
-<div class="posts">
-
-      
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://www.pugongyingbo.com/post/Hellohugo/">
-        Hello Hugo
-      </a>
-    </h1>
-
-    <span class="post-date">Mon, Mar 6, 2017</span>
-
-    
-
-<h1 id="hello-hugo-in-windows">Hello Hugo in windows</h1>
-
-<ul>
-<li><p>Hugo官方主页：<a href="https://gohugo.io/(https://gohugo.io/">https://gohugo.io/(https://gohugo.io/</a>)</p></li>
-
-<li><p>从GitHub下载匹配自己系统的版本</p></li>
-
-<li><p>解压缩，然后例如放在C:/Hugo/bin下，把.exe名字改成hugo.exe</p></li>
-
-<li><p>添加到系统变量中（我的是windows）</p></li>
-
-<li><p>这个时候应该可以在你的cmd命令行里执行hugo了，如果出来一堆命令之类的说明安装成功</p></li>
-
-<li><p>新建个文件夹Site,我们在这new site myblog，会新建一个文件夹叫myblog</p></li>
-</ul>
-
-<p>！image[myblog_struct.png]</p>
-
-<ul>
-<li>clone喜欢的模板</li>
-</ul>
-
-<pre><code>
-$ mkdir themes
-$ cd themes
-$ git clone https://github.com/spf13/hyde.git 
-<code/></pre>
-
-<ul>
-<li>对配置文件config.toml进行修改
-<pre><code></li>
-</ul>
-
-<p>baseurl = &ldquo;<a href="http://example.com/&quot;">http://example.com/&quot;</a>
-languageCode = &ldquo;en-us&rdquo;
-title = &ldquo;My Blog&rdquo;
-theme = &ldquo;hyde&rdquo;</p>
-
-<p>[params]
-    description = &ldquo;这里是个人博客&rdquo;</p>
-
-<p><code/></pre></p>
-
-<ul>
-<li><p>这个时候可以新建你的文章了（在post下)
-<pre><code>
-$ hugo new post test.md
-<code/></pre></p></li>
-
-<li><p>在目录下运行 hugo server 打开浏览器输入localhost：1313，就可以看见你的博客了</p></li>
-
-<li><p>然后可以将其挂在giuhub page上</p></li>
-</ul>
-
-<h1 id="关于部署">关于部署</h1>
-
-<ul>
-<li><p>假设你需要部署在 GitHub Pages上，首先在GitHub上创建一个Repository，命名为：×××.github.io 。</p></li>
-
-<li><p>在站点根目录执行 Hugo 命令生成最终页面：</p></li>
-</ul>
-
-<pre><code>
-$ hugo --theme=hyde --baseUrl="http://coderzh.github.io/"
-<code/></pre>
-
-<p>*　如果一切顺利，所有静态页面都会生成到 public 目录，将pubilc目录里所有文件 push 到刚创建的Repository的 master 分支。</p>
-
-<pre><code>
-$ cd public
-$ git init
-$ git remote add origin https://github.com/coderzh/coderzh.github.io.git
-$ git add -A
-$ git commit -m "first commit"
-$ git push -u origin master
-<code/></pre>
-
-<h1 id="参考的文档">参考的文档</h1>
-
-<pre><code>* 官方主页
-
-* Hugo中文文档 http://www.gohugo.org/ (http://www.gohugo.org/ )
-
-* http://blog.coderzh.com/2015/08/29/hugo/(http://blog.coderzh.com/2015/08/29/hugo/)
-
-* http://tonybai.com/2015/09/23/intro-of-gohugo/(http://tonybai.com/2015/09/23/intro-of-gohugo/)
-</code></pre>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://www.pugongyingbo.com/post/first/">
-        Hello Hugo
-      </a>
-    </h1>
-
-    <span class="post-date">Mon, Mar 6, 2017</span>
-
-    
+		<div class="content container">
+			<div class="post">
+			 	<h1>Hello Hugo</h1>
+			  <span class="post-date">Mon, Mar 6, 2017</span>
+			      
 
 <h1 id="hello-hugo-in-windows">Hello Hugo in windows</h1>
 
@@ -259,10 +148,10 @@ $ git push -u origin master
 <li><p>参考：<a href="http://tonybai.com/2015/09/23/intro-of-gohugo/">http://tonybai.com/2015/09/23/intro-of-gohugo/</a>；</p></li>
 </ul>
 
-  </div>
-  
-</div>
-</div>
+			</div>
+
+			
+		</div>
 
   </body>
 </html>
