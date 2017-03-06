@@ -33,12 +33,8 @@
 &lt;li&gt;&lt;p&gt;这个时候应该可以在你的cmd命令行里执行hugo了，如果出来一堆命令之类的说明安装成功&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;新建个文件夹Site,我们在这new site myblog，会新建一个文件夹叫myblog&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
 
-&lt;p&gt;![image][myblog_struct.png]&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;clone喜欢的模板&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;clone喜欢的模板&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;pre&gt;&lt;code&gt;
@@ -110,7 +106,11 @@ $ git push -u origin master
 &lt;li&gt;&lt;p&gt;参考：&lt;a href=&#34;http://tonybai.com/2015/09/23/intro-of-gohugo/&#34;&gt;http://tonybai.com/2015/09/23/intro-of-gohugo/&lt;/a&gt;；&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&#34;我的github-https-github-com-pugongyingbo&#34;&gt;我的GitHub：&lt;a href=&#34;https://github.com/pugongyingbo&#34;&gt;https://github.com/pugongyingbo&lt;/a&gt;&lt;/h1&gt;
+&lt;h1 id=&#34;我的github&#34;&gt;我的GitHub：&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pugongyingbo&#34;&gt;https://github.com/pugongyingbo&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     
