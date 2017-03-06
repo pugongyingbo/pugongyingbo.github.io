@@ -2,28 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>My Blog</title>
-    <link>http://pugongyingbo.github.io/index.xml</link>
+    <link>http://www.pugongyingbo.com/index.xml</link>
     <description>Recent content on My Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh_CN</language>
     <lastBuildDate>Mon, 06 Mar 2017 16:31:30 +0800</lastBuildDate>
-    <atom:link href="http://pugongyingbo.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://www.pugongyingbo.com/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>test</title>
-      <link>http://pugongyingbo.github.io/post/test/</link>
+      <link>http://www.pugongyingbo.com/post/test/</link>
       <pubDate>Mon, 06 Mar 2017 16:31:30 +0800</pubDate>
       
-      <guid>http://pugongyingbo.github.io/post/test/</guid>
+      <guid>http://www.pugongyingbo.com/post/test/</guid>
       <description></description>
     </item>
     
     <item>
       <title>first</title>
-      <link>http://pugongyingbo.github.io/post/first/</link>
+      <link>http://www.pugongyingbo.com/post/first/</link>
       <pubDate>Mon, 06 Mar 2017 16:01:06 +0800</pubDate>
       
-      <guid>http://pugongyingbo.github.io/post/first/</guid>
+      <guid>http://www.pugongyingbo.com/post/first/</guid>
       <description>
 
 &lt;h1 id=&#34;hello-hugo&#34;&gt;hello hugo&lt;/h1&gt;
@@ -36,10 +36,10 @@
     
     <item>
       <title>about</title>
-      <link>http://pugongyingbo.github.io/about/</link>
+      <link>http://www.pugongyingbo.com/about/</link>
       <pubDate>Mon, 06 Mar 2017 15:37:46 +0800</pubDate>
       
-      <guid>http://pugongyingbo.github.io/about/</guid>
+      <guid>http://www.pugongyingbo.com/about/</guid>
       <description></description>
     </item>
     
