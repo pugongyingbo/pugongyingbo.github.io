@@ -2,28 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on My Blog</title>
-    <link>http://example.org/post/index.xml</link>
+    <link>https://pugongyingbo.github.io/post/index.xml</link>
     <description>Recent content in Posts on My Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>zh_CN</language>
     <lastBuildDate>Mon, 06 Mar 2017 16:31:30 +0800</lastBuildDate>
-    <atom:link href="http://example.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://pugongyingbo.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>test</title>
-      <link>http://example.org/post/test/</link>
+      <link>https://pugongyingbo.github.io/post/test/</link>
       <pubDate>Mon, 06 Mar 2017 16:31:30 +0800</pubDate>
       
-      <guid>http://example.org/post/test/</guid>
+      <guid>https://pugongyingbo.github.io/post/test/</guid>
       <description></description>
     </item>
     
     <item>
       <title>first</title>
-      <link>http://example.org/post/first/</link>
+      <link>https://pugongyingbo.github.io/post/first/</link>
       <pubDate>Mon, 06 Mar 2017 16:01:06 +0800</pubDate>
       
-      <guid>http://example.org/post/first/</guid>
+      <guid>https://pugongyingbo.github.io/post/first/</guid>
       <description>
 
 &lt;h1 id=&#34;hello-hugo&#34;&gt;hello hugo&lt;/h1&gt;
