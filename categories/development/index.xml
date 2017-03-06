@@ -19,104 +19,6 @@
 &lt;h1 id=&#34;hello-hugo-in-windows&#34;&gt;Hello Hugo in windows&lt;/h1&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Hugo官方主页：&lt;a href=&#34;https://gohugo.io/(https://gohugo.io/&#34;&gt;https://gohugo.io/(https://gohugo.io/&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;从GitHub下载匹配自己系统的版本&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;解压缩，然后例如放在C:/Hugo/bin下，把.exe名字改成hugo.exe&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;添加到系统变量中（我的是windows）&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;这个时候应该可以在你的cmd命令行里执行hugo了，如果出来一堆命令之类的说明安装成功&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;新建个文件夹Site,我们在这new site myblog，会新建一个文件夹叫myblog&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;！image[myblog_struct.png]&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;clone喜欢的模板&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;
-$ mkdir themes
-$ cd themes
-$ git clone https://github.com/spf13/hyde.git 
-&lt;code/&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;对配置文件config.toml进行修改
-&lt;pre&gt;&lt;code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;baseurl = &amp;ldquo;&lt;a href=&#34;http://example.com/&amp;quot;&#34;&gt;http://example.com/&amp;quot;&lt;/a&gt;
-languageCode = &amp;ldquo;en-us&amp;rdquo;
-title = &amp;ldquo;My Blog&amp;rdquo;
-theme = &amp;ldquo;hyde&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;[params]
-    description = &amp;ldquo;这里是个人博客&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;&lt;code/&gt;&lt;/pre&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;这个时候可以新建你的文章了（在post下)
-&lt;pre&gt;&lt;code&gt;
-$ hugo new post test.md
-&lt;code/&gt;&lt;/pre&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;在目录下运行 hugo server 打开浏览器输入localhost：1313，就可以看见你的博客了&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;然后可以将其挂在giuhub page上&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;关于部署&#34;&gt;关于部署&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;假设你需要部署在 GitHub Pages上，首先在GitHub上创建一个Repository，命名为：×××.github.io 。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;在站点根目录执行 Hugo 命令生成最终页面：&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;
-$ hugo --theme=hyde --baseUrl=&#34;http://coderzh.github.io/&#34;
-&lt;code/&gt;&lt;/pre&gt;
-
-&lt;p&gt;*　如果一切顺利，所有静态页面都会生成到 public 目录，将pubilc目录里所有文件 push 到刚创建的Repository的 master 分支。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;
-$ cd public
-$ git init
-$ git remote add origin https://github.com/coderzh/coderzh.github.io.git
-$ git add -A
-$ git commit -m &#34;first commit&#34;
-$ git push -u origin master
-&lt;code/&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;参考的文档&#34;&gt;参考的文档&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;* 官方主页
-
-* Hugo中文文档 http://www.gohugo.org/ (http://www.gohugo.org/ )
-
-* http://blog.coderzh.com/2015/08/29/hugo/(http://blog.coderzh.com/2015/08/29/hugo/)
-
-* http://tonybai.com/2015/09/23/intro-of-gohugo/(http://tonybai.com/2015/09/23/intro-of-gohugo/)
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Hello Hugo</title>
-      <link>http://www.pugongyingbo.com/post/first/</link>
-      <pubDate>Mon, 06 Mar 2017 16:01:06 +0800</pubDate>
-      
-      <guid>http://www.pugongyingbo.com/post/first/</guid>
-      <description>
-
-&lt;h1 id=&#34;hello-hugo-in-windows&#34;&gt;Hello Hugo in windows&lt;/h1&gt;
-
-&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;在网上找的教程都是其他系统的，没有Windows的，准备自己试一次，其实很简单&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Hugo官方主页：&lt;a href=&#34;https://gohugo.io/&#34;&gt;https://gohugo.io/&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
@@ -206,6 +108,8 @@ $ git push -u origin master
 
 &lt;li&gt;&lt;p&gt;参考：&lt;a href=&#34;http://tonybai.com/2015/09/23/intro-of-gohugo/&#34;&gt;http://tonybai.com/2015/09/23/intro-of-gohugo/&lt;/a&gt;；&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h1 id=&#34;我的github-https-github-com-pugongyingbo&#34;&gt;我的GitHub：&lt;a href=&#34;https://github.com/pugongyingbo&#34;&gt;https://github.com/pugongyingbo&lt;/a&gt;&lt;/h1&gt;
 </description>
     </item>
     
