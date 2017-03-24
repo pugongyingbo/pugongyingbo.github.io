@@ -1,71 +1,174 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh_CN" lang="zh_CN">
+<html lang="zh_CN">
 <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.19" />
-
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>Posts</title>
+  <link href="http://www.pugongyingbo.com//css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="http://www.pugongyingbo.com//css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-
-  
-  <title>Posts &middot; My Blog</title>
-  
-
-  
-  <link rel="stylesheet" href="http://www.pugongyingbo.com/css/poole.css">
-  <link rel="stylesheet" href="http://www.pugongyingbo.com/css/syntax.css">
-  <link rel="stylesheet" href="http://www.pugongyingbo.com/css/hyde.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
   
   <link rel="stylesheet" href="http://www.pugongyingbo.com/css/monokai-sublime.css">
   <script src="http://www.pugongyingbo.com/js/highlight.pack.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
+  <style type="text/css">
   
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
-  <link rel="shortcut icon" href="/favicon.png">
-
+    footer.page-footer{background-image: url(http://www.pugongyingbo.com//images/default.png);}
   
-  <link href="http://www.pugongyingbo.com/post/index.xml" rel="alternate" type="application/rss+xml" title="My Blog" />
+  </style>
 </head>
+<body>
+  <ul id="slide-out" class="side-nav">
+    <li><a href="http://www.pugongyingbo.com/"><i class="mdi-action-home left"></i>Home<i class="mdi-hardware-keyboard-arrow-right right"></i></a></li>
+    <li><a href="http://www.pugongyingbo.com//categories"><i class="mdi-action-perm-media left"></i>Categories<i class="mdi-hardware-keyboard-arrow-right right"></i></a></li>
+    <li><a href="http://www.pugongyingbo.com//tags"><i class="mdi-action-loyalty left"></i>Tags<i class="mdi-hardware-keyboard-arrow-right right"></i></a></li>
+  </ul>
+  <div id="index-banner" class="parallax-container">
+  <a data-activates="slide-out" class="btn-floating button-collapse" style="top: 5px; left: 5px;"><i class="mdi-navigation-menu"></i></a>
+    <div class="section no-pad-bot">
+      <div class="container">
+        
+        <h1 class="header center teal-text text-lighten-2">My Blog</h1>
+        <div class="row center">
+          <h5 class="header col s12 light">pugongyingbo@163.com</h5>
+        </div>
+        <div class="row center">
+       
+        
+        
+          <a href="https://github.com/https://github.com/pugongyingbo"><img src="http://www.pugongyingbo.com//images/github2-dreamstale35.png"></a>
+        
+        
+        
+        
+        
+         
+          <a href="http://weibo.com/pugongyingbo"><img src="http://www.pugongyingbo.com//images/weibo.png"></a>
+        
+          <a href="http://www.pugongyingbo.com//index.html"><img src="http://www.pugongyingbo.com//images/feed-dreamstale27.png"></a>
+        </div>
+      </div>
+    </div>
+    <div class="parallax">
+    
+      <img src="http://www.pugongyingbo.com//images/default.png">
+    
+    </div>
+  </div>
 
-<body class=" ">
 
-<div class="sidebar">
-  <div class="container sidebar-sticky">
-    <div class="sidebar-about">
-      <a href="http://www.pugongyingbo.com/"><h1>My Blog</h1></a>
-      <p class="lead">
-       github.com/pugongyingbo 
+<div class="container">
+  <div class="section">
+
+
+<div class="row">
+
+  
+  <div class="col m4 s12">
+    <div class="card-panel">
+      <h4><a href="http://www.pugongyingbo.com/2017/03/24/%E6%96%B0%E6%B5%AA%E5%BE%AE%E5%8D%9A%E6%8E%88%E6%9D%83%E7%99%BB%E5%BD%95/">新浪微博授权登录</a></h4>
+      <p>
+      
+        
+          <a href="http://www.pugongyingbo.com//categories/development/">Development</a>
+        
+       
+      </p>
+      <p>使用新浪微博授权登录  先登录新浪微博开发者平台，注册一个开发者账号或者登录自己的微博号
+ 新浪微博开发者平台：http://open.weibo.com
+ 在网站主页面点击微连接，移动应用，添加新应用。
+ 创建完成后就生成一个APP Key。
+ 去下载新浪微博SDK,选择对应版本。
+ 把app_signatures.apk装入测试机或模拟器，点击运行填入你正在开发的包名，生成MD5标签
+ 在新浪微博开发网站进入我的应用，应用信息，基本应用，编辑，把包名和MD5签名写入保存。
+ 最后不要忘了，注册一下回调地址，授权回调页和取消或授权回调页都写: http://www.sina.com
+ 把weiboSDKCore_3.1.2.jar包复制到AS中libs目录下，点击该jar包，右键，as a library ，把libs中的文件也放到libs下。
+ 记得在AndroidMainfest.xml中添加权限
+  
+&lt;activity android:name = &quot;com.sina.weibo.sdk.component.WeiboSdkBrowser&quot; android:configChanges = &quot;keyboardHidden|orientation&quot; android:windowSoftInputMode = &quot;adjustResize&quot; android:exported = &quot;false&quot; &gt; &lt;/activity&gt;   * 新建一个接口 
+public interface Constants { public static final String APP_KEY = &quot;2703292856&quot;; // 应用的APP_KEY public static final String REDIRECT_URL = &quot;http://www.sina.com&quot;;// 应用的回调页根据注册的回调页填写 public static final String SCOPE = // 应用申请的高级权限 &quot;email,direct_messages_read,direct_messages_write,&quot; + &quot;friendships_groups_read,friendships_groups_write,statuses_to_me_read,&quot; + &quot;follow_app_official_microblog,&quot; + &quot;invitation_write&quot;; }   * 新建一个activity</p>
+      <p>
+      24 Mar 2017
+      
+        
+          <a href="http://www.pugongyingbo.com//tags/development/">#Development</a>
+        
+       
       </p>
     </div>
+  </div>
 
-    <ul class="sidebar-nav">
-      <li><a href="/">Home</a> </li>
+  
+  <div class="col m4 s12">
+    <div class="card-panel">
+      <h4><a href="http://www.pugongyingbo.com/2017/03/06/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E5%8D%9A%E5%AE%A2/">使用hugo创建博客</a></h4>
+      <p>
       
-        <li><a href="/post/Hellohugo/"> 使用hugo创建博客 </a></li>
+        
+          <a href="http://www.pugongyingbo.com//categories/development/">Development</a>
+        
+       
+      </p>
+      <p>Hello Hugo in windows  在网上找的教程都是其他系统的，没有Windows的，准备自己试一次，其实很简单
+ Hugo官方主页：https://gohugo.io/
+ 从GitHub下载匹配自己系统的版本
+ 解压缩，然后例如放在C:/Hugo/bin下，把.exe名字改成hugo.exe
+ 添加到系统变量中（我的是windows）
+ 这个时候应该可以在你的cmd命令行里执行hugo了，如果出来一堆命令之类的说明安装成功
+ 新建个文件夹Site,我们在这new site myblog，会新建一个文件夹叫myblog
+ clone喜欢的模板
+  
+$ mkdir themes $ cd themes $ git clone https://github.com/spf13/hyde.git  
+ 对配置文件config.toml进行修改  
+baseurl = &quot;http://example.com/&quot; languageCode = &quot;en-us&quot; title = &quot;My Blog&quot; theme = &quot;hyde&quot; [params] description = &quot;这里是个人博客&quot;  
+ 这个时候可以新建你的文章了（在post下)  
+$ hugo new post test.md</p>
+      <p>
+      6 Mar 2017
       
-        <li><a href="/post/weibologin/"> 新浪微博授权登录 </a></li>
-      
-    </ul>
+        
+          <a href="http://www.pugongyingbo.com//tags/development/">#Development</a>
+        
+       
+      </p>
+    </div>
+  </div>
 
-    <p>&copy; 2017. All rights reserved. </p>
+</div>
+
+
+<div class="row">
+  <div class="col s3 m1">
+  
+    <a class="btn-floating btn-large disabled"><i class="mdi-navigation-arrow-back"></i></a>
+  
+  </div>
+  <div class="col s6 m10 center">&nbsp</div>
+  <div class="col s3 m1">
+  
+    <a class="btn-floating btn-large disabled"><i class="mdi-navigation-arrow-forward"></i></a>
+  
   </div>
 </div>
 
 
-  <div class="content container">
-    <ul class="posts">
-        
-        <li>
-          <span><a href="http://www.pugongyingbo.com/post/weibologin/">新浪微博授权登录</a> <time class="pull-right post-list">Fri, Mar 24, 2017</time></span>
-        </li>
-        
-        <li>
-          <span><a href="http://www.pugongyingbo.com/post/Hellohugo/">使用hugo创建博客</a> <time class="pull-right post-list">Mon, Mar 6, 2017</time></span>
-        </li>
-        
-    </ul>
   </div>
-</body>
+</div>
+
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container">
+      © 2017 Copyright Text
+      <div class="right">Design <a class="grey-text text-lighten-4" >pdevty</a></div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="http://www.pugongyingbo.com//js/materialize.min.js"></script>
+  <script src="http://www.pugongyingbo.com//js/init.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  </body>
 </html>
