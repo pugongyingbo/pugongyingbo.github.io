@@ -43,7 +43,7 @@
     <ul class="sidebar-nav">
       <li><a href="/">Home</a> </li>
       
-        <li><a href="/post/Hellohugo/"> Hello Hugo </a></li>
+        <li><a href="/post/Hellohugo/"> 使用hugo创建博客 </a></li>
       
         <li><a href="/post/weibologin/"> 新浪微博授权登录 </a></li>
       
@@ -109,102 +109,101 @@ android:exported = &quot;false&quot; &gt;
 <li>新建一个接口</li>
 </ul>
 
-<p><code>
-    public interface Constants {
-    public static final String APP_KEY      = &ldquo;2703292856&rdquo;;          // 应用的APP_KEY
-    public static final String REDIRECT_URL = &ldquo;<a href="http://www.sina.com&quot;;//">http://www.sina.com&quot;;//</a> 应用的回调页根据注册的回调页填写
-    public static final String SCOPE =                          // 应用申请的高级权限
-            &ldquo;email,direct_messages_read,direct_messages_write,&rdquo;
-                    + &ldquo;friendships_groups_read,friendships_groups_write,statuses_to_me_read,&rdquo;
-                    + &ldquo;follow_app_official_microblog,&rdquo; + &ldquo;invitation_write&rdquo;;
+<p><code></p>
+
+<pre><code>public interface Constants {
+public static final String APP_KEY      = &quot;2703292856&quot;;          // 应用的APP_KEY
+public static final String REDIRECT_URL = &quot;http://www.sina.com&quot;;// 应用的回调页根据注册的回调页填写
+public static final String SCOPE =                          // 应用申请的高级权限
+        &quot;email,direct_messages_read,direct_messages_write,&quot;
+                + &quot;friendships_groups_read,friendships_groups_write,statuses_to_me_read,&quot;
+                + &quot;follow_app_official_microblog,&quot; + &quot;invitation_write&quot;;
 }
-<code/></p>
+</code></pre>
+
+<p><code/></p>
 
 <ul>
 <li>新建一个activity</li>
 </ul>
 
-<p><code>
-public class MainActivity extends Activity {
-    private AuthInfo authInfo;
-    private Oauth2AccessToken accessToken;
-    private SsoHandler ssoHandler;
-    private Button button;//登录按钮
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wbauth);
-        button= (Button) findViewById(R.id.btn);
-      authInfo=new AuthInfo(this, Constants.APP_KEY,Constants.REDIRECT_URL,Constants.SCOPE);
-        ssoHandler=new SsoHandler(this,authInfo);
-    //按钮点击事件
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ssoHandler.authorize(new AuthListener());
-            }
-        });
-    }
-    /**
-     * 当 SSO 授权 Activity 退出时，该函数被调用。
-     * @see {@link Activity#onActivityResult}
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        // SSO 授权回调
-        // 重要：发起 SSO 登陆的 Activity 必须重写 onActivityResults
-        if ( ssoHandler!= null) {
-            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
-        }
-    }
-    /**
-     * 微博认证授权回调类。
-     * 1. SSO 授权时，需要在 {@link #onActivityResult} 中调用 {@link SsoHandler#authorizeCallBack} 后，
-     *    该回调才会被执行。
-     * 2. 非 SSO 授权时，当授权结束后，该回调就会被执行。
-     * 当授权成功后，请保存该 access_token、expires_in、uid 等信息到 SharedPreferences 中。
-     */
-    class AuthListener implements WeiboAuthListener {
-        @Override
-        public void onComplete(Bundle values) {
-            // 从 Bundle 中解析 Token
-            accessToken = Oauth2AccessToken.parseAccessToken(values);
-            //从这里获取用户输入的 电话号码信息
-            String  phoneNum =  accessToken.getPhoneNum();
-            if (accessToken.isSessionValid()) {
-        // 可以获取各种信息
-                Toast.makeText(WBAuthActivity.this,&ldquo;授权成功&rdquo;, Toast.LENGTH_SHORT).show();
-            } else {
-                // 以下几种情况，您会收到 Code：
-                // 1. 当您未在平台上注册的应用程序的包名与签名时；
-                // 2. 当您注册的应用程序包名与签名不正确时；
-                // 3. 当您在平台上注册的包名和签名与您当前测试的应用的包名和签名不匹配时。
-                String code = values.getString(&ldquo;code&rdquo;);
-                Toast.makeText(WBAuthActivity.this, &ldquo;shibai&rdquo;, Toast.LENGTH_LONG).show();
-            }
-        }
-        @Override
-        public void onCancel() {
-            Toast.makeText(WBAuthActivity.this,&ldquo;取消授权&rdquo;, Toast.LENGTH_LONG).show();
-        }
-        @Override
-        public void onWeiboException(WeiboException e) {
-          Toast.makeText(WBAuthActivity.this,&ldquo;exception:&rdquo; +e.getMessage(),Toast.LENGTH_LONG).show();
-        }
-    }</p>
+<p><code></p>
 
-<p>}
-<code/></p>
+<pre><code>public class MainActivity extends Activity {
+private AuthInfo authInfo;
+private Oauth2AccessToken accessToken;
+private SsoHandler ssoHandler;
+private Button button;//登录按钮
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_wbauth);
+    button= (Button) findViewById(R.id.btn);
+  authInfo=new AuthInfo(this, Constants.APP_KEY,Constants.REDIRECT_URL,Constants.SCOPE);
+    ssoHandler=new SsoHandler(this,authInfo);
+//按钮点击事件
+    button.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            ssoHandler.authorize(new AuthListener());
+        }
+    });
+}
+/**
+ * 当 SSO 授权 Activity 退出时，该函数被调用。
+ * @see {@link Activity#onActivityResult}
+ */
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    // SSO 授权回调
+    // 重要：发起 SSO 登陆的 Activity 必须重写 onActivityResults
+    if ( ssoHandler!= null) {
+        ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+    }
+}
+/**
+ * 微博认证授权回调类。
+ * 1. SSO 授权时，需要在 {@link #onActivityResult} 中调用 {@link SsoHandler#authorizeCallBack} 后，
+ *    该回调才会被执行。
+ * 2. 非 SSO 授权时，当授权结束后，该回调就会被执行。
+ * 当授权成功后，请保存该 access_token、expires_in、uid 等信息到 SharedPreferences 中。
+ */
+class AuthListener implements WeiboAuthListener {
+    @Override
+    public void onComplete(Bundle values) {
+        // 从 Bundle 中解析 Token
+        accessToken = Oauth2AccessToken.parseAccessToken(values);
+        //从这里获取用户输入的 电话号码信息
+        String  phoneNum =  accessToken.getPhoneNum();
+        if (accessToken.isSessionValid()) {
+    // 可以获取各种信息
+            Toast.makeText(WBAuthActivity.this,&quot;授权成功&quot;, Toast.LENGTH_SHORT).show();
+        } else {
+            // 以下几种情况，您会收到 Code：
+            // 1. 当您未在平台上注册的应用程序的包名与签名时；
+            // 2. 当您注册的应用程序包名与签名不正确时；
+            // 3. 当您在平台上注册的包名和签名与您当前测试的应用的包名和签名不匹配时。
+            String code = values.getString(&quot;code&quot;);
+            Toast.makeText(WBAuthActivity.this, &quot;shibai&quot;, Toast.LENGTH_LONG).show();
+        }
+    }
+    @Override
+    public void onCancel() {
+        Toast.makeText(WBAuthActivity.this,&quot;取消授权&quot;, Toast.LENGTH_LONG).show();
+    }
+    @Override
+    public void onWeiboException(WeiboException e) {
+      Toast.makeText(WBAuthActivity.this,&quot;exception:&quot; +e.getMessage(),Toast.LENGTH_LONG).show();
+    }
+}
+}
+</code></pre>
+
+<p><code/></p>
 
 <ul>
-<li>结果 {{ % img src=&ldquo;/media/weibologin.png&rdquo; %}}</li>
-</ul>
-
-<h1 id="我的github">我的GitHub：</h1>
-
-<ul>
-<li><a href="https://github.com/pugongyingbo">https://github.com/pugongyingbo</a></li>
+<li>你会看到这个结果</li>
 </ul>
 
   </div>
@@ -212,7 +211,7 @@ public class MainActivity extends Activity {
   <div class="post">
     <h1 class="post-title">
       <a href="http://www.pugongyingbo.com/post/Hellohugo/">
-        Hello Hugo
+        使用hugo创建博客
       </a>
     </h1>
 
@@ -240,33 +239,41 @@ public class MainActivity extends Activity {
 <li><p>clone喜欢的模板</p></li>
 </ul>
 
-<pre><code>
-$ mkdir themes
+<p><code></p>
+
+<pre><code>$ mkdir themes
 $ cd themes
 $ git clone https://github.com/spf13/hyde.git 
-<code/></pre>
+</code></pre>
+
+<p><code/></p>
 
 <ul>
 <li>对配置文件config.toml进行修改</li>
 </ul>
 
-<pre><code>
-    baseurl = "http://example.com/"
-    languageCode = "en-us"
-    title = "My Blog"
-    theme = "hyde"
+<p><code></p>
 
-    [params]
-        description = "这里是个人博客"
-<code/></pre>
+<pre><code>baseurl = &quot;http://example.com/&quot;
+languageCode = &quot;en-us&quot;
+title = &quot;My Blog&quot;
+theme = &quot;hyde&quot;
+[params]
+    description = &quot;这里是个人博客&quot;
+</code></pre>
+
+<p><code/></p>
 
 <ul>
 <li>这个时候可以新建你的文章了（在post下)</li>
 </ul>
 
-<pre><code>
-$ hugo new post test.md 
-<code/></pre>
+<p><code></p>
+
+<pre><code>$ hugo new post test.md 
+</code></pre>
+
+<p><code/></p>
 
 <ul>
 <li><p>在目录下运行 hugo server 打开浏览器输入localhost：1313，就可以看见你的博客了</p></li>
@@ -282,20 +289,26 @@ $ hugo new post test.md
 <li><p>在站点根目录执行 Hugo 命令生成最终页面：</p></li>
 </ul>
 
-<pre><code>
-$ hugo --theme=hyde --baseUrl="http://coderzh.github.io/"
-<code/></pre>
+<p><code></p>
+
+<pre><code>$ hugo --theme=hyde --baseUrl=&quot;http://coderzh.github.io/&quot;
+</code></pre>
+
+<p><code/></p>
 
 <p>*　如果一切顺利，所有静态页面都会生成到 public 目录，将pubilc目录里所有文件 push</p>
 
-<pre><code>
-$ cd public
+<p><code></p>
+
+<pre><code>$ cd public
 $ git init
 $ git remote add origin https://github.com/coderzh/coderzh.github.io.git
 $ git add -A
-$ git commit -m "first commit"
+$ git commit -m &quot;first commit&quot;
 $ git push -u origin master
-<code/></pre>
+</code></pre>
+
+<p><code/></p>
 
 <h1 id="参考的文档">参考的文档</h1>
 

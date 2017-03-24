@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
   
-  <title>Hello Hugo &middot; My Blog</title>
+  <title>使用hugo创建博客 &middot; My Blog</title>
   
 
   
@@ -42,7 +42,7 @@
     <ul class="sidebar-nav">
       <li><a href="/">Home</a> </li>
       
-        <li><a href="/post/Hellohugo/"> Hello Hugo </a></li>
+        <li><a href="/post/Hellohugo/"> 使用hugo创建博客 </a></li>
       
         <li><a href="/post/weibologin/"> 新浪微博授权登录 </a></li>
       
@@ -55,7 +55,7 @@
 
 		<div class="content container">
 			<div class="post">
-			 	<h1>Hello Hugo</h1>
+			 	<h1>使用hugo创建博客</h1>
 			  <span class="post-date">Mon, Mar 6, 2017</span>
 			      
 
@@ -79,33 +79,41 @@
 <li><p>clone喜欢的模板</p></li>
 </ul>
 
-<pre><code>
-$ mkdir themes
+<p><code></p>
+
+<pre><code>$ mkdir themes
 $ cd themes
 $ git clone https://github.com/spf13/hyde.git 
-<code/></pre>
+</code></pre>
+
+<p><code/></p>
 
 <ul>
 <li>对配置文件config.toml进行修改</li>
 </ul>
 
-<pre><code>
-    baseurl = "http://example.com/"
-    languageCode = "en-us"
-    title = "My Blog"
-    theme = "hyde"
+<p><code></p>
 
-    [params]
-        description = "这里是个人博客"
-<code/></pre>
+<pre><code>baseurl = &quot;http://example.com/&quot;
+languageCode = &quot;en-us&quot;
+title = &quot;My Blog&quot;
+theme = &quot;hyde&quot;
+[params]
+    description = &quot;这里是个人博客&quot;
+</code></pre>
+
+<p><code/></p>
 
 <ul>
 <li>这个时候可以新建你的文章了（在post下)</li>
 </ul>
 
-<pre><code>
-$ hugo new post test.md 
-<code/></pre>
+<p><code></p>
+
+<pre><code>$ hugo new post test.md 
+</code></pre>
+
+<p><code/></p>
 
 <ul>
 <li><p>在目录下运行 hugo server 打开浏览器输入localhost：1313，就可以看见你的博客了</p></li>
@@ -121,20 +129,26 @@ $ hugo new post test.md
 <li><p>在站点根目录执行 Hugo 命令生成最终页面：</p></li>
 </ul>
 
-<pre><code>
-$ hugo --theme=hyde --baseUrl="http://coderzh.github.io/"
-<code/></pre>
+<p><code></p>
+
+<pre><code>$ hugo --theme=hyde --baseUrl=&quot;http://coderzh.github.io/&quot;
+</code></pre>
+
+<p><code/></p>
 
 <p>*　如果一切顺利，所有静态页面都会生成到 public 目录，将pubilc目录里所有文件 push</p>
 
-<pre><code>
-$ cd public
+<p><code></p>
+
+<pre><code>$ cd public
 $ git init
 $ git remote add origin https://github.com/coderzh/coderzh.github.io.git
 $ git add -A
-$ git commit -m "first commit"
+$ git commit -m &quot;first commit&quot;
 $ git push -u origin master
-<code/></pre>
+</code></pre>
+
+<p><code/></p>
 
 <h1 id="参考的文档">参考的文档</h1>
 
