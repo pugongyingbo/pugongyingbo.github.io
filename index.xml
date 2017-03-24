@@ -6,8 +6,156 @@
     <description>Recent content on My Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh_CN</language>
-    <lastBuildDate>Mon, 06 Mar 2017 16:01:06 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 24 Mar 2017 19:53:01 +0800</lastBuildDate>
     <atom:link href="http://www.pugongyingbo.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>新浪微博授权登录</title>
+      <link>http://www.pugongyingbo.com/post/weibologin/</link>
+      <pubDate>Fri, 24 Mar 2017 19:53:01 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/weibologin/</guid>
+      <description>
+
+&lt;h1 id=&#34;使用新浪微博授权登录&#34;&gt;使用新浪微博授权登录&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;先登录新浪微博开发者平台，注册一个开发者账号或者登录自己的微博号&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;新浪微博开发者平台：&lt;a href=&#34;http://weibo.com&#34;&gt;http://open.weibo.com&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;在网站主页面点击微连接，移动应用，添加新应用。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;创建完成后就生成一个APP Key。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;去下载新浪微博SDK,选择对应版本。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;把app_signatures.apk装入测试机或模拟器，点击运行填入你正在开发的包名，生成MD5标签&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;在新浪微博开发网站进入我的应用，应用信息，基本应用，编辑，把包名和MD5签名写入保存。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;最后不要忘了，注册一下回调地址，授权回调页和取消或授权回调页都写: &lt;a href=&#34;http://www.sina.com&#34;&gt;http://www.sina.com&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;把weiboSDKCore_3.1.2.jar包复制到AS中libs目录下，点击该jar包，右键，as a library ，把libs中的文件也放到libs下。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;记得在AndroidMainfest.xml中添加权限&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;activity
+android:name = &amp;quot;com.sina.weibo.sdk.component.WeiboSdkBrowser&amp;quot;
+android:configChanges = &amp;quot;keyboardHidden|orientation&amp;quot;
+android:windowSoftInputMode = &amp;quot;adjustResize&amp;quot;
+android:exported = &amp;quot;false&amp;quot; &amp;gt;
+&amp;lt;/activity&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;新建一个接口&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;
+    public interface Constants {
+    public static final String APP_KEY      = &amp;ldquo;2703292856&amp;rdquo;;          // 应用的APP_KEY
+    public static final String REDIRECT_URL = &amp;ldquo;&lt;a href=&#34;http://www.sina.com&amp;quot;;//&#34;&gt;http://www.sina.com&amp;quot;;//&lt;/a&gt; 应用的回调页根据注册的回调页填写
+    public static final String SCOPE =                          // 应用申请的高级权限
+            &amp;ldquo;email,direct_messages_read,direct_messages_write,&amp;rdquo;
+                    + &amp;ldquo;friendships_groups_read,friendships_groups_write,statuses_to_me_read,&amp;rdquo;
+                    + &amp;ldquo;follow_app_official_microblog,&amp;rdquo; + &amp;ldquo;invitation_write&amp;rdquo;;
+}
+&lt;code/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;新建一个activity&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;
+public class MainActivity extends Activity {
+    private AuthInfo authInfo;
+    private Oauth2AccessToken accessToken;
+    private SsoHandler ssoHandler;
+    private Button button;//登录按钮
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_wbauth);
+        button= (Button) findViewById(R.id.btn);
+      authInfo=new AuthInfo(this, Constants.APP_KEY,Constants.REDIRECT_URL,Constants.SCOPE);
+        ssoHandler=new SsoHandler(this,authInfo);
+    //按钮点击事件
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ssoHandler.authorize(new AuthListener());
+            }
+        });
+    }
+    /**
+     * 当 SSO 授权 Activity 退出时，该函数被调用。
+     * @see {@link Activity#onActivityResult}
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // SSO 授权回调
+        // 重要：发起 SSO 登陆的 Activity 必须重写 onActivityResults
+        if ( ssoHandler!= null) {
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
+    }
+    /**
+     * 微博认证授权回调类。
+     * 1. SSO 授权时，需要在 {@link #onActivityResult} 中调用 {@link SsoHandler#authorizeCallBack} 后，
+     *    该回调才会被执行。
+     * 2. 非 SSO 授权时，当授权结束后，该回调就会被执行。
+     * 当授权成功后，请保存该 access_token、expires_in、uid 等信息到 SharedPreferences 中。
+     */
+    class AuthListener implements WeiboAuthListener {
+        @Override
+        public void onComplete(Bundle values) {
+            // 从 Bundle 中解析 Token
+            accessToken = Oauth2AccessToken.parseAccessToken(values);
+            //从这里获取用户输入的 电话号码信息
+            String  phoneNum =  accessToken.getPhoneNum();
+            if (accessToken.isSessionValid()) {
+        // 可以获取各种信息
+                Toast.makeText(WBAuthActivity.this,&amp;ldquo;授权成功&amp;rdquo;, Toast.LENGTH_SHORT).show();
+            } else {
+                // 以下几种情况，您会收到 Code：
+                // 1. 当您未在平台上注册的应用程序的包名与签名时；
+                // 2. 当您注册的应用程序包名与签名不正确时；
+                // 3. 当您在平台上注册的包名和签名与您当前测试的应用的包名和签名不匹配时。
+                String code = values.getString(&amp;ldquo;code&amp;rdquo;);
+                Toast.makeText(WBAuthActivity.this, &amp;ldquo;shibai&amp;rdquo;, Toast.LENGTH_LONG).show();
+            }
+        }
+        @Override
+        public void onCancel() {
+            Toast.makeText(WBAuthActivity.this,&amp;ldquo;取消授权&amp;rdquo;, Toast.LENGTH_LONG).show();
+        }
+        @Override
+        public void onWeiboException(WeiboException e) {
+          Toast.makeText(WBAuthActivity.this,&amp;ldquo;exception:&amp;rdquo; +e.getMessage(),Toast.LENGTH_LONG).show();
+        }
+    }&lt;/p&gt;
+
+&lt;p&gt;}
+&lt;code/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;结果 {{ % img src=&amp;ldquo;/media/weibologin.png&amp;rdquo; %}}&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;我的github&#34;&gt;我的GitHub：&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pugongyingbo&#34;&gt;https://github.com/pugongyingbo&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Hello Hugo</title>
