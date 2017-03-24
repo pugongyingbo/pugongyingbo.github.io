@@ -51,13 +51,9 @@ android:exported = &amp;quot;false&amp;quot; &amp;gt;
 &amp;lt;/activity&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;code/&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;新建一个接口&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code/&gt;
+* 新建一个接口
+&lt;code&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;public interface Constants {
 public static final String APP_KEY      = &amp;quot;2703292856&amp;quot;;          // 应用的APP_KEY
@@ -69,13 +65,9 @@ public static final String SCOPE =                          // 应用申请的�
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;code/&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;新建一个activity&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code/&gt;
+* 新建一个activity
+&lt;code&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;public class MainActivity extends Activity {
 private AuthInfo authInfo;
@@ -150,8 +142,10 @@ class AuthListener implements WeiboAuthListener {
 
 &lt;p&gt;&lt;code/&gt;&lt;/p&gt;
 
+&lt;h1 id=&#34;我的github&#34;&gt;我的GitHub：&lt;/h1&gt;
+
 &lt;ul&gt;
-&lt;li&gt;你会看到这个结果&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pugongyingbo&#34;&gt;https://github.com/pugongyingbo&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
