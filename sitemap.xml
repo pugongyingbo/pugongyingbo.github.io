@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.pugongyingbo.com/2017/04/10/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B4%E6%95%B0%E6%95%B0%E7%BB%84%E5%B0%86%E4%BB%96%E4%BB%AC%E6%8B%BC%E6%8E%A5%E6%88%90%E4%B8%80%E4%B8%AA%E6%95%B0%E8%BE%93%E5%87%BA%E6%8B%BC%E6%8E%A5%E5%87%BA%E6%89%80%E6%9C%89%E6%95%B0%E5%AD%97%E4%B8%AD%E6%9C%80%E5%B0%8F%E7%9A%84%E4%B8%80%E4%B8%AA/</loc>
+    <lastmod>2017-04-10T21:28:38+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.pugongyingbo.com/2017/03/24/%E6%96%B0%E6%B5%AA%E5%BE%AE%E5%8D%9A%E6%8E%88%E6%9D%83%E7%99%BB%E5%BD%95/</loc>
     <lastmod>2017-03-24T19:53:01+08:00</lastmod>
   </url>
@@ -17,8 +22,14 @@
   </url>
   
   <url>
-    <loc>http://www.pugongyingbo.com/tags/development/</loc>
-    <lastmod>2017-03-24T19:53:01+08:00</lastmod>
+    <loc>http://www.pugongyingbo.com/categories/code/</loc>
+    <lastmod>2017-04-10T21:28:38+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.pugongyingbo.com/tags/code/</loc>
+    <lastmod>2017-04-10T21:28:38+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -29,14 +40,20 @@
   </url>
   
   <url>
-    <loc>http://www.pugongyingbo.com/</loc>
+    <loc>http://www.pugongyingbo.com/tags/development/</loc>
     <lastmod>2017-03-24T19:53:01+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>http://www.pugongyingbo.com/</loc>
+    <lastmod>2017-04-10T21:28:38+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://www.pugongyingbo.com/post/</loc>
-    <lastmod>2017-03-24T19:53:01+08:00</lastmod>
+    <lastmod>2017-04-10T21:28:38+08:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Code on My Blog</title>
+    <link>http://www.pugongyingbo.com/categories/code/index.xml</link>
+    <description>Recent content in Code on My Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh_CN</language>
+    <copyright>© 2017 Copyright Text</copyright>
+    <atom:link href="http://www.pugongyingbo.com/categories/code/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个</title>
+      <link>http://www.pugongyingbo.com/2017/04/10/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B4%E6%95%B0%E6%95%B0%E7%BB%84%E5%B0%86%E4%BB%96%E4%BB%AC%E6%8B%BC%E6%8E%A5%E6%88%90%E4%B8%80%E4%B8%AA%E6%95%B0%E8%BE%93%E5%87%BA%E6%8B%BC%E6%8E%A5%E5%87%BA%E6%89%80%E6%9C%89%E6%95%B0%E5%AD%97%E4%B8%AD%E6%9C%80%E5%B0%8F%E7%9A%84%E4%B8%80%E4%B8%AA/</link>
+      <pubDate>Mon, 10 Apr 2017 21:28:38 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/2017/04/10/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B4%E6%95%B0%E6%95%B0%E7%BB%84%E5%B0%86%E4%BB%96%E4%BB%AC%E6%8B%BC%E6%8E%A5%E6%88%90%E4%B8%80%E4%B8%AA%E6%95%B0%E8%BE%93%E5%87%BA%E6%8B%BC%E6%8E%A5%E5%87%BA%E6%89%80%E6%9C%89%E6%95%B0%E5%AD%97%E4%B8%AD%E6%9C%80%E5%B0%8F%E7%9A%84%E4%B8%80%E4%B8%AA/</guid>
+      <description>
+
+&lt;h1 id=&#34;输入一个正整数数组-将他们拼接成一个数-输出拼接出所有数字中最小的一个&#34;&gt;输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;记录一道笔试题&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import java.util.*;
+public class JoinNumber {
+   /**
+ * 编程题：输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个
+ */
+ public static void main(String[] args){
+       int[] arr = {20,321,21,10,8};
+       StringBuffer sb = new StringBuffer();
+       for(int i=0;i&amp;lt;arr.length;i++){
+            if(i == (arr.length-1)){
+                 sb.append(arr[i]); //最后一个不加空格
+            }else{
+                 sb.append(arr[i] + &amp;quot; &amp;quot;); //拼接时加上空格，一边正则split的使用
+            }
+       }
+       System.out.println(sb);
+       String[] str = sb.toString().split(&amp;quot; &amp;quot;);  //利用正则split根据空格，将字符串转成字符串数组
+       Arrays.sort(str); //利用Arrays.sort()进行数组的排序，升序
+       StringBuffer sb1 = new StringBuffer();  //排序之后再拼接成字符串，即可得到结果
+       for(int i= 0;i&amp;lt;str.length;i++){
+        //降序的(int i=str.length-1;i&amp;gt;=0;i--;)
+            sb1.append(str[i]);
+       }
+       System.out.println(sb1);
+ }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code/&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;我的github&#34;&gt;我的GitHub：&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pugongyingbo&#34;&gt;https://github.com/pugongyingbo&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

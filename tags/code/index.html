@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="zh_CN">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>Tags</title>
+  <title>Code</title>
   <link href="http://www.pugongyingbo.com//css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="http://www.pugongyingbo.com//css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   
@@ -58,20 +57,57 @@
   </div>
 
 
-
 <div class="container">
   <div class="section">
 
-    <div class="collection">
+
+<div class="row">
+
+  
+  <div class="col m4 s12">
+    <div class="card-panel">
+      <h4><a href="http://www.pugongyingbo.com/2017/04/10/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B4%E6%95%B0%E6%95%B0%E7%BB%84%E5%B0%86%E4%BB%96%E4%BB%AC%E6%8B%BC%E6%8E%A5%E6%88%90%E4%B8%80%E4%B8%AA%E6%95%B0%E8%BE%93%E5%87%BA%E6%8B%BC%E6%8E%A5%E5%87%BA%E6%89%80%E6%9C%89%E6%95%B0%E5%AD%97%E4%B8%AD%E6%9C%80%E5%B0%8F%E7%9A%84%E4%B8%80%E4%B8%AA/">输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个</a></h4>
+      <p>
       
-        <a href="http://www.pugongyingbo.com//tags/code" class="collection-item"><i class="mdi-action-loyalty left"></i>code<div class="secondary-content">1</div></a>
+        
+          <a href="http://www.pugongyingbo.com//categories/code/">code</a>
+        
+       
+      </p>
+      <p>输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个  记录一道笔试题  
+import java.util.*; public class JoinNumber { /** * 编程题：输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个 */ public static void main(String[] args){ int[] arr = {20,321,21,10,8}; StringBuffer sb = new StringBuffer(); for(int i=0;i&lt;arr.length;i++){ if(i == (arr.length-1)){ sb.append(arr[i]); //最后一个不加空格 }else{ sb.append(arr[i] + &quot; &quot;); //拼接时加上空格，一边正则split的使用 } } System.out.println(sb); String[] str = sb.toString().split(&quot; &quot;); //利用正则split根据空格，将字符串转成字符串数组 Arrays.sort(str); //利用Arrays.sort()进行数组的排序，升序 StringBuffer sb1 = new StringBuffer(); //排序之后再拼接成字符串，即可得到结果 for(int i= 0;i&lt;str.length;i++){ //降序的(int i=str.length-1;i&gt;=0;i--;) sb1.append(str[i]); } System.out.println(sb1); } }</p>
+      <p>
+      10 Apr 2017
       
-        <a href="http://www.pugongyingbo.com//tags/development" class="collection-item"><i class="mdi-action-loyalty left"></i>development<div class="secondary-content">2</div></a>
-      
+        
+          <a href="http://www.pugongyingbo.com//tags/code/">#code</a>
+        
+       
+      </p>
     </div>
+  </div>
+
+</div>
+
+
+<div class="row">
+  <div class="col s3 m1">
+  
+    <a class="btn-floating btn-large disabled"><i class="mdi-navigation-arrow-back"></i></a>
+  
+  </div>
+  <div class="col s6 m10 center">&nbsp</div>
+  <div class="col s3 m1">
+  
+    <a class="btn-floating btn-large disabled"><i class="mdi-navigation-arrow-forward"></i></a>
+  
+  </div>
+</div>
+
 
   </div>
 </div>
+
   <footer class="page-footer">
     <div class="footer-copyright">
       <div class="container">
