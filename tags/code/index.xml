@@ -17,7 +17,7 @@
       <guid>http://www.pugongyingbo.com/2017/04/10/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B4%E6%95%B0%E6%95%B0%E7%BB%84%E5%B0%86%E4%BB%96%E4%BB%AC%E6%8B%BC%E6%8E%A5%E6%88%90%E4%B8%80%E4%B8%AA%E6%95%B0%E8%BE%93%E5%87%BA%E6%8B%BC%E6%8E%A5%E5%87%BA%E6%89%80%E6%9C%89%E6%95%B0%E5%AD%97%E4%B8%AD%E6%9C%80%E5%B0%8F%E7%9A%84%E4%B8%80%E4%B8%AA/</guid>
       <description>
 
-&lt;h1 id=&#34;输入一个正整数数组-将他们拼接成一个数-输出拼接出所有数字中最小的一个&#34;&gt;输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个&lt;/h1&gt;
+&lt;h2 id=&#34;输入一个正整数数组-将他们拼接成一个数-输出拼接出所有数字中最小的一个&#34;&gt;输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;记录一道笔试题&lt;/li&gt;
@@ -55,7 +55,7 @@ public class JoinNumber {
 
 &lt;p&gt;&lt;code/&gt;&lt;/p&gt;
 
-&lt;h1 id=&#34;我的github&#34;&gt;我的GitHub：&lt;/h1&gt;
+&lt;h2 id=&#34;我的github&#34;&gt;我的GitHub：&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/pugongyingbo&#34;&gt;https://github.com/pugongyingbo&lt;/a&gt;&lt;/li&gt;

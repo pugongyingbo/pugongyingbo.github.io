@@ -85,8 +85,9 @@
  把weiboSDKCore_3.1.2.jar包复制到AS中libs目录下，点击该jar包，右键，as a library ，把libs中的文件也放到libs下。
  记得在AndroidMainfest.xml中添加权限
   
-&lt;activity android:name = &quot;com.sina.weibo.sdk.component.WeiboSdkBrowser&quot; android:configChanges = &quot;keyboardHidden|orientation&quot; android:windowSoftInputMode = &quot;adjustResize&quot; android:exported = &quot;false&quot; &gt; &lt;/activity&gt;   * 新建一个接口 
-public interface Constants { public static final String APP_KEY = &quot;2703292856&quot;; // 应用的APP_KEY public static final String REDIRECT_URL = &quot;http://www.sina.com&quot;;// 应用的回调页根据注册的回调页填写 public static final String SCOPE = // 应用申请的高级权限 &quot;email,direct_messages_read,direct_messages_write,&quot; + &quot;friendships_groups_read,friendships_groups_write,statuses_to_me_read,&quot; + &quot;follow_app_official_microblog,&quot; + &quot;invitation_write&quot;; }   * 新建一个activity</p>
+&lt;activity android:name = &quot;com.sina.weibo.sdk.component.WeiboSdkBrowser&quot; android:configChanges = &quot;keyboardHidden|orientation&quot; android:windowSoftInputMode = &quot;adjustResize&quot; android:exported = &quot;false&quot; &gt; &lt;/activity&gt;  
+ 新建一个接口  
+public interface Constants { public static final String APP_KEY = &quot;2703292856&quot;; // 应用的APP_KEY public static final String REDIRECT_URL = &quot;http://www.</p>
       <p>
       24 Mar 2017
       

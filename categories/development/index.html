@@ -66,6 +66,31 @@
   
   <div class="col m4 s12">
     <div class="card-panel">
+      <h4><a href="http://www.pugongyingbo.com/2017/05/08/springmvc%E4%B8%AD%E7%9A%84%E7%AE%80%E5%8D%95%E5%88%86%E9%A1%B5%E5%AE%9E%E7%8E%B0/">SpringMVC中的简单分页实现</a></h4>
+      <p>
+      
+        
+          <a href="http://www.pugongyingbo.com//categories/development/">development</a>
+        
+       
+      </p>
+      <p>分页每各项目都在使用，却不是很清楚，以至于每次写都要翻看以前的资料。 这次在学习SpringMVC的时候又用到了，就在这整理一遍。我的demo只实现了一个首页。
+ 首先建立需要用的实体类Article,然后是PageParam,分别实现当前页、总页、总记录数、页面大小、和需要分页的数据（比如我这用List）的set、get方法。
+ 代码如下:
+  
+private int currPage ; // 当前页 private int totalPage ; // 总页数 private int rowCount ; // 总记录数 public static int pageSize = 6; // 页大小 private List&lt;Article&gt; data ; // 数据  
+ 需要注意的是setRowCount方法需要进行如下处理：  
+public void setRowCount(int rowCount) { int totalPage = rowCount / pageSize; //总页数/页大小 if (rowCount % pageSize &gt; 0) { totalPage += 1; //如果取余大于0，则总页数加一 } setTotalPage(totalPage); this.</p>
+      <p>
+      8 May 2017
+       
+      </p>
+    </div>
+  </div>
+
+  
+  <div class="col m4 s12">
+    <div class="card-panel">
       <h4><a href="http://www.pugongyingbo.com/2017/03/24/%E6%96%B0%E6%B5%AA%E5%BE%AE%E5%8D%9A%E6%8E%88%E6%9D%83%E7%99%BB%E5%BD%95/">新浪微博授权登录</a></h4>
       <p>
       
@@ -85,8 +110,9 @@
  把weiboSDKCore_3.1.2.jar包复制到AS中libs目录下，点击该jar包，右键，as a library ，把libs中的文件也放到libs下。
  记得在AndroidMainfest.xml中添加权限
   
-&lt;activity android:name = &quot;com.sina.weibo.sdk.component.WeiboSdkBrowser&quot; android:configChanges = &quot;keyboardHidden|orientation&quot; android:windowSoftInputMode = &quot;adjustResize&quot; android:exported = &quot;false&quot; &gt; &lt;/activity&gt;   * 新建一个接口 
-public interface Constants { public static final String APP_KEY = &quot;2703292856&quot;; // 应用的APP_KEY public static final String REDIRECT_URL = &quot;http://www.sina.com&quot;;// 应用的回调页根据注册的回调页填写 public static final String SCOPE = // 应用申请的高级权限 &quot;email,direct_messages_read,direct_messages_write,&quot; + &quot;friendships_groups_read,friendships_groups_write,statuses_to_me_read,&quot; + &quot;follow_app_official_microblog,&quot; + &quot;invitation_write&quot;; }   * 新建一个activity</p>
+&lt;activity android:name = &quot;com.sina.weibo.sdk.component.WeiboSdkBrowser&quot; android:configChanges = &quot;keyboardHidden|orientation&quot; android:windowSoftInputMode = &quot;adjustResize&quot; android:exported = &quot;false&quot; &gt; &lt;/activity&gt;  
+ 新建一个接口  
+public interface Constants { public static final String APP_KEY = &quot;2703292856&quot;; // 应用的APP_KEY public static final String REDIRECT_URL = &quot;http://www.</p>
       <p>
       24 Mar 2017
       
