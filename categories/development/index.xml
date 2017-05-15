@@ -10,6 +10,436 @@
     <atom:link href="http://www.pugongyingbo.com/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>SSH三大框架配置及整合</title>
+      <link>http://www.pugongyingbo.com/2017/05/15/ssh%E4%B8%89%E5%A4%A7%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%95%B4%E5%90%88/</link>
+      <pubDate>Mon, 15 May 2017 19:13:29 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/2017/05/15/ssh%E4%B8%89%E5%A4%A7%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%95%B4%E5%90%88/</guid>
+      <description>
+
+&lt;ul&gt;
+&lt;li&gt;学了三大框架有一段时间，虽然现在用的很少了，但是面试还是会问到，再次整理一下&lt;/li&gt;
+&lt;li&gt;这个是做一个模仿电力公司的项目，包括前后台&lt;/li&gt;
+&lt;li&gt;首先是spring配置，在applicationContext.xml中&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!-- 启用组件扫描 --&amp;gt;
+&amp;lt;context:component-scan base-package=&amp;quot;com.py&amp;quot; /&amp;gt;
+&amp;lt;!-- 连接数据源--&amp;gt;
+&amp;lt;bean id=&amp;quot;dataSource&amp;quot; class=&amp;quot;org.apache.commons.dbcp.BasicDataSource&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;driverClassName&amp;quot; value=&amp;quot;com.mysql.jdbc.Driver&amp;quot;&amp;gt;
+    &amp;lt;/property&amp;gt;
+    &amp;lt;property name=&amp;quot;url&amp;quot; value=&amp;quot;jdbc:mysql://localhost:3306/sshtest&amp;quot;&amp;gt;
+    &amp;lt;/property&amp;gt;
+    &amp;lt;property name=&amp;quot;username&amp;quot; value=&amp;quot;root&amp;quot;&amp;gt;&amp;lt;/property&amp;gt;
+    &amp;lt;property name=&amp;quot;password&amp;quot; value=&amp;quot;root&amp;quot;&amp;gt;&amp;lt;/property&amp;gt;
+&amp;lt;/bean&amp;gt;
+&amp;lt;!-- 会话工厂 整合hibernate--&amp;gt;
+&amp;lt;bean id=&amp;quot;sessionFactory&amp;quot;
+    class=&amp;quot;org.springframework.orm.hibernate3.LocalSessionFactoryBean&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;dataSource&amp;quot;&amp;gt;
+        &amp;lt;ref bean=&amp;quot;dataSource&amp;quot;&amp;gt;&amp;lt;/ref&amp;gt;
+    &amp;lt;/property&amp;gt;
+     &amp;lt;!-- 注入Hibernate相关的属性 --&amp;gt;
+    &amp;lt;property name=&amp;quot;hibernateProperties&amp;quot;&amp;gt;
+        &amp;lt;props&amp;gt;
+        &amp;lt;!--&amp;lt;prop key=&amp;quot;hibernate.cache.provider_class&amp;quot;&amp;gt;org.hibernate.cache.EhCacheProvider&amp;lt;/prop&amp;gt;
+        &amp;lt;prop key=&amp;quot;hibernate.cache.use_second_level_cache&amp;quot;&amp;gt;true&amp;lt;/prop&amp;gt;
+        &amp;lt;prop key=&amp;quot;hibernate.cache.use_query_cache&amp;quot;&amp;gt;true&amp;lt;/prop&amp;gt;
+        --&amp;gt;
+        &amp;lt;prop key=&amp;quot;hibernate.current_session_context_class&amp;quot;&amp;gt;thread&amp;lt;/prop&amp;gt;
+
+        &amp;lt;prop key=&amp;quot;hibernate.dialect&amp;quot;&amp;gt;
+                org.hibernate.dialect.MySQLDialect
+            &amp;lt;/prop&amp;gt;
+            &amp;lt;prop key=&amp;quot;hibernate.show_sql&amp;quot;&amp;gt;true&amp;lt;/prop&amp;gt;
+            &amp;lt;prop key=&amp;quot;hibernate.format_sql&amp;quot;&amp;gt;true&amp;lt;/prop&amp;gt;
+        &amp;lt;/props&amp;gt;
+    &amp;lt;/property&amp;gt;
+    &amp;lt;!-- 注入Hibernate的映射文件 --&amp;gt;
+    &amp;lt;property name=&amp;quot;mappingResources&amp;quot;&amp;gt;
+        &amp;lt;list&amp;gt;
+            &amp;lt;value&amp;gt;com/py/beans/Users.hbm.xml&amp;lt;/value&amp;gt;
+            &amp;lt;value&amp;gt;com/py/beans/Customer.hbm.xml&amp;lt;/value&amp;gt;
+            &amp;lt;value&amp;gt;com/py/beans/Role.hbm.xml&amp;lt;/value&amp;gt;
+            &amp;lt;value&amp;gt;com/py/beans/Info.hbm.xml&amp;lt;/value&amp;gt;
+            &amp;lt;value&amp;gt;com/py/beans/Electric.hbm.xml&amp;lt;/value&amp;gt;
+            &amp;lt;value&amp;gt;com/py/beans/Payment.hbm.xml&amp;lt;/value&amp;gt;
+            &amp;lt;value&amp;gt;com/py/beans/Ammeter.hbm.xml&amp;lt;/value&amp;gt;
+            &amp;lt;value&amp;gt;com/py/beans/AmmeterType.hbm.xml&amp;lt;/value&amp;gt;
+        &amp;lt;/list&amp;gt;
+    &amp;lt;/property&amp;gt;
+&amp;lt;/bean&amp;gt;
+&amp;lt;!-- 事务管理器 --&amp;gt;
+&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;
+    class=&amp;quot;org.springframework.orm.hibernate3.HibernateTransactionManager&amp;quot; p:sessionFactory-ref=&amp;quot;sessionFactory&amp;quot;/&amp;gt;
+    &amp;lt;tx:annotation-driven transaction-manager=&amp;quot;transactionManager&amp;quot;/&amp;gt;
+    &amp;lt;tx:advice id=&amp;quot;txAdvice&amp;quot; transaction-manager=&amp;quot;transactionManager&amp;quot;&amp;gt;
+        &amp;lt;tx:attributes&amp;gt;
+            &amp;lt;tx:method name=&amp;quot;insert*&amp;quot; propagation=&amp;quot;REQUIRED&amp;quot; /&amp;gt;
+            &amp;lt;tx:method name=&amp;quot;update*&amp;quot; propagation=&amp;quot;REQUIRED&amp;quot; /&amp;gt;
+            &amp;lt;tx:method name=&amp;quot;edit*&amp;quot; propagation=&amp;quot;REQUIRED&amp;quot; /&amp;gt;
+            &amp;lt;tx:method name=&amp;quot;save*&amp;quot; propagation=&amp;quot;REQUIRED&amp;quot; /&amp;gt;
+            &amp;lt;tx:method name=&amp;quot;add*&amp;quot; propagation=&amp;quot;REQUIRED&amp;quot; /&amp;gt;
+            &amp;lt;tx:method name=&amp;quot;new*&amp;quot; propagation=&amp;quot;REQUIRED&amp;quot; /&amp;gt;
+            &amp;lt;tx:method name=&amp;quot;set*&amp;quot; propagation=&amp;quot;REQUIRED&amp;quot; /&amp;gt;
+        &amp;lt;/tx:attributes&amp;gt;
+    &amp;lt;/tx:advice&amp;gt;
+    &amp;lt;aop:config&amp;gt;
+        &amp;lt;aop:pointcut id=&amp;quot;mypointcut&amp;quot; expression=&amp;quot;execution(* com.**.biz..*.*(..))&amp;quot; /&amp;gt;
+        &amp;lt;aop:advisor advice-ref=&amp;quot;txAdvice&amp;quot; pointcut-ref=&amp;quot;mypointcut&amp;quot; /&amp;gt;
+    &amp;lt;/aop:config&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;项目有多个模块时，可以分别新建配置，比如新建applicationContext-users.xml中set设值注入&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;bean id=&amp;quot;usersdao&amp;quot; class=&amp;quot;com.py.dao.impl.UsersDaoImpl&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;sessionFactory&amp;quot; ref=&amp;quot;sessionFactory&amp;quot;&amp;gt;&amp;lt;/property&amp;gt;
+&amp;lt;/bean&amp;gt;
+&amp;lt;bean id=&amp;quot;usersbiz&amp;quot; class=&amp;quot;com.py.biz.impl.UsersBizImpl&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;usersDao&amp;quot; ref=&amp;quot;usersdao&amp;quot; &amp;gt;&amp;lt;/property&amp;gt;   
+&amp;lt;/bean&amp;gt;
+&amp;lt;!-- 原型protoype 每次注入或者通过spring应用上下文获取的时候，都会创建一个新的bean实例--&amp;gt;
+&amp;lt;bean id=&amp;quot;usersaction&amp;quot; class=&amp;quot;com.py.action.UsersAction&amp;quot; scope=&amp;quot;prototype&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;usersBiz&amp;quot; ref=&amp;quot;usersbiz&amp;quot;&amp;gt;&amp;lt;/property&amp;gt;    
+    &amp;lt;property name=&amp;quot;customerBiz&amp;quot; ref=&amp;quot;customerbiz&amp;quot;&amp;gt;&amp;lt;/property&amp;gt;  
+    &amp;lt;property name=&amp;quot;ammeterBiz&amp;quot; ref=&amp;quot;ammeterbiz&amp;quot;&amp;gt;&amp;lt;/property&amp;gt;    
+&amp;lt;/bean&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在web.xml配置过滤器&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!-- web的监听--&amp;gt;
+&amp;lt;listener&amp;gt;
+    &amp;lt;listener-class&amp;gt;org.springframework.web.context.ContextLoaderListener&amp;lt;/listener-class&amp;gt;
+&amp;lt;/listener&amp;gt;
+&amp;lt;context-param&amp;gt;
+    &amp;lt;param-name&amp;gt;contextConfigLocation&amp;lt;/param-name&amp;gt;
+    &amp;lt;param-value&amp;gt;/WEB-INF/applicationContext.xml,/WEB-INF/applicationContext-*.xml&amp;lt;/param-value&amp;gt;
+&amp;lt;/context-param&amp;gt;
+&amp;lt;!-- Struts2过滤器--&amp;gt;
+&amp;lt;filter&amp;gt;
+    &amp;lt;filter-name&amp;gt;struts2&amp;lt;/filter-name&amp;gt;
+    &amp;lt;filter-class&amp;gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&amp;lt;/filter-class&amp;gt;
+&amp;lt;/filter&amp;gt;
+&amp;lt;filter-mapping&amp;gt;
+    &amp;lt;filter-name&amp;gt;struts2&amp;lt;/filter-name&amp;gt;
+    &amp;lt;url-pattern&amp;gt;/*&amp;lt;/url-pattern&amp;gt;
+&amp;lt;/filter-mapping&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;struts.xml里面引用模块的xml,比如struts-users.xml&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;struts&amp;gt; 
+&amp;lt;include file=&amp;quot;struts-users.xml&amp;quot;&amp;gt;&amp;lt;/include&amp;gt;
+&amp;lt;include file=&amp;quot;struts-customer.xml&amp;quot;&amp;gt;&amp;lt;/include&amp;gt;
+&amp;lt;include file=&amp;quot;struts-info.xml&amp;quot;&amp;gt;&amp;lt;/include&amp;gt;
+&amp;lt;include file=&amp;quot;struts-payment.xml&amp;quot;&amp;gt;&amp;lt;/include&amp;gt;
+&amp;lt;/struts&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;package name=&amp;quot;users&amp;quot; extends=&amp;quot;struts-default&amp;quot; namespace=&amp;quot;&amp;quot;&amp;gt;
+    &amp;lt;action name=&amp;quot;logbyusername&amp;quot; class=&amp;quot;usersaction&amp;quot; method=&amp;quot;logByUsernameAndPwd&amp;quot;&amp;gt;
+        &amp;lt;result name=&amp;quot;success&amp;quot;&amp;gt;person/logBySidSucc.jsp&amp;lt;/result&amp;gt;
+    &amp;lt;/action&amp;gt;
+    &amp;lt;action name=&amp;quot;logadmin&amp;quot; class=&amp;quot;usersaction&amp;quot; method=&amp;quot;login&amp;quot;&amp;gt;
+        &amp;lt;result name=&amp;quot;toAdmin&amp;quot;&amp;gt;index.jsp&amp;lt;/result&amp;gt;
+        &amp;lt;result name=&amp;quot;toMaster&amp;quot;&amp;gt;index2.jsp&amp;lt;/result&amp;gt;
+        &amp;lt;result name=&amp;quot;toCustomer&amp;quot;&amp;gt;person/index.jsp&amp;lt;/result&amp;gt;
+        &amp;lt;result name=&amp;quot;toLogin&amp;quot;&amp;gt;checkin.jsp&amp;lt;/result&amp;gt;
+    &amp;lt;/action&amp;gt;
+    &amp;lt;action name=&amp;quot;userlogout&amp;quot; class=&amp;quot;usersaction&amp;quot; method=&amp;quot;logout&amp;quot;&amp;gt;
+        &amp;lt;result name=&amp;quot;toLogin&amp;quot;&amp;gt;../checkin.jsp&amp;lt;/result&amp;gt;
+    &amp;lt;/action&amp;gt;
+    &amp;lt;action name=&amp;quot;listallusers&amp;quot; class=&amp;quot;usersaction&amp;quot; method=&amp;quot;listAllUsers&amp;quot;&amp;gt;
+    &amp;lt;result name=&amp;quot;success&amp;quot;&amp;gt;jsp/system_account.jsp&amp;lt;/result&amp;gt;
+    &amp;lt;/action&amp;gt;
+
+    &amp;lt;action name=&amp;quot;addAddress&amp;quot; class=&amp;quot;usersaction&amp;quot; method=&amp;quot;addNewAddress&amp;quot;&amp;gt;
+        &amp;lt;result name=&amp;quot;success&amp;quot;&amp;gt;jsp/third.jsp&amp;lt;/result&amp;gt;
+        &amp;lt;result name=&amp;quot;error&amp;quot;&amp;gt;jsp/third.jsp&amp;lt;/result&amp;gt;
+    &amp;lt;/action&amp;gt;
+    &amp;lt;action name=&amp;quot;deleteUser&amp;quot; class=&amp;quot;usersaction&amp;quot; method=&amp;quot;deleteUser&amp;quot;&amp;gt;
+        &amp;lt;result name=&amp;quot;success&amp;quot;&amp;gt;jsp/system_account.jsp&amp;lt;/result&amp;gt;
+    &amp;lt;/action&amp;gt;
+
+    &amp;lt;action name=&amp;quot;userInfo&amp;quot; class=&amp;quot;usersaction&amp;quot; method=&amp;quot;userInfo&amp;quot;&amp;gt;
+        &amp;lt;result name=&amp;quot;success&amp;quot;&amp;gt;jsp/user-info.jsp&amp;lt;/result&amp;gt;
+    &amp;lt;/action&amp;gt;
+    &amp;lt;action name=&amp;quot;toUserInfo&amp;quot; class=&amp;quot;usersaction&amp;quot; method=&amp;quot;userInfo&amp;quot;&amp;gt;
+        &amp;lt;result name=&amp;quot;success&amp;quot;&amp;gt;jsp/change-user-info.jsp&amp;lt;/result&amp;gt;
+    &amp;lt;/action&amp;gt;
+    &amp;lt;action name=&amp;quot;changeUserInfo&amp;quot; class=&amp;quot;usersaction&amp;quot; method=&amp;quot;changeUserInfo&amp;quot;&amp;gt;
+        &amp;lt;result name=&amp;quot;success&amp;quot;&amp;gt;jsp/change-user-info-success.jsp&amp;lt;/result&amp;gt;
+    &amp;lt;/action&amp;gt;
+&amp;lt;/package&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;UserAction中的方法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 登录检查
+public String login() throws SQLException {
+    Users u = this.usersBiz.logByUsernameAndPwd(this.users);
+    if (u.getUsername().equals(&amp;quot;&amp;quot;) || u.getPassword().equals(&amp;quot;&amp;quot;)) {
+        return &amp;quot;toLogin&amp;quot;;
+    } else if
+    // 判断有无此人
+    (usersBiz.logByUsernameAndPwd(u).getId() != 0) {
+        u = usersBiz.logByUsernameAndPwd(u);
+        int n = -1;
+        if (u == null) {
+            msg = &amp;quot;登录失败，请重新登录&amp;quot;;
+        } else {
+            ActionContext.getContext().getSession().put(&amp;quot;curr_user&amp;quot;, u);
+            n = usersBiz.logByUsernameAndPwd(u).getRole().getRid();
+            switch (n) {
+            case 1:
+                msg = &amp;quot;toAdmin&amp;quot;;
+                break;
+            case 3:
+                msg = &amp;quot;toMaster&amp;quot;;
+                break;
+            case 2:
+                msg = &amp;quot;toCustomer&amp;quot;;
+                break;
+            default:
+                ActionContext.getContext().put(&amp;quot;logmsg&amp;quot;, &amp;quot;登录失败，请重新登录&amp;quot;);
+            }
+        }
+    }
+    return msg;
+}
+// 退出
+public String logout() {
+    ActionContext.getContext().getSession().put(&amp;quot;curr_user&amp;quot;, null);
+    return &amp;quot;toLogin&amp;quot;;
+}
+public String listAllUsers() throws Exception {
+    @SuppressWarnings(&amp;quot;rawtypes&amp;quot;)
+    List list = this.usersBiz.listAll();
+    ActionContext.getContext().put(&amp;quot;list&amp;quot;, list);
+    return &amp;quot;success&amp;quot;;
+}
+public String deleteUser(){
+      this.usersBiz.deleteUserById(users.getId());
+      return &amp;quot;success&amp;quot;;
+  }
+  public String userInfo(){
+      Users u = this.usersBiz.findById(users.getId());
+      if(u.getCid()!=null){
+         Customer c = this.customerBiz.findByCid(u.getCid());
+         ActionContext.getContext().put(&amp;quot;customer&amp;quot;, c);
+      }
+      ActionContext.getContext().put(&amp;quot;userInfo&amp;quot;, u);
+      return &amp;quot;success&amp;quot;;
+  }
+
+  public String changeUserInfo(){
+      Users u = this.usersBiz.findById(users.getId());
+      u.setRole(users.getRole());
+      u.setUsername(users.getUsername());
+      this.usersBiz.updateUser(u);
+      return &amp;quot;success&amp;quot;;
+  }
+// 新增地址信息
+public String addNewAddress() throws Exception {
+    // 获取前端页面的地址信息
+    // 用工具类里的函数进行拼接处理
+    String[] str = { location_p, location_c, location_a, location_4,
+            location_5 };
+    String S = DealwithString.merge(str);
+
+    Ammeter ammeter = new Ammeter();
+    // 然后添加到数据库里
+    ammeter.setAddress(S);
+    ammeter.setAmmeterType(ammeterType);
+    ammeter.setRemain(0.00);
+    String s = ammeterBiz.addANewAddress(ammeter);
+
+    if (s == null) {
+        ActionContext.getContext().put(&amp;quot;logmsg&amp;quot;, &amp;quot;新增地址失败&amp;quot;);
+        return ERROR;
+    }
+    return SUCCESS;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;业务逻辑层实现接口&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class UsersBizImpl implements UsersBiz{
+private UsersDao usersDao;
+public UsersDao getUsersDao(){
+return this.usersDao;
+}
+public void setUsersDao(UsersDao usersDao) {
+this.usersDao = usersDao;
+}
+public Users logByUsernameAndPwd(Users users) {
+String strHQL = &amp;quot;from Users u where u.username=? and u.password=? and u.role.rid=?&amp;quot;;
+Object[] params = { users.getUsername(), users.getPassword(), users.getRole().getRid() };
+List list = this.usersDao.findByHQL(strHQL, params);
+if (list.size() == 0) {
+  return null;
+}
+return ((Users)this.usersDao.findByHQL(strHQL, params).get(0));
+}
+public List&amp;lt;Users&amp;gt; listAll() {
+return this.usersDao.findAll();
+ }
+public void deleteUserById(Integer id) {  
+}
+public Users findById(Integer id) {
+// TODO Auto-generated method stub
+return this.usersDao.findById(id);
+}
+public void updateUser(Users u) {
+// TODO Auto-generated method stub
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;dao层实现接口&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class AGenericHibernateDao &amp;lt;T extends Serializable, ID extends Serializable &amp;gt;
+    extends HibernateDaoSupport implements GenericDao&amp;lt;T, ID&amp;gt;{
+
+private Class&amp;lt;T&amp;gt; persistentClass;
+@SuppressWarnings(&amp;quot;unchecked&amp;quot;)
+public AGenericHibernateDao() {
+    this.persistentClass = (Class&amp;lt;T&amp;gt;) ((ParameterizedType) this.getClass()
+            .getGenericSuperclass()).getActualTypeArguments()[0];
+}
+
+@SuppressWarnings(&amp;quot;unchecked&amp;quot;)
+public ID insert(T entity) {
+    return (ID) this.getHibernateTemplate().save(entity);
+}
+public T findById(ID id) {
+    return this.getHibernateTemplate().get(persistentClass, id);
+}
+public void delete(ID id) {
+    this.getHibernateTemplate().delete(findById(id));
+}
+public void update(T entity) {
+    this.getHibernateTemplate().update(this.getHibernateTemplate().merge(entity));
+}
+public List&amp;lt;T&amp;gt; findAll() {
+    return this.getHibernateTemplate().loadAll(persistentClass);
+}
+@SuppressWarnings(&amp;quot;unchecked&amp;quot;)
+public List&amp;lt;T&amp;gt; findByHQL(String strHQL, Object[] params) {
+//      Query query = super.getSession().createQuery(strHQL);
+//      if(params!=null&amp;amp;&amp;amp;params.length&amp;gt;0){
+//          for (int i = 0; i &amp;lt; params.length; i++) {
+//              query.setParameter(i, params[i]);
+//          }
+//      }
+//          return query.list();
+    List query = this.getHibernateTemplate().find(strHQL, params);
+    return query;
+} 
+public PageBean findByPage(final int currentPage, final int pageSize, final String strHQL,
+        final Object[] params) {
+    return this.getHibernateTemplate().execute(
+            new HibernateCallback&amp;lt;PageBean&amp;gt;() {
+                public PageBean doInHibernate(Session arg0)
+                        throws HibernateException, SQLException {
+                    PageBean bean = new PageBean();
+                    Query qu = arg0.createQuery(strHQL);
+                    if(params!=null&amp;amp;&amp;amp;params.length&amp;gt;0){
+                    for (int i = 0; i &amp;lt; params.length; i++) {
+                        qu.setParameter(i, params[i]);
+                    }
+                    }
+                    qu.setFirstResult((currentPage - 1) * pageSize);
+                    qu.setMaxResults(pageSize);
+                    bean.setData(qu.list());
+                    qu = arg0.createQuery(&amp;quot;select count(*) &amp;quot;
+                            + strHQL.substring(strHQL.toLowerCase()
+                                    .indexOf(&amp;quot;from&amp;quot;)));
+                    if(params!=null&amp;amp;&amp;amp;params.length&amp;gt;0){
+                    for (int j = 0; j &amp;lt; params.length; j++) {
+                        qu.setParameter(j, params[j]);
+                    }
+                    }
+                    bean.setTotalRows(Integer.parseInt(qu.uniqueResult()
+                            .toString()));
+                    bean.setCurrentPage(currentPage);
+                    bean.setPageSize(pageSize);
+                    return bean;
+                }
+            });
+}
+public void bulkUpdate(String strHQL, Object[] params) {
+    // TODO Auto-generated method stub
+
+}
+@Resource(name=&amp;quot;sessionFactory&amp;quot;)
+public void setSuperSessionFactory(SessionFactory sessionFactory) {
+    super.setSessionFactory(sessionFactory);
+}
+public T insertO(T entity) {
+    return (T) this.getHibernateTemplate().save(this.getHibernateTemplate().merge(entity));
+}
+  public T findByAddress(T entity)
+  {
+    return getHibernateTemplate().get(this.persistentClass, entity);
+  }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;整个demo在我的github&#34;&gt;整个demo在我的GitHub：&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pugongyingbo/ssh&#34;&gt;https://github.com/pugongyingbo/ssh&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>SpringMVC中的简单分页实现</title>
       <link>http://www.pugongyingbo.com/2017/05/08/springmvc%E4%B8%AD%E7%9A%84%E7%AE%80%E5%8D%95%E5%88%86%E9%A1%B5%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Mon, 08 May 2017 10:34:38 +0800</pubDate>

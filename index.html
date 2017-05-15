@@ -67,6 +67,26 @@
   
   <div class="col m4 s12">
     <div class="card-panel">
+      <h4><a href="http://www.pugongyingbo.com/2017/05/15/ssh%E4%B8%89%E5%A4%A7%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%95%B4%E5%90%88/">SSH三大框架配置及整合</a></h4>
+      <p>
+      
+        
+          <a href="http://www.pugongyingbo.com//categories/development/">development</a>
+        
+       
+      </p>
+      <p>学了三大框架有一段时间，虽然现在用的很少了，但是面试还是会问到，再次整理一下 这个是做一个模仿电力公司的项目，包括前后台 首先是spring配置，在applicationContext.xml中  
+&lt;!-- 启用组件扫描 --&gt; &lt;context:component-scan base-package=&quot;com.py&quot; /&gt; &lt;!-- 连接数据源--&gt; &lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot;&gt; &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;&gt; &lt;/property&gt; &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/sshtest&quot;&gt; &lt;/property&gt; &lt;property name=&quot;username&quot; value=&quot;root&quot;&gt;&lt;/property&gt; &lt;property name=&quot;password&quot; value=&quot;root&quot;&gt;&lt;/property&gt; &lt;/bean&gt; &lt;!-- 会话工厂 整合hibernate--&gt; &lt;bean id=&quot;sessionFactory&quot; class=&quot;org.springframework.orm.hibernate3.LocalSessionFactoryBean&quot;&gt; &lt;property name=&quot;dataSource&quot;&gt; &lt;ref bean=&quot;dataSource&quot;&gt;&lt;/ref&gt; &lt;/property&gt; &lt;!-- 注入Hibernate相关的属性 --&gt; &lt;property name=&quot;hibernateProperties&quot;&gt; &lt;props&gt; &lt;!--&lt;prop key=&quot;hibernate.cache.provider_class&quot;&gt;org.hibernate.cache.EhCacheProvider&lt;/prop&gt; &lt;prop key=&quot;hibernate.cache.use_second_level_cache&quot;&gt;true&lt;/prop&gt; &lt;prop key=&quot;hibernate.cache.use_query_cache&quot;&gt;true&lt;/prop&gt; --&gt; &lt;prop key=&quot;hibernate.current_session_context_class&quot;&gt;thread&lt;/prop&gt; &lt;prop key=&quot;hibernate.dialect&quot;&gt; org.hibernate.dialect.MySQLDialect &lt;/prop&gt; &lt;prop key=&quot;hibernate.show_sql&quot;&gt;true&lt;/prop&gt; &lt;prop key=&quot;hibernate.format_sql&quot;&gt;true&lt;/prop&gt; &lt;/props&gt; &lt;/property&gt; &lt;!-- 注入Hibernate的映射文件 --&gt; &lt;property name=&quot;mappingResources&quot;&gt; &lt;list&gt; &lt;value&gt;com/py/beans/Users.</p>
+      <p>
+      15 May 2017
+       
+      </p>
+    </div>
+  </div>
+
+  
+  <div class="col m4 s12">
+    <div class="card-panel">
       <h4><a href="http://www.pugongyingbo.com/2017/05/08/springmvc%E4%B8%AD%E7%9A%84%E7%AE%80%E5%8D%95%E5%88%86%E9%A1%B5%E5%AE%9E%E7%8E%B0/">SpringMVC中的简单分页实现</a></h4>
       <p>
       
@@ -114,6 +134,9 @@ import java.util.*; public class JoinNumber { /** * 编程题：输入一个正�
   </div>
 
   
+</div>
+<div class="row">
+  
   <div class="col m4 s12">
     <div class="card-panel">
       <h4><a href="http://www.pugongyingbo.com/2017/03/24/%E6%96%B0%E6%B5%AA%E5%BE%AE%E5%8D%9A%E6%8E%88%E6%9D%83%E7%99%BB%E5%BD%95/">新浪微博授权登录</a></h4>
@@ -149,9 +172,6 @@ public interface Constants { public static final String APP_KEY = &quot;27032928
     </div>
   </div>
 
-  
-</div>
-<div class="row">
   
   <div class="col m4 s12">
     <div class="card-panel">
