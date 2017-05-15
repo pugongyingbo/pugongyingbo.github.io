@@ -10,6 +10,394 @@
     <atom:link href="http://www.pugongyingbo.com/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>SSM框架配置</title>
+      <link>http://www.pugongyingbo.com/2017/05/15/ssm%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Mon, 15 May 2017 20:27:23 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/2017/05/15/ssm%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE/</guid>
+      <description>
+
+&lt;ul&gt;
+&lt;li&gt;最近学了SSM框架，在此整理一下配置过程&lt;/li&gt;
+&lt;li&gt;推荐使用maven配置依赖，在pom.xml中添加需要的依赖包&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;project xmlns=&amp;quot;http://maven.apache.org/POM/4.0.0&amp;quot; xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+xsi:schemaLocation=&amp;quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&amp;quot;&amp;gt;
+&amp;lt;modelVersion&amp;gt;4.0.0&amp;lt;/modelVersion&amp;gt;
+&amp;lt;groupId&amp;gt;com.zzb&amp;lt;/groupId&amp;gt;
+&amp;lt;artifactId&amp;gt;myblog&amp;lt;/artifactId&amp;gt;
+&amp;lt;version&amp;gt;0.0.1-SNAPSHOT&amp;lt;/version&amp;gt;
+&amp;lt;packaging&amp;gt;war&amp;lt;/packaging&amp;gt;
+&amp;lt;name&amp;gt;myblog&amp;lt;/name&amp;gt;
+&amp;lt;url&amp;gt;http://maven.apache.org&amp;lt;/url&amp;gt;
+&amp;lt;properties&amp;gt;
+&amp;lt;springside.version&amp;gt;4.2.2.GA&amp;lt;/springside.version&amp;gt;
+     &amp;lt;!-- spring版本号 --&amp;gt;
+    &amp;lt;spring.version&amp;gt;4.0.5.RELEASE&amp;lt;/spring.version&amp;gt;
+    &amp;lt;!-- mybatis版本号 --&amp;gt;
+    &amp;lt;mybatis.version&amp;gt;3.2.5&amp;lt;/mybatis.version&amp;gt;
+    &amp;lt;mybatis-spring.version&amp;gt;1.2.2&amp;lt;/mybatis-spring.version&amp;gt;
+    &amp;lt;logback.version&amp;gt;1.1.1&amp;lt;/logback.version&amp;gt;
+    &amp;lt;tomcat-jdbc.version&amp;gt;7.0.52&amp;lt;/tomcat-jdbc.version&amp;gt;
+    &amp;lt;jackson.version&amp;gt;2.3.1&amp;lt;/jackson.version&amp;gt;
+
+    &amp;lt;!-- Plugin的属性定义 --&amp;gt;
+    &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt;
+    &amp;lt;java.version&amp;gt;1.8&amp;lt;/java.version&amp;gt;
+    &amp;lt;jdbc.driver.groupId&amp;gt;mysql&amp;lt;/jdbc.driver.groupId&amp;gt;
+    &amp;lt;jdbc.driver.artifactId&amp;gt;mysql-connector-java&amp;lt;/jdbc.driver.artifactId&amp;gt;
+    &amp;lt;jdbc.driver.version&amp;gt;5.1.22&amp;lt;/jdbc.driver.version&amp;gt;
+&amp;lt;/properties&amp;gt;
+&amp;lt;dependencies&amp;gt;
+&amp;lt;!-- JSON begin --&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;com.fasterxml.jackson.core&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;jackson-databind&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;${jackson.version}&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;com.fasterxml.jackson.module&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;jackson-module-jaxb-annotations&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;${jackson.version}&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;!-- JSON end --&amp;gt;
+
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;spring-test&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;${spring.version}&amp;lt;/version&amp;gt;
+        &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;ch.qos.logback&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;logback-classic&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;${logback.version}&amp;lt;/version&amp;gt;
+        &amp;lt;scope&amp;gt;runtime&amp;lt;/scope&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;spring-webmvc&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;${spring.version}&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;spring-jdbc&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;${spring.version}&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;spring-tx&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;${spring.version}&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;mybatis&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;${mybatis.version}&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;mybatis-spring&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;${mybatis-spring.version}&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;!-- connection pool --&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;org.apache.tomcat&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;tomcat-jdbc&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;${tomcat-jdbc.version}&amp;lt;/version&amp;gt;
+        &amp;lt;scope&amp;gt;runtime&amp;lt;/scope&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;${jdbc.driver.groupId}&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;${jdbc.driver.artifactId}&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;${jdbc.driver.version}&amp;lt;/version&amp;gt;
+        &amp;lt;scope&amp;gt;runtime&amp;lt;/scope&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;com.alibaba&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;fastjson&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;1.1.41&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;javax.activation&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;activation&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;1.1.1&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;javax.mail&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;mail&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;1.4.7&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;commons-lang&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;commons-lang&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;2.6&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;org.apache.commons&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;commons-lang3&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;3.3.2&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;commons-collections&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;commons-collections&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;3.1&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;org.jsoup&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;jsoup&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;1.7.3&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;commons-codec&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;commons-codec&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;1.8&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;javax.servlet.jsp.jstl&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;javax.servlet.jsp.jstl-api&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;1.2.1&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;taglibs&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;standard&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;1.1.2&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;     
+&amp;lt;dependency&amp;gt;
+  &amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt;
+  &amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt;
+  &amp;lt;version&amp;gt;3.8.1&amp;lt;/version&amp;gt;
+  &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&amp;lt;/dependencies&amp;gt;
+&amp;lt;build&amp;gt;
+    &amp;lt;plugins&amp;gt;
+        &amp;lt;!-- compiler插件, 设定JDK版本 --&amp;gt;
+        &amp;lt;plugin&amp;gt;
+            &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;maven-compiler-plugin&amp;lt;/artifactId&amp;gt;
+            &amp;lt;version&amp;gt;3.1&amp;lt;/version&amp;gt;
+            &amp;lt;configuration&amp;gt;
+                &amp;lt;source&amp;gt;${java.version}&amp;lt;/source&amp;gt;
+                &amp;lt;target&amp;gt;${java.version}&amp;lt;/target&amp;gt;
+                &amp;lt;showWarnings&amp;gt;true&amp;lt;/showWarnings&amp;gt;
+            &amp;lt;/configuration&amp;gt;
+        &amp;lt;/plugin&amp;gt;
+        &amp;lt;!-- war打包插件, 设定war包名称不带版本号 --&amp;gt;
+        &amp;lt;plugin&amp;gt;
+            &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;maven-war-plugin&amp;lt;/artifactId&amp;gt;
+            &amp;lt;version&amp;gt;2.4&amp;lt;/version&amp;gt;
+            &amp;lt;configuration&amp;gt;
+                &amp;lt;warName&amp;gt;${project.artifactId}&amp;lt;/warName&amp;gt;
+            &amp;lt;/configuration&amp;gt;
+        &amp;lt;/plugin&amp;gt;
+    &amp;lt;/plugins&amp;gt;
+&amp;lt;/build&amp;gt;
+&amp;lt;repositories&amp;gt;
+    &amp;lt;repository&amp;gt;
+        &amp;lt;id&amp;gt;spring-snapshots&amp;lt;/id&amp;gt;
+        &amp;lt;name&amp;gt;Spring Snapshots&amp;lt;/name&amp;gt;
+        &amp;lt;url&amp;gt;http://repo.spring.io/snapshot&amp;lt;/url&amp;gt;
+        &amp;lt;snapshots&amp;gt;
+            &amp;lt;enabled&amp;gt;true&amp;lt;/enabled&amp;gt;
+        &amp;lt;/snapshots&amp;gt;
+    &amp;lt;/repository&amp;gt;
+&amp;lt;/repositories&amp;gt;
+
+&amp;lt;/project&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在src中的resource包新建mybatis文件夹、applicationContext.xml、jdbc.properties、config.properties&lt;/li&gt;
+&lt;li&gt;applicationContext.xml&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; &amp;lt;description&amp;gt;Spring公共配置&amp;lt;/description&amp;gt;
+
+&amp;lt;!-- 开启定时任务 --&amp;gt;
+&amp;lt;task:annotation-driven/&amp;gt;
+&amp;lt;!-- MyBatis配置 --&amp;gt;
+&amp;lt;bean id=&amp;quot;sqlSessionFactory&amp;quot; class=&amp;quot;org.mybatis.spring.SqlSessionFactoryBean&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;dataSource&amp;quot; ref=&amp;quot;dataSource&amp;quot; /&amp;gt;
+    &amp;lt;!-- 显式指定Mapper文件位置 --&amp;gt;
+    &amp;lt;property name=&amp;quot;mapperLocations&amp;quot; value=&amp;quot;classpath*:/mybatis/*Mapper.xml&amp;quot; /&amp;gt;
+    &amp;lt;!-- mybatis配置文件路径 --&amp;gt;
+    &amp;lt;property name=&amp;quot;configLocation&amp;quot; value=&amp;quot;classpath:/mybatis/config.xml&amp;quot;/&amp;gt;    
+&amp;lt;/bean&amp;gt;
+
+&amp;lt;bean id=&amp;quot;sqlSessionTemplate&amp;quot; class=&amp;quot;org.mybatis.spring.SqlSessionTemplate&amp;quot;&amp;gt;
+   &amp;lt;constructor-arg index=&amp;quot;0&amp;quot; ref=&amp;quot;sqlSessionFactory&amp;quot; /&amp;gt;
+   &amp;lt;!-- 这个执行器会批量执行更新语句, 还有SIMPLE 和 REUSE --&amp;gt;
+   &amp;lt;constructor-arg index=&amp;quot;1&amp;quot; value=&amp;quot;BATCH&amp;quot; /&amp;gt;
+&amp;lt;/bean&amp;gt;
+&amp;lt;!-- 扫描basePackage接口 --&amp;gt;
+&amp;lt;bean class=&amp;quot;org.mybatis.spring.mapper.MapperScannerConfigurer&amp;quot;&amp;gt;
+    &amp;lt;!-- 映射器接口文件的包路径， --&amp;gt;
+    &amp;lt;property name=&amp;quot;basePackage&amp;quot; value=&amp;quot;com.zzb.myblog.dao&amp;quot; /&amp;gt;
+&amp;lt;/bean&amp;gt;
+&amp;lt;!-- 使用annotation定义事务 --&amp;gt;
+&amp;lt;bean id=&amp;quot;transactionManager&amp;quot; class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;dataSource&amp;quot; ref=&amp;quot;dataSource&amp;quot;&amp;gt;&amp;lt;/property&amp;gt;
+&amp;lt;/bean&amp;gt;
+&amp;lt;tx:annotation-driven transaction-manager=&amp;quot;transactionManager&amp;quot; proxy-target-class=&amp;quot;true&amp;quot; /&amp;gt;
+&amp;lt;!-- 数据源配置, 使用Tomcat JDBC连接池 --&amp;gt;
+&amp;lt;bean id=&amp;quot;dataSource&amp;quot; class=&amp;quot;org.apache.tomcat.jdbc.pool.DataSource&amp;quot; destroy-method=&amp;quot;close&amp;quot;&amp;gt;
+    &amp;lt;!-- Connection Info --&amp;gt;
+    &amp;lt;property name=&amp;quot;driverClassName&amp;quot; value=&amp;quot;${jdbc.driver}&amp;quot; /&amp;gt;
+    &amp;lt;property name=&amp;quot;url&amp;quot; value=&amp;quot;${jdbc.url}&amp;quot; /&amp;gt;
+    &amp;lt;property name=&amp;quot;username&amp;quot; value=&amp;quot;${jdbc.username}&amp;quot; /&amp;gt;
+    &amp;lt;property name=&amp;quot;password&amp;quot; value=&amp;quot;${jdbc.password}&amp;quot; /&amp;gt;
+    &amp;lt;!-- Connection Pooling Info --&amp;gt;
+    &amp;lt;property name=&amp;quot;maxActive&amp;quot; value=&amp;quot;${jdbc.pool.maxActive}&amp;quot; /&amp;gt;
+    &amp;lt;property name=&amp;quot;maxIdle&amp;quot; value=&amp;quot;${jdbc.pool.maxIdle}&amp;quot; /&amp;gt;
+    &amp;lt;property name=&amp;quot;minIdle&amp;quot; value=&amp;quot;0&amp;quot; /&amp;gt;
+    &amp;lt;property name=&amp;quot;defaultAutoCommit&amp;quot; value=&amp;quot;false&amp;quot; /&amp;gt;
+&amp;lt;/bean&amp;gt;
+&amp;lt;!-- production环境 --&amp;gt;
+&amp;lt;beans profile=&amp;quot;production&amp;quot;&amp;gt;
+    &amp;lt;context:property-placeholder ignore-unresolvable=&amp;quot;true&amp;quot; file-encoding=&amp;quot;utf-8&amp;quot; 
+    location=&amp;quot;classpath:config.properties,classpath:jdbc.properties&amp;quot; /&amp;gt;
+&amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;jdbc.xml&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost:3306/blog?useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true&amp;amp;allowMultiQueries=true
+jdbc.username=root
+jdbc.password=root
+#connection pool settings
+jdbc.pool.maxIdle=20
+jdbc.pool.maxActive=190
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ArticleMapper.xml&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;!DOCTYPE mapper PUBLIC &amp;quot;-//mybatis.org//DTD Mapper 3.0//EN&amp;quot; &amp;quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&amp;quot;&amp;gt;
+&amp;lt;mapper namespace = &amp;quot;com.zzb.myblog.dao.ArticleDao&amp;quot;&amp;gt;
+&amp;lt;select id=&amp;quot;getRowCount&amp;quot; resultType=&amp;quot;int&amp;quot;&amp;gt;
+    select count(*) from article
+&amp;lt;/select&amp;gt;
+&amp;lt;select id=&amp;quot;selectByParams&amp;quot; resultType = &amp;quot;com.zzb.myblog.entity.Article&amp;quot; parameterType=&amp;quot;map&amp;quot;&amp;gt;
+    select * from article
+    order by id asc
+    limit ${offset}, ${size}
+&amp;lt;/select&amp;gt;
+&amp;lt;/mapper&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在webapp文件夹下建立springmvc.xml 、web.xml&lt;/li&gt;
+&lt;li&gt;springmvc.xml&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!-- 
+    spring可以自动去扫描base-package下面或者子包下面的java文件，
+    如果扫描到有@Component @Controller @Service @Repository等这些注解的类，则把这些类注册为bean 
+--&amp;gt;
+&amp;lt;context:component-scan base-package=&amp;quot;com.zzb.*&amp;quot; /&amp;gt;
+&amp;lt;!-- 
+    模型解析，在请求时为模型视图名称添加前后缀 
+    比如在controller类中需要请求/WEB-INF/page/index.jsp文件，直接写index就可以了
+--&amp;gt;
+&amp;lt;bean class=&amp;quot;org.springframework.web.servlet.view.InternalResourceViewResolver&amp;quot; p:prefix=&amp;quot;/WEB-INF/page/&amp;quot; p:suffix=&amp;quot;.jsp&amp;quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;web.xml&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; &amp;lt;!-- spring框架必须定义ContextLoaderListener，在启动Web容器时，自动装配Spring applicationContext.xml的配置信息 --&amp;gt;
+&amp;lt;listener&amp;gt;
+&amp;lt;listener-class&amp;gt;org.springframework.web.context.ContextLoaderListener&amp;lt;/listener-class&amp;gt;
+&amp;lt;/listener&amp;gt;
+&amp;lt;context-param&amp;gt;
+&amp;lt;!-- 指定Spring上下文配置文件 --&amp;gt;
+&amp;lt;param-name&amp;gt;contextConfigLocation&amp;lt;/param-name&amp;gt;
+&amp;lt;param-value&amp;gt;classpath*:applicationContext.xml&amp;lt;/param-value&amp;gt;
+&amp;lt;/context-param&amp;gt;
+&amp;lt;context-param&amp;gt;
+&amp;lt;param-name&amp;gt;spring.profiles.active&amp;lt;/param-name&amp;gt;
+&amp;lt;param-value&amp;gt;production&amp;lt;/param-value&amp;gt;
+&amp;lt;/context-param&amp;gt;
+&amp;lt;servlet&amp;gt;
+&amp;lt;servlet-name&amp;gt;Dispatcher&amp;lt;/servlet-name&amp;gt;
+&amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.DispatcherServlet&amp;lt;/servlet-class&amp;gt;
+&amp;lt;init-param&amp;gt;
+  &amp;lt;!-- 指定SpringMVC配置文件 --&amp;gt;
+  &amp;lt;param-name&amp;gt;contextConfigLocation&amp;lt;/param-name&amp;gt;
+  &amp;lt;param-value&amp;gt;/WEB-INF/springmvc.xml&amp;lt;/param-value&amp;gt;
+&amp;lt;/init-param&amp;gt;
+&amp;lt;/servlet&amp;gt;
+&amp;lt;servlet-mapping&amp;gt;
+  &amp;lt;!-- 指定请求的后缀，可以随意写，这里用.html作为请求后缀 --&amp;gt;
+&amp;lt;servlet-name&amp;gt;Dispatcher&amp;lt;/servlet-name&amp;gt;
+&amp;lt;url-pattern&amp;gt;*.html&amp;lt;/url-pattern&amp;gt;
+&amp;lt;/servlet-mapping&amp;gt;
+&amp;lt;!-- 编码格式为UTF-8 --&amp;gt;
+&amp;lt;filter&amp;gt;
+  &amp;lt;filter-name&amp;gt;encodingFilter&amp;lt;/filter-name&amp;gt;
+  &amp;lt;filter-class&amp;gt;org.springframework.web.filter.CharacterEncodingFilter&amp;lt;/filter-class&amp;gt;
+  &amp;lt;init-param&amp;gt;
+     &amp;lt;param-name&amp;gt;encoding&amp;lt;/param-name&amp;gt;
+     &amp;lt;param-value&amp;gt;UTF-8&amp;lt;/param-value&amp;gt;
+  &amp;lt;/init-param&amp;gt;
+  &amp;lt;init-param&amp;gt;
+     &amp;lt;param-name&amp;gt;forceEncoding&amp;lt;/param-name&amp;gt;
+     &amp;lt;param-value&amp;gt;true&amp;lt;/param-value&amp;gt;
+  &amp;lt;/init-param&amp;gt;
+&amp;lt;/filter&amp;gt;
+&amp;lt;filter-mapping&amp;gt;
+ &amp;lt;filter-name&amp;gt;encodingFilter&amp;lt;/filter-name&amp;gt;
+ &amp;lt;url-pattern&amp;gt;/*&amp;lt;/url-pattern&amp;gt;
+&amp;lt;/filter-mapping&amp;gt;
+&amp;lt;welcome-file-list&amp;gt;
+&amp;lt;welcome-file&amp;gt;index.html&amp;lt;/welcome-file&amp;gt;
+&amp;lt;/welcome-file-list&amp;gt; 
+&amp;lt;/web-app&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;整个demo在我的github&#34;&gt;整个demo在我的GitHub：&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pugongyingbo/myblog-ssm&#34;&gt;https://github.com/pugongyingbo/myblog-ssm&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>SSH三大框架配置及整合</title>
       <link>http://www.pugongyingbo.com/2017/05/15/ssh%E4%B8%89%E5%A4%A7%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%95%B4%E5%90%88/</link>
       <pubDate>Mon, 15 May 2017 19:13:29 +0800</pubDate>
