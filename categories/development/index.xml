@@ -10,6 +10,122 @@
     <atom:link href="http://www.pugongyingbo.com/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>map的几种遍历</title>
+      <link>http://www.pugongyingbo.com/2017/08/06/map%E7%9A%84%E5%87%A0%E7%A7%8D%E9%81%8D%E5%8E%86/</link>
+      <pubDate>Sun, 06 Aug 2017 14:43:10 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/2017/08/06/map%E7%9A%84%E5%87%A0%E7%A7%8D%E9%81%8D%E5%8E%86/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;近期用到了map遍历，也查找了部分资料，自己整理一下&lt;/li&gt;
+&lt;li&gt;使用场景是我要从数据库获取一个人的几种奖励类别，但是我要把每个人的类别拼接起来，在service里使用map遍历拼接在一起，在回传到页面。
+
+&lt;ul&gt;
+&lt;li&gt;1、通过Map.entrySet遍历key和value&lt;/li&gt;
+&lt;li&gt;2、通过Map.entrySet使用iterator遍历key和value&lt;/li&gt;
+&lt;li&gt;3、通过Map.keySet遍历key和value&lt;/li&gt;
+&lt;li&gt;4、通过Map.values()遍历所有的value，但不能遍历key&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+/**
+ * Created by zzb on 2017/8/6.
+ */
+public class MapDemo {
+public static void main(String[] args){
+    Map&amp;lt;String,Integer&amp;gt; map = new HashMap&amp;lt;String,Integer&amp;gt;();
+    map.put(&amp;quot;a&amp;quot;,1);
+    map.put(&amp;quot;b&amp;quot;,2);
+    map.put(&amp;quot;c&amp;quot;,3);
+    //最常用的遍历方式，键值对都需要时使用
+    for (Map.Entry&amp;lt;String,Integer&amp;gt; entry:map.entrySet()) {
+        System.out.println(&amp;quot;Key = &amp;quot;+entry.getKey()+&amp;quot;,value = &amp;quot;+entry.getValue());
+    }
+    //只获取key或者value
+    for (String key:map.keySet()) {
+        System.out.println(&amp;quot;key = &amp;quot; +key);
+    }
+    for (Integer value:map.values()) {
+        System.out.println(&amp;quot;value = &amp;quot; +value);
+    }
+    //使用Iterator遍历
+    Iterator&amp;lt;Map.Entry&amp;lt;String, Integer&amp;gt;&amp;gt; entries = map.entrySet().iterator();
+    while (entries.hasNext()){
+        Map.Entry&amp;lt;String,Integer&amp;gt; entry = entries.next();
+        System.out.println(&amp;quot;key= &amp;quot;+entry.getKey() +&amp;quot;,value = &amp;quot;+entry.getValue());
+    }
+    //通过键找值遍历 效率低
+    for (String key:map.keySet()) {
+        Integer value = map.get(key);
+        System.out.println(&amp;quot;key = &amp;quot;+ key +&amp;quot;,value = &amp;quot; +value);
+    }
+}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;项目中实际用到的map&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public List&amp;lt;JfhjlQueryBean&amp;gt;  selectJfhjlList(JfhjlQueryBean cx) {
+List&amp;lt;JfhjlQueryBean&amp;gt; jfjlBeans =  jlDao.selectJfhjlList(cx);
+ //剔除重复信息
+   Map&amp;lt;String, JfhjlQueryBean&amp;gt; zfjfs = new HashMap&amp;lt;String,          
+ JfhjlQueryBean&amp;gt;();
+//统计各个奖励详细情况
+Map&amp;lt;String, HashMap&amp;lt;String, Integer&amp;gt;&amp;gt; jfjlinfo  = new HashMap&amp;lt;String, HashMap&amp;lt;String, Integer&amp;gt;&amp;gt;();
+//遍历数据
+for (JfhjlQueryBean jfhjlQueryBean : jfjlBeans) {
+String zfbh = jfhjlQueryBean.getZfbh();
+if (zfjfs.get(zfbh) == null) {
+    zfjfs.put(zfbh, jfhjlQueryBean);
+}   
+String jllb = jfhjlQueryBean.getJllb();
+//如果包含此人，则奖励类别的value加1  
+if(!jfjlinfo.containsKey(zfbh)){
+    HashMap&amp;lt;String, Integer&amp;gt; jfjl = new HashMap&amp;lt;String, Integer&amp;gt;();
+    jfjl.put(jllb, 1);
+    jfjlinfo.put(zfbh, jfjl);
+}              
+else {
+HashMap&amp;lt;String,Integer&amp;gt; hashMap = jfjlinfo.get(zfbh);
+Integer jllbnum = hashMap.get(jllb);
+if (jllbnum != null) {
+    hashMap.put(jllb, (jllbnum+1));
+} else {
+   hashMap.put(jllb, 1);
+}
+}
+//结果处理
+List&amp;lt;JfhjlQueryBean&amp;gt; resultAll = new ArrayList&amp;lt;JfhjlQueryBean&amp;gt;();
+    for(Map.Entry&amp;lt;String, JfhjlQueryBean&amp;gt; entry:zfjfs.entrySet()){
+        StringBuffer jlinfo=new StringBuffer();
+        Map&amp;lt;String, Integer&amp;gt; jldetail=jfjlinfo.get(entry.getKey());
+        if(!jldetail.equals(null)){
+            for(Map.Entry&amp;lt;String, Integer&amp;gt; entry2:jldetail.entrySet()){
+                jlinfo.append(entry2.getValue()+&amp;quot;个&amp;quot;+getJlmc(entry2.getKey())+&amp;quot;\n&amp;quot;);
+            }
+            entry.getValue().setWsyjl(jlinfo.toString());
+            resultAll.add(entry.getValue());
+        }
+        }
+    return resultAll;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>SSM框架配置</title>
       <link>http://www.pugongyingbo.com/2017/05/15/ssm%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Mon, 15 May 2017 20:27:23 +0800</pubDate>
@@ -1234,7 +1350,7 @@ theme = &amp;quot;hyde&amp;quot;
 &lt;li&gt;&lt;p&gt;然后可以将其挂在giuhub page上&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&#34;关于部署&#34;&gt;关于部署&lt;/h1&gt;
+&lt;h2 id=&#34;关于部署&#34;&gt;关于部署&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;假设你需要部署在 GitHub Pages上，首先在GitHub上创建一个Repository，命名为：(必须是你的用户名)×××.github.io&lt;/p&gt;&lt;/li&gt;
