@@ -10,6 +10,48 @@
     <atom:link href="http://www.pugongyingbo.com/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>git提交使用emoji</title>
+      <link>http://www.pugongyingbo.com/2018/04/10/git%E6%8F%90%E4%BA%A4%E4%BD%BF%E7%94%A8emoji/</link>
+      <pubDate>Tue, 10 Apr 2018 22:35:32 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/2018/04/10/git%E6%8F%90%E4%BA%A4%E4%BD%BF%E7%94%A8emoji/</guid>
+      <description>
+
+&lt;h3 id=&#34;git-commit-使用emoji&#34;&gt;git commit 使用emoji&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;看到GitHub上有在提交信息里使用emoji的，感觉很好玩所以就搜了一下，发现gitemoji开源库，然后打算以后使用表情包提交信息，更加直白的表明提交情况。&lt;/li&gt;
+&lt;li&gt;使用方式很简单&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;    git commit -m &amp;quot;:bug: 修复某bug&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;img src=&#34;https://github.com/pugongyingbo/pugongyingbo.github.io/tree/master/images/gitemoji.jpg&#34; alt=&#34;示例&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;常用例子&lt;/li&gt;
+&lt;li&gt;
+emoji | emoji代码 | commit说明
+:-:|:-:|:-:
+:art: (调色板)     | : art : |   改进代码&lt;br /&gt;
+:fire:(火焰)        |   : fire :   |   移除代码或文件&lt;br /&gt;
+:bug:(bug)        |    : bug :    |  修复bug&lt;br /&gt;
+:ambulance:(急救车)| : ambulance :|重要补丁
+:sparkles:(火花)| : sparkles :|引入新功能
+:memo:(备忘录)| : memo :|编写文档
+:tada:(庆祝)| : tada :|初次提交&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;参考&#34;&gt;参考&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/carloscuesta/gitmoji/&#34;&gt;官方仓库&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/liuchengxu/git-commit-emoji-cn/&#34;&gt;中文指南&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>map的几种遍历</title>
       <link>http://www.pugongyingbo.com/2017/08/06/map%E7%9A%84%E5%87%A0%E7%A7%8D%E9%81%8D%E5%8E%86/</link>
       <pubDate>Sun, 06 Aug 2017 14:43:10 +0800</pubDate>
@@ -1339,7 +1381,7 @@ theme = &amp;quot;hyde&amp;quot;
 
 &lt;p&gt;&lt;code&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ hugo new post test.md 
+&lt;pre&gt;&lt;code&gt;$ hugo new post/test.md 
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;code/&gt;&lt;/p&gt;
