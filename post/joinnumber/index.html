@@ -196,45 +196,41 @@
     <div class="post-content">
       
 
-<h2 id="输入一个正整数数组-将他们拼接成一个数-输出拼接出所有数字中最小的一个">输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个</h2>
+<h4 id="输入一个正整数数组-将他们拼接成一个数-输出拼接出所有数字中最小的一个">输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个</h4>
 
 <ul>
 <li>记录一道笔试题</li>
 </ul>
 
-<p><code></p>
-
-<pre><code>import java.util.*;
-public class JoinNumber {
-   /**
- * 编程题：输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个
- */
- public static void main(String[] args){
-       int[] arr = {20,321,21,10,8};
-       StringBuffer sb = new StringBuffer();
-       for(int i=0;i&lt;arr.length;i++){
-            if(i == (arr.length-1)){
-                 sb.append(arr[i]); //最后一个不加空格
-            }else{
-                 sb.append(arr[i] + &quot; &quot;); //拼接时加上空格，一边正则split的使用
-            }
-       }
-       System.out.println(sb);
-       String[] str = sb.toString().split(&quot; &quot;);  //利用正则split根据空格，将字符串转成字符串数组
-       Arrays.sort(str); //利用Arrays.sort()进行数组的排序，升序
-       StringBuffer sb1 = new StringBuffer();  //排序之后再拼接成字符串，即可得到结果
-       for(int i= 0;i&lt;str.length;i++){
-        //降序的(int i=str.length-1;i&gt;=0;i--;)
-            sb1.append(str[i]);
-       }
-       System.out.println(sb1);
- }
-}
+<pre><code>    import java.util.*;
+    public class JoinNumber {
+       /**
+     * 编程题：输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个
+     */
+     public static void main(String[] args){
+           int[] arr = {20,321,21,10,8};
+           StringBuffer sb = new StringBuffer();
+           for(int i=0;i&lt;arr.length;i++){
+                if(i == (arr.length-1)){
+                     sb.append(arr[i]); //最后一个不加空格
+                }else{
+                     sb.append(arr[i] + &quot; &quot;); //拼接时加上空格，一边正则split的使用
+                }
+           }
+           System.out.println(sb);
+           String[] str = sb.toString().split(&quot; &quot;);  //利用正则split根据空格，将字符串转成字符串数组
+           Arrays.sort(str); //利用Arrays.sort()进行数组的排序，升序
+           StringBuffer sb1 = new StringBuffer();  //排序之后再拼接成字符串，即可得到结果
+           for(int i= 0;i&lt;str.length;i++){
+            //降序的(int i=str.length-1;i&gt;=0;i--;)
+                sb1.append(str[i]);
+           }
+           System.out.println(sb1);
+     }
+    }
 </code></pre>
 
-<p><code/></p>
-
-<h2 id="我的github">我的GitHub：</h2>
+<h4 id="我的github">我的GitHub：</h4>
 
 <ul>
 <li><a href="https://github.com/pugongyingbo">https://github.com/pugongyingbo</a></li>
@@ -286,7 +282,7 @@ public class JoinNumber {
     title: '输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个',
     link: decodeURI(location.href),
     desc: '输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个 记录一道笔试题 import java.util.*; public class JoinNumber { \/** * 编程题：输入一个正整数数组，将他们拼接成',
-    owner: 'pugongyingbo@gmail.com',
+    owner: 'pugongyingbo',
     repo: 'https:\/\/github.com\/pugongyingbo\/pugongyingbo.com',
     oauth: {
       client_id: '75c6cdb87916846429c6',
