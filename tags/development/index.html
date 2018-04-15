@@ -1,201 +1,291 @@
 <!DOCTYPE html>
-<html lang="zh_CN">
+<html lang="zh-cn">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>Development</title>
-  <link href="http://www.pugongyingbo.com//css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="http://www.pugongyingbo.com//css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  
-  
-  <link rel="stylesheet" href="http://www.pugongyingbo.com/css/monokai-sublime.css">
-  <script src="http://www.pugongyingbo.com/js/highlight.pack.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <style type="text/css">
-  
-    footer.page-footer{background-image: url(http://www.pugongyingbo.com//images/default.png);}
-  
-  </style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Development · My Blog</title>
+  <link rel="alternate" hreflang="zh-cn" href="http://www.pugongyingbo.com/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+
+<meta name="author" content="zzb" />
+  <meta name="description" content="In me the tiger sniffs the rose" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.38.2" />
+
+
+<link rel="canonical" href="http://www.pugongyingbo.com/tags/development/" />
+<link href="http://www.pugongyingbo.com/tags/development/index.xml" rel="alternate" type="application/rss+xml" title="My Blog" />
+  <link href="http://www.pugongyingbo.com/tags/development/index.xml" rel="feed" type="application/rss+xml" title="My Blog" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+
+<meta property="og:title" content="Development" />
+<meta property="og:description" content="In me the tiger sniffs the rose" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://www.pugongyingbo.com/tags/development/" />
+
+
+
+<meta property="og:updated_time" content="2018-04-10T22:35:32&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Development">
+<meta itemprop="description" content="In me the tiger sniffs the rose">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Development"/>
+<meta name="twitter:description" content="In me the tiger sniffs the rose"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
 </head>
 <body>
-  <ul id="slide-out" class="side-nav">
-    <li><a href="http://www.pugongyingbo.com/"><i class="mdi-action-home left"></i>Home<i class="mdi-hardware-keyboard-arrow-right right"></i></a></li>
-    <li><a href="http://www.pugongyingbo.com//categories"><i class="mdi-action-perm-media left"></i>Categories<i class="mdi-hardware-keyboard-arrow-right right"></i></a></li>
-    <li><a href="http://www.pugongyingbo.com//tags"><i class="mdi-action-loyalty left"></i>Tags<i class="mdi-hardware-keyboard-arrow-right right"></i></a></li>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">博客小站</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="https://gohugo.io">
+        <li class="mobile-menu-item">external-link</li>
+      </a>
   </ul>
-  <div id="index-banner" class="parallax-container">
-  <a data-activates="slide-out" class="btn-floating button-collapse" style="top: 5px; left: 5px;"><i class="mdi-navigation-menu"></i></a>
-    <div class="section no-pad-bot">
-      <div class="container">
+</nav>
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">博客小站</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
         
-        <h1 class="header center teal-text text-lighten-2">My Blog</h1>
-        <div class="row center">
-          <h5 class="header col s12 light">pugongyingbo@163.com</h5>
-        </div>
-        <div class="row center">
-       
+        <a class="menu-item-link" href="/">Home</a>
         
+      </li><li class="menu-item">
         
-          <a href="https://github.com/https://github.com/pugongyingbo"><img src="http://www.pugongyingbo.com//images/github2-dreamstale35.png"></a>
+        <a class="menu-item-link" href="/post/">Archives</a>
         
+      </li><li class="menu-item">
         
+        <a class="menu-item-link" href="/tags/">Tags</a>
         
+      </li><li class="menu-item">
         
+        <a class="menu-item-link" href="/categories/">Categories</a>
         
-         
-          <a href="http://weibo.com/pugongyingbo"><img src="http://www.pugongyingbo.com//images/weibo.png"></a>
+      </li><li class="menu-item">
         
-          <a href="http://www.pugongyingbo.com//index.html"><img src="http://www.pugongyingbo.com//images/feed-dreamstale27.png"></a>
+        <a class="menu-item-link" href="https://gohugo.io" target="_blank">
+          external-link
+          <i class="iconfont icon-new-window"></i>
+        </a>
+        
+      </li>
+  </ul>
+</nav>
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          
+
+<section id="archive" class="archive">
+  
+    
+      <div class="archive-title tag">
+        <h2 class="archive-name">标签： Development</h2>
+      </div>
+    
+  
+
+  
+    <div class="archive-post">
+      <span class="archive-post-time">
+        2018-04-10
+      </span>
+      <span class="archive-post-title">
+        <a href="/post/gitemoji/" class="archive-post-link">
+          git提交使用emoji
+        </a>
+      </span>
+    </div>
+  
+    <div class="archive-post">
+      <span class="archive-post-time">
+        2017-03-24
+      </span>
+      <span class="archive-post-title">
+        <a href="/post/weibologin/" class="archive-post-link">
+          新浪微博授权登录
+        </a>
+      </span>
+    </div>
+  
+    <div class="archive-post">
+      <span class="archive-post-time">
+        2017-03-06
+      </span>
+      <span class="archive-post-title">
+        <a href="/post/hellohugo/" class="archive-post-link">
+          使用hugo创建博客
+        </a>
+      </span>
+    </div>
+  
+</section>
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+
         </div>
       </div>
-    </div>
-    <div class="parallax">
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="pugongyingbo@163.com" rel="me" class="iconfont icon-email" 
+        title="email" target="_blank">
+      </a>
+      <a href="https://github.com/pugongyingbo" rel="me" class="iconfont icon-github" 
+        title="github" target="_blank">
+      </a>
+  <a href="http://www.pugongyingbo.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" 
+    title="rss" target="_blank">
+  </a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
     
-      <img src="http://www.pugongyingbo.com//images/default.png">
-    
-    </div>
-  </div>
-
-
-<div class="container">
-  <div class="section">
-
-
-<div class="row">
-
-  
-  <div class="col m4 s12">
-    <div class="card-panel">
-      <h4><a href="http://www.pugongyingbo.com/2018/04/10/git%E6%8F%90%E4%BA%A4%E4%BD%BF%E7%94%A8emoji/">git提交使用emoji</a></h4>
-      <p>
-      
-        
-          <a href="http://www.pugongyingbo.com//categories/development/">Development</a>
-        
-       
-      </p>
-      <p> git commit 使用emoji  看到GitHub上有在提交信息里使用emoji的，感觉很好玩所以就搜了一下，发现gitemoji开源库，然后打算以后使用表情包提交信息，更加直白的表明提交情况。 使用方式很简单   git commit -m &quot;:bug: 修复某bug&quot;    常用例子  emoji | emoji代码 | commit说明 :-:|:-:|:-: :art: (调色板) | : art : | 改进代码
-:fire:(火焰) | : fire : | 移除代码或文件
-:bug:(bug) | : bug : | 修复bug
-:ambulance:(急救车)| : ambulance :|重要补丁 :sparkles:(火花)| : sparkles :|引入新功能 :memo:(备忘录)| : memo :|编写文档 :tada:(庆祝)| : tada :|初次提交  参考  官方仓库 中文指南  </p>
-      <p>
-      10 Apr 2018
-      
-        
-          <a href="http://www.pugongyingbo.com//tags/development/">#Development</a>
-        
-       
-      </p>
-    </div>
-  </div>
-
-  
-  <div class="col m4 s12">
-    <div class="card-panel">
-      <h4><a href="http://www.pugongyingbo.com/2017/03/24/%E6%96%B0%E6%B5%AA%E5%BE%AE%E5%8D%9A%E6%8E%88%E6%9D%83%E7%99%BB%E5%BD%95/">新浪微博授权登录</a></h4>
-      <p>
-      
-        
-          <a href="http://www.pugongyingbo.com//categories/development/">Development</a>
-        
-       
-      </p>
-      <p>使用新浪微博授权登录  先登录新浪微博开发者平台，注册一个开发者账号或者登录自己的微博号
- 新浪微博开发者平台：http://open.weibo.com
- 在网站主页面点击微连接，移动应用，添加新应用。
- 创建完成后就生成一个APP Key。
- 去下载新浪微博SDK,选择对应版本。
- 把app_signatures.apk装入测试机或模拟器，点击运行填入你正在开发的包名，生成MD5标签
- 在新浪微博开发网站进入我的应用，应用信息，基本应用，编辑，把包名和MD5签名写入保存。
- 最后不要忘了，注册一下回调地址，授权回调页和取消或授权回调页都写: http://www.sina.com
- 把weiboSDKCore_3.1.2.jar包复制到AS中libs目录下，点击该jar包，右键，as a library ，把libs中的文件也放到libs下。
- 记得在AndroidMainfest.xml中添加权限
-  
-&lt;activity android:name = &quot;com.sina.weibo.sdk.component.WeiboSdkBrowser&quot; android:configChanges = &quot;keyboardHidden|orientation&quot; android:windowSoftInputMode = &quot;adjustResize&quot; android:exported = &quot;false&quot; &gt; &lt;/activity&gt;  
- 新建一个接口  
-public interface Constants { public static final String APP_KEY = &quot;2703292856&quot;; // 应用的APP_KEY public static final String REDIRECT_URL = &quot;http://www.</p>
-      <p>
-      24 Mar 2017
-      
-        
-          <a href="http://www.pugongyingbo.com//tags/development/">#Development</a>
-        
-       
-      </p>
-    </div>
-  </div>
-
-  
-  <div class="col m4 s12">
-    <div class="card-panel">
-      <h4><a href="http://www.pugongyingbo.com/2017/03/06/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E5%8D%9A%E5%AE%A2/">使用hugo创建博客</a></h4>
-      <p>
-      
-        
-          <a href="http://www.pugongyingbo.com//categories/development/">Development</a>
-        
-       
-      </p>
-      <p>Hello Hugo in windows  在网上找的教程都是其他系统的，没有Windows的，准备自己试一次，其实很简单
- Hugo官方主页：https://gohugo.io/
- 从GitHub下载匹配自己系统的版本
- 解压缩，然后例如放在C:/Hugo/bin下，把.exe名字改成hugo.exe
- 添加到系统变量中（我的是windows）
- 这个时候应该可以在你的cmd命令行里执行hugo了，如果出来一堆命令之类的说明安装成功
- 新建个文件夹Site,我们在这new site myblog，会新建一个文件夹叫myblog
- clone喜欢的模板
-  
-$ mkdir themes $ cd themes $ git clone https://github.com/spf13/hyde.git  
- 对配置文件config.toml进行修改  
-baseurl = &quot;http://example.com/&quot; languageCode = &quot;en-us&quot; title = &quot;My Blog&quot; theme = &quot;hyde&quot; [params] description = &quot;这里是个人博客&quot;  
- 这个时候可以新建你的文章了（在post下)  
-$ hugo new post/test.md</p>
-      <p>
-      6 Mar 2017
-      
-        
-          <a href="http://www.pugongyingbo.com//tags/development/">#Development</a>
-        
-       
-      </p>
-    </div>
-  </div>
-
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zzb</span>
+  </span>
 </div>
+    </footer>
 
-
-<div class="row">
-  <div class="col s3 m1">
-  
-    <a class="btn-floating btn-large disabled"><i class="mdi-navigation-arrow-back"></i></a>
-  
-  </div>
-  <div class="col s6 m10 center">&nbsp</div>
-  <div class="col s3 m1">
-  
-    <a class="btn-floating btn-large disabled"><i class="mdi-navigation-arrow-forward"></i></a>
-  
-  </div>
-</div>
-
-
-  </div>
-</div>
-
-  <footer class="page-footer">
-    <div class="footer-copyright">
-      <div class="container">
-      © 2017 Copyright Text
-      <div class="right">Design <a class="grey-text text-lighten-4" >pdevty</a></div>
-      </div>
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
     </div>
-  </footer>
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="http://www.pugongyingbo.com//js/materialize.min.js"></script>
-  <script src="http://www.pugongyingbo.com//js/init.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  </div>
   
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
 
-  </body>
+
+
+
+
+</body>
 </html>

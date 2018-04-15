@@ -1,317 +1,356 @@
 <!DOCTYPE html>
-<html lang="zh_CN">
+<html lang="zh-cn">
 <head>
-	<meta name="generator" content="Hugo 0.19" />
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>My Blog</title>
-  <link href="http://www.pugongyingbo.com//css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="http://www.pugongyingbo.com//css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  
-  
-  <link rel="stylesheet" href="http://www.pugongyingbo.com/css/monokai-sublime.css">
-  <script src="http://www.pugongyingbo.com/js/highlight.pack.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <style type="text/css">
-  
-    footer.page-footer{background-image: url(http://www.pugongyingbo.com//images/default.png);}
-  
-  </style>
+  <link rel="alternate" hreflang="zh-cn" href="http://www.pugongyingbo.com/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+
+<meta name="author" content="zzb" />
+  <meta name="description" content="In me the tiger sniffs the rose" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.38.2" />
+
+
+<link rel="canonical" href="http://www.pugongyingbo.com/" />
+<link href="http://www.pugongyingbo.com/index.xml" rel="alternate" type="application/rss+xml" title="My Blog" />
+  <link href="http://www.pugongyingbo.com/index.xml" rel="feed" type="application/rss+xml" title="My Blog" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+
+<meta property="og:title" content="My Blog" />
+<meta property="og:description" content="In me the tiger sniffs the rose" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://www.pugongyingbo.com/" />
+
+
+
+<meta property="og:updated_time" content="2018-04-10T22:35:32&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="My Blog">
+<meta itemprop="description" content="In me the tiger sniffs the rose">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="My Blog"/>
+<meta name="twitter:description" content="In me the tiger sniffs the rose"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
 </head>
 <body>
-  <ul id="slide-out" class="side-nav">
-    <li><a href="http://www.pugongyingbo.com/"><i class="mdi-action-home left"></i>Home<i class="mdi-hardware-keyboard-arrow-right right"></i></a></li>
-    <li><a href="http://www.pugongyingbo.com//categories"><i class="mdi-action-perm-media left"></i>Categories<i class="mdi-hardware-keyboard-arrow-right right"></i></a></li>
-    <li><a href="http://www.pugongyingbo.com//tags"><i class="mdi-action-loyalty left"></i>Tags<i class="mdi-hardware-keyboard-arrow-right right"></i></a></li>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">博客小站</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="https://gohugo.io">
+        <li class="mobile-menu-item">external-link</li>
+      </a>
   </ul>
-  <div id="index-banner" class="parallax-container">
-  <a data-activates="slide-out" class="btn-floating button-collapse" style="top: 5px; left: 5px;"><i class="mdi-navigation-menu"></i></a>
-    <div class="section no-pad-bot">
-      <div class="container">
+</nav>
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">博客小站</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
         
-        <h1 class="header center teal-text text-lighten-2">My Blog</h1>
-        <div class="row center">
-          <h5 class="header col s12 light">pugongyingbo@163.com</h5>
+        <a class="menu-item-link" href="/">Home</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/post/">Archives</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/tags/">Tags</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/categories/">Categories</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="https://gohugo.io" target="_blank">
+          external-link
+          <i class="iconfont icon-new-window"></i>
+        </a>
+        
+      </li>
+  </ul>
+</nav>
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          
+  <section id="posts" class="posts">
+    
+    
+    
+      <article class="post bg-white">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/gitemoji/">git提交使用emoji</a></h1>
+    
+    <div class="post-meta">
+      <span class="post-time"> 2018-04-10 </span>
+      <div class="post-category">
+          
+            <a href="/categories/development/"> Development </a>
+          
         </div>
-        <div class="row center">
-       
-        
-        
-          <a href="https://github.com/https://github.com/pugongyingbo"><img src="http://www.pugongyingbo.com//images/github2-dreamstale35.png"></a>
-        
-        
-        
-        
-        
-         
-          <a href="http://weibo.com/pugongyingbo"><img src="http://www.pugongyingbo.com//images/weibo.png"></a>
-        
-          <a href="http://www.pugongyingbo.com//index.html"><img src="http://www.pugongyingbo.com//images/feed-dreamstale27.png"></a>
+      <span class="more-meta"> 约 239 字 </span>
+      <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    
+    <div class="post-summary">
+      git commit 使用emoji 看到GitHub上有在提交信息里使用emoji的，感觉很好玩所以就搜了一下，发现gitemoji开源库，然后打算以后使用表
+    </div>
+    <div class="read-more">
+      <a href="/post/gitemoji/" class="read-more-link">阅读全文</a>
+    </div>
+    
+  </div>
+</article>
+
+    
+      <article class="post bg-white">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/map/">map的几种遍历</a></h1>
+    
+    <div class="post-meta">
+      <span class="post-time"> 2017-08-06 </span>
+      <div class="post-category">
+          
+            <a href="/categories/development/"> development </a>
+          
+        </div>
+      <span class="more-meta"> 约 612 字 </span>
+      <span class="more-meta"> 预计阅读 2 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    
+    <div class="post-summary">
+      近期用到了map遍历，也查找了部分资料，自己整理一下 使用场景是我要从数据库获取一个人的几种奖励类别，但是我要把每个人的类别拼接起来，在ser
+    </div>
+    <div class="read-more">
+      <a href="/post/map/" class="read-more-link">阅读全文</a>
+    </div>
+    
+  </div>
+</article>
+
+    
+      <article class="post bg-white">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/ssm/">SSM框架配置</a></h1>
+    
+    <div class="post-meta">
+      <span class="post-time"> 2017-05-15 </span>
+      <div class="post-category">
+          
+            <a href="/categories/development/"> development </a>
+          
+        </div>
+      <span class="more-meta"> 约 1195 字 </span>
+      <span class="more-meta"> 预计阅读 3 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    
+    <div class="post-summary">
+      最近学了SSM框架，在此整理一下配置过程 推荐使用maven配置依赖，在pom.xml中添加需要的依赖包 &lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt; &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt; &lt;groupId&gt;com.zzb&lt;/groupId&gt; &lt;artifactId&gt;myblog&lt;/artifactId&gt; &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;war&lt;/packaging&gt; &lt;name&gt;myblog&lt;/name&gt; &lt;url&gt;http://maven.apache.org&lt;/url&gt; &lt;properties&gt; &lt;springside.version&gt;4.2.2.GA&lt;/springside.version&gt; &lt;!-- spri
+    </div>
+    <div class="read-more">
+      <a href="/post/ssm/" class="read-more-link">阅读全文</a>
+    </div>
+    
+  </div>
+</article>
+
+    
+  </section>
+
+  
+  
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+  <nav class="pagination">
+    
+    <li  class="active" >
+      <a href="/">1</a>
+    </li>
+    
+    <li >
+      <a href="/page/2/">2</a>
+    </li>
+    
+    <li >
+      <a href="/page/3/">3</a>
+    </li>
+    
+  </nav>
+
+  
+  
+
+
+
+
         </div>
       </div>
-    </div>
-    <div class="parallax">
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="pugongyingbo@163.com" rel="me" class="iconfont icon-email" 
+        title="email" target="_blank">
+      </a>
+      <a href="https://github.com/pugongyingbo" rel="me" class="iconfont icon-github" 
+        title="github" target="_blank">
+      </a>
+  <a href="http://www.pugongyingbo.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" 
+    title="rss" target="_blank">
+  </a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
     
-      <img src="http://www.pugongyingbo.com//images/default.png">
-    
-    </div>
-  </div>
-
-
-<div class="container">
-  <div class="section">
-
-
-<div class="row">
-
-  
-  <div class="col m4 s12">
-    <div class="card-panel">
-      <h4><a href="http://www.pugongyingbo.com/2018/04/10/git%E6%8F%90%E4%BA%A4%E4%BD%BF%E7%94%A8emoji/">git提交使用emoji</a></h4>
-      <p>
-      
-        
-          <a href="http://www.pugongyingbo.com//categories/development/">Development</a>
-        
-       
-      </p>
-      <p> git commit 使用emoji  看到GitHub上有在提交信息里使用emoji的，感觉很好玩所以就搜了一下，发现gitemoji开源库，然后打算以后使用表情包提交信息，更加直白的表明提交情况。 使用方式很简单   git commit -m &quot;:bug: 修复某bug&quot;    常用例子  emoji | emoji代码 | commit说明 :-:|:-:|:-: :art: (调色板) | : art : | 改进代码
-:fire:(火焰) | : fire : | 移除代码或文件
-:bug:(bug) | : bug : | 修复bug
-:ambulance:(急救车)| : ambulance :|重要补丁 :sparkles:(火花)| : sparkles :|引入新功能 :memo:(备忘录)| : memo :|编写文档 :tada:(庆祝)| : tada :|初次提交  参考  官方仓库 中文指南  </p>
-      <p>
-      10 Apr 2018
-      
-        
-          <a href="http://www.pugongyingbo.com//tags/development/">#Development</a>
-        
-       
-      </p>
-    </div>
-  </div>
-
-  
-  <div class="col m4 s12">
-    <div class="card-panel">
-      <h4><a href="http://www.pugongyingbo.com/2017/08/06/map%E7%9A%84%E5%87%A0%E7%A7%8D%E9%81%8D%E5%8E%86/">map的几种遍历</a></h4>
-      <p>
-      
-        
-          <a href="http://www.pugongyingbo.com//categories/development/">development</a>
-        
-       
-      </p>
-      <p>近期用到了map遍历，也查找了部分资料，自己整理一下 使用场景是我要从数据库获取一个人的几种奖励类别，但是我要把每个人的类别拼接起来，在service里使用map遍历拼接在一起，在回传到页面。  1、通过Map.entrySet遍历key和value 2、通过Map.entrySet使用iterator遍历key和value 3、通过Map.keySet遍历key和value 4、通过Map.values()遍历所有的value，但不能遍历key   
-import java.util.HashMap; import java.util.Iterator; import java.util.Map; /** * Created by zzb on 2017/8/6. */ public class MapDemo { public static void main(String[] args){ Map&lt;String,Integer&gt; map = new HashMap&lt;String,Integer&gt;(); map.put(&quot;a&quot;,1); map.put(&quot;b&quot;,2); map.put(&quot;c&quot;,3); //最常用的遍历方式，键值对都需要时使用 for (Map.Entry&lt;String,Integer&gt; entry:map.entrySet()) { System.out.println(&quot;Key = &quot;+entry.getKey()+&quot;,value = &quot;+entry.getValue()); } //只获取key或者value for (String key:map.keySet()) { System.out.println(&quot;key = &quot; +key); } for (Integer value:map.values()) { System.out.println(&quot;value = &quot; +value); } //使用Iterator遍历 Iterator&lt;Map.</p>
-      <p>
-      6 Aug 2017
-       
-      </p>
-    </div>
-  </div>
-
-  
-  <div class="col m4 s12">
-    <div class="card-panel">
-      <h4><a href="http://www.pugongyingbo.com/2017/05/15/ssm%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE/">SSM框架配置</a></h4>
-      <p>
-      
-        
-          <a href="http://www.pugongyingbo.com//categories/development/">development</a>
-        
-       
-      </p>
-      <p>最近学了SSM框架，在此整理一下配置过程 推荐使用maven配置依赖，在pom.xml中添加需要的依赖包  
-&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt; &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt; &lt;groupId&gt;com.zzb&lt;/groupId&gt; &lt;artifactId&gt;myblog&lt;/artifactId&gt; &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt; &lt;packaging&gt;war&lt;/packaging&gt; &lt;name&gt;myblog&lt;/name&gt; &lt;url&gt;http://maven.apache.org&lt;/url&gt; &lt;properties&gt; &lt;springside.version&gt;4.2.2.GA&lt;/springside.version&gt; &lt;!-- spring版本号 --&gt; &lt;spring.version&gt;4.0.5.RELEASE&lt;/spring.version&gt; &lt;!-- mybatis版本号 --&gt; &lt;mybatis.version&gt;3.2.5&lt;/mybatis.version&gt; &lt;mybatis-spring.version&gt;1.2.2&lt;/mybatis-spring.version&gt; &lt;logback.version&gt;1.1.1&lt;/logback.version&gt; &lt;tomcat-jdbc.version&gt;7.0.52&lt;/tomcat-jdbc.version&gt; &lt;jackson.version&gt;2.3.1&lt;/jackson.version&gt; &lt;!-- Plugin的属性定义 --&gt; &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt; &lt;java.version&gt;1.8&lt;/java.version&gt; &lt;jdbc.driver.groupId&gt;mysql&lt;/jdbc.driver.groupId&gt; &lt;jdbc.driver.artifactId&gt;mysql-connector-java&lt;/jdbc.driver.artifactId&gt; &lt;jdbc.driver.version&gt;5.1.22&lt;/jdbc.driver.version&gt; &lt;/properties&gt; &lt;dependencies&gt; &lt;!-- JSON begin --&gt; &lt;dependency&gt; &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt; &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt; &lt;version&gt;${jackson.version}&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;com.fasterxml.jackson.module&lt;/groupId&gt; &lt;artifactId&gt;jackson-module-jaxb-annotations&lt;/artifactId&gt; &lt;version&gt;${jackson.version}&lt;/version&gt; &lt;/dependency&gt; &lt;!-- JSON end --&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework&lt;/groupId&gt; &lt;artifactId&gt;spring-test&lt;/artifactId&gt; &lt;version&gt;${spring.version}&lt;/version&gt; &lt;scope&gt;test&lt;/scope&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt; &lt;artifactId&gt;logback-classic&lt;/artifactId&gt; &lt;version&gt;${logback.version}&lt;/version&gt; &lt;scope&gt;runtime&lt;/scope&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.</p>
-      <p>
-      15 May 2017
-       
-      </p>
-    </div>
-  </div>
-
-  
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zzb</span>
+  </span>
 </div>
-<div class="row">
-  
-  <div class="col m4 s12">
-    <div class="card-panel">
-      <h4><a href="http://www.pugongyingbo.com/2017/05/15/ssh%E4%B8%89%E5%A4%A7%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%95%B4%E5%90%88/">SSH三大框架配置及整合</a></h4>
-      <p>
-      
-        
-          <a href="http://www.pugongyingbo.com//categories/development/">development</a>
-        
-       
-      </p>
-      <p>学了三大框架有一段时间，虽然现在用的很少了，但是面试还是会问到，再次整理一下 这个是做一个模仿电力公司的项目，包括前后台 首先是spring配置，在applicationContext.xml中  
-&lt;!-- 启用组件扫描 --&gt; &lt;context:component-scan base-package=&quot;com.py&quot; /&gt; &lt;!-- 连接数据源--&gt; &lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot;&gt; &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;&gt; &lt;/property&gt; &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/sshtest&quot;&gt; &lt;/property&gt; &lt;property name=&quot;username&quot; value=&quot;root&quot;&gt;&lt;/property&gt; &lt;property name=&quot;password&quot; value=&quot;root&quot;&gt;&lt;/property&gt; &lt;/bean&gt; &lt;!-- 会话工厂 整合hibernate--&gt; &lt;bean id=&quot;sessionFactory&quot; class=&quot;org.springframework.orm.hibernate3.LocalSessionFactoryBean&quot;&gt; &lt;property name=&quot;dataSource&quot;&gt; &lt;ref bean=&quot;dataSource&quot;&gt;&lt;/ref&gt; &lt;/property&gt; &lt;!-- 注入Hibernate相关的属性 --&gt; &lt;property name=&quot;hibernateProperties&quot;&gt; &lt;props&gt; &lt;!--&lt;prop key=&quot;hibernate.cache.provider_class&quot;&gt;org.hibernate.cache.EhCacheProvider&lt;/prop&gt; &lt;prop key=&quot;hibernate.cache.use_second_level_cache&quot;&gt;true&lt;/prop&gt; &lt;prop key=&quot;hibernate.cache.use_query_cache&quot;&gt;true&lt;/prop&gt; --&gt; &lt;prop key=&quot;hibernate.current_session_context_class&quot;&gt;thread&lt;/prop&gt; &lt;prop key=&quot;hibernate.dialect&quot;&gt; org.hibernate.dialect.MySQLDialect &lt;/prop&gt; &lt;prop key=&quot;hibernate.show_sql&quot;&gt;true&lt;/prop&gt; &lt;prop key=&quot;hibernate.format_sql&quot;&gt;true&lt;/prop&gt; &lt;/props&gt; &lt;/property&gt; &lt;!-- 注入Hibernate的映射文件 --&gt; &lt;property name=&quot;mappingResources&quot;&gt; &lt;list&gt; &lt;value&gt;com/py/beans/Users.</p>
-      <p>
-      15 May 2017
-       
-      </p>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
     </div>
   </div>
-
   
-  <div class="col m4 s12">
-    <div class="card-panel">
-      <h4><a href="http://www.pugongyingbo.com/2017/05/08/springmvc%E4%B8%AD%E7%9A%84%E7%AE%80%E5%8D%95%E5%88%86%E9%A1%B5%E5%AE%9E%E7%8E%B0/">SpringMVC中的简单分页实现</a></h4>
-      <p>
-      
-        
-          <a href="http://www.pugongyingbo.com//categories/development/">development</a>
-        
-       
-      </p>
-      <p>分页每各项目都在使用，却不是很清楚，以至于每次写都要翻看以前的资料。 这次在学习SpringMVC的时候又用到了，就在这整理一遍。我的demo只实现了一个首页。
- 首先建立需要用的实体类Article,然后是PageParam,分别实现当前页、总页、总记录数、页面大小、和需要分页的数据（比如我这用List）的set、get方法。
- 代码如下:
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
   
-private int currPage ; // 当前页 private int totalPage ; // 总页数 private int rowCount ; // 总记录数 public static int pageSize = 6; // 页大小 private List&lt;Article&gt; data ; // 数据  
- 需要注意的是setRowCount方法需要进行如下处理：  
-public void setRowCount(int rowCount) { int totalPage = rowCount / pageSize; //总页数/页大小 if (rowCount % pageSize &gt; 0) { totalPage += 1; //如果取余大于0，则总页数加一 } setTotalPage(totalPage); this.</p>
-      <p>
-      8 May 2017
-       
-      </p>
-    </div>
-  </div>
-
-  
-  <div class="col m4 s12">
-    <div class="card-panel">
-      <h4><a href="http://www.pugongyingbo.com/2017/04/10/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B4%E6%95%B0%E6%95%B0%E7%BB%84%E5%B0%86%E4%BB%96%E4%BB%AC%E6%8B%BC%E6%8E%A5%E6%88%90%E4%B8%80%E4%B8%AA%E6%95%B0%E8%BE%93%E5%87%BA%E6%8B%BC%E6%8E%A5%E5%87%BA%E6%89%80%E6%9C%89%E6%95%B0%E5%AD%97%E4%B8%AD%E6%9C%80%E5%B0%8F%E7%9A%84%E4%B8%80%E4%B8%AA/">输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个</a></h4>
-      <p>
-      
-        
-          <a href="http://www.pugongyingbo.com//categories/code/">code</a>
-        
-       
-      </p>
-      <p>输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个  记录一道笔试题  
-import java.util.*; public class JoinNumber { /** * 编程题：输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个 */ public static void main(String[] args){ int[] arr = {20,321,21,10,8}; StringBuffer sb = new StringBuffer(); for(int i=0;i&lt;arr.length;i++){ if(i == (arr.length-1)){ sb.append(arr[i]); //最后一个不加空格 }else{ sb.append(arr[i] + &quot; &quot;); //拼接时加上空格，一边正则split的使用 } } System.out.println(sb); String[] str = sb.toString().split(&quot; &quot;); //利用正则split根据空格，将字符串转成字符串数组 Arrays.sort(str); //利用Arrays.sort()进行数组的排序，升序 StringBuffer sb1 = new StringBuffer(); //排序之后再拼接成字符串，即可得到结果 for(int i= 0;i&lt;str.length;i++){ //降序的(int i=str.length-1;i&gt;=0;i--;) sb1.append(str[i]); } System.out.println(sb1); } }</p>
-      <p>
-      10 Apr 2017
-      
-        
-          <a href="http://www.pugongyingbo.com//tags/code/">#code</a>
-        
-       
-      </p>
-    </div>
-  </div>
-
-  
-</div>
-<div class="row">
-  
-  <div class="col m4 s12">
-    <div class="card-panel">
-      <h4><a href="http://www.pugongyingbo.com/2017/03/24/%E6%96%B0%E6%B5%AA%E5%BE%AE%E5%8D%9A%E6%8E%88%E6%9D%83%E7%99%BB%E5%BD%95/">新浪微博授权登录</a></h4>
-      <p>
-      
-        
-          <a href="http://www.pugongyingbo.com//categories/development/">Development</a>
-        
-       
-      </p>
-      <p>使用新浪微博授权登录  先登录新浪微博开发者平台，注册一个开发者账号或者登录自己的微博号
- 新浪微博开发者平台：http://open.weibo.com
- 在网站主页面点击微连接，移动应用，添加新应用。
- 创建完成后就生成一个APP Key。
- 去下载新浪微博SDK,选择对应版本。
- 把app_signatures.apk装入测试机或模拟器，点击运行填入你正在开发的包名，生成MD5标签
- 在新浪微博开发网站进入我的应用，应用信息，基本应用，编辑，把包名和MD5签名写入保存。
- 最后不要忘了，注册一下回调地址，授权回调页和取消或授权回调页都写: http://www.sina.com
- 把weiboSDKCore_3.1.2.jar包复制到AS中libs目录下，点击该jar包，右键，as a library ，把libs中的文件也放到libs下。
- 记得在AndroidMainfest.xml中添加权限
-  
-&lt;activity android:name = &quot;com.sina.weibo.sdk.component.WeiboSdkBrowser&quot; android:configChanges = &quot;keyboardHidden|orientation&quot; android:windowSoftInputMode = &quot;adjustResize&quot; android:exported = &quot;false&quot; &gt; &lt;/activity&gt;  
- 新建一个接口  
-public interface Constants { public static final String APP_KEY = &quot;2703292856&quot;; // 应用的APP_KEY public static final String REDIRECT_URL = &quot;http://www.</p>
-      <p>
-      24 Mar 2017
-      
-        
-          <a href="http://www.pugongyingbo.com//tags/development/">#Development</a>
-        
-       
-      </p>
-    </div>
-  </div>
-
-  
-  <div class="col m4 s12">
-    <div class="card-panel">
-      <h4><a href="http://www.pugongyingbo.com/2017/03/06/%E4%BD%BF%E7%94%A8hugo%E5%88%9B%E5%BB%BA%E5%8D%9A%E5%AE%A2/">使用hugo创建博客</a></h4>
-      <p>
-      
-        
-          <a href="http://www.pugongyingbo.com//categories/development/">Development</a>
-        
-       
-      </p>
-      <p>Hello Hugo in windows  在网上找的教程都是其他系统的，没有Windows的，准备自己试一次，其实很简单
- Hugo官方主页：https://gohugo.io/
- 从GitHub下载匹配自己系统的版本
- 解压缩，然后例如放在C:/Hugo/bin下，把.exe名字改成hugo.exe
- 添加到系统变量中（我的是windows）
- 这个时候应该可以在你的cmd命令行里执行hugo了，如果出来一堆命令之类的说明安装成功
- 新建个文件夹Site,我们在这new site myblog，会新建一个文件夹叫myblog
- clone喜欢的模板
-  
-$ mkdir themes $ cd themes $ git clone https://github.com/spf13/hyde.git  
- 对配置文件config.toml进行修改  
-baseurl = &quot;http://example.com/&quot; languageCode = &quot;en-us&quot; title = &quot;My Blog&quot; theme = &quot;hyde&quot; [params] description = &quot;这里是个人博客&quot;  
- 这个时候可以新建你的文章了（在post下)  
-$ hugo new post/test.md</p>
-      <p>
-      6 Mar 2017
-      
-        
-          <a href="http://www.pugongyingbo.com//tags/development/">#Development</a>
-        
-       
-      </p>
-    </div>
-  </div>
-
-</div>
-
-  
-<div class="row">
-  <div class="col s3 m1">
-  
-    <a class="btn-floating btn-large disabled"><i class="mdi-navigation-arrow-back"></i></a>
-  
-  </div>
-  <div class="col s6 m10 center">&nbsp</div>
-  <div class="col s3 m1">
-  
-    <a class="btn-floating btn-large disabled"><i class="mdi-navigation-arrow-forward"></i></a>
-  
-  </div>
-</div>
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
 
 
-  </div>
-</div>
 
-  <footer class="page-footer">
-    <div class="footer-copyright">
-      <div class="container">
-      © 2017 Copyright Text
-      <div class="right">Design <a class="grey-text text-lighten-4" >pdevty</a></div>
-      </div>
-    </div>
-  </footer>
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="http://www.pugongyingbo.com//js/materialize.min.js"></script>
-  <script src="http://www.pugongyingbo.com//js/init.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  
 
-  </body>
+
+</body>
 </html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>SpringMVC中的简单分页实现 - My Blog</title>
+  <link rel="alternate" hreflang="zh-cn" href="http://www.pugongyingbo.com/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+
+<meta name="author" content="zzb" />
+  <meta name="description" content="分页每各项目都在使用，却不是很清楚，以至于每次写都要翻看以前的资料。 这次在学习SpringMVC的时候又用到了，就在这整理一遍。我的demo" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.38.2" />
+
+
+<link rel="canonical" href="http://www.pugongyingbo.com/post/pageparam/" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+
+<meta property="og:title" content="SpringMVC中的简单分页实现" />
+<meta property="og:description" content="分页每各项目都在使用，却不是很清楚，以至于每次写都要翻看以前的资料。 这次在学习SpringMVC的时候又用到了，就在这整理一遍。我的demo" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.pugongyingbo.com/post/pageparam/" />
+
+
+
+<meta property="article:published_time" content="2017-05-08T10:34:38&#43;08:00"/>
+
+<meta property="article:modified_time" content="2017-05-08T10:34:38&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="SpringMVC中的简单分页实现">
+<meta itemprop="description" content="分页每各项目都在使用，却不是很清楚，以至于每次写都要翻看以前的资料。 这次在学习SpringMVC的时候又用到了，就在这整理一遍。我的demo">
+
+
+<meta itemprop="datePublished" content="2017-05-08T10:34:38&#43;08:00" />
+<meta itemprop="dateModified" content="2017-05-08T10:34:38&#43;08:00" />
+<meta itemprop="wordCount" content="623">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SpringMVC中的简单分页实现"/>
+<meta name="twitter:description" content="分页每各项目都在使用，却不是很清楚，以至于每次写都要翻看以前的资料。 这次在学习SpringMVC的时候又用到了，就在这整理一遍。我的demo"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">博客小站</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="https://gohugo.io">
+        <li class="mobile-menu-item">external-link</li>
+      </a>
+  </ul>
+</nav>
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">博客小站</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        
+        <a class="menu-item-link" href="/">Home</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/post/">Archives</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/tags/">Tags</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/categories/">Categories</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="https://gohugo.io" target="_blank">
+          external-link
+          <i class="iconfont icon-new-window"></i>
+        </a>
+        
+      </li>
+  </ul>
+</nav>
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">SpringMVC中的简单分页实现</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2017-05-08 </span>
+        <div class="post-category">
+            
+              <a href="/categories/development/"> development </a>
+            
+          </div>
+        <span class="more-meta"> 约 623 字 </span>
+        <span class="more-meta"> 预计阅读 2 分钟 </span>
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<ul>
+<li>分页每各项目都在使用，却不是很清楚，以至于每次写都要翻看以前的资料。</li>
+
+<li><p>这次在学习SpringMVC的时候又用到了，就在这整理一遍。我的demo只实现了一个首页。</p></li>
+
+<li><p>首先建立需要用的实体类Article,然后是PageParam,分别实现当前页、总页、总记录数、页面大小、和需要分页的数据（比如我这用List<Article>）的set、get方法。</p></li>
+
+<li><p>代码如下:</p></li>
+</ul>
+
+<p><code></p>
+
+<pre><code>private int currPage ; // 当前页
+
+private int totalPage ; // 总页数
+
+private int rowCount ; // 总记录数
+
+public static int pageSize = 6; // 页大小
+
+private List&lt;Article&gt; data ; // 数据
+</code></pre>
+
+<p><code/></p>
+
+<ul>
+<li>需要注意的是setRowCount方法需要进行如下处理：</li>
+</ul>
+
+<p><code></p>
+
+<pre><code>public void setRowCount(int rowCount) {
+    int totalPage = rowCount / pageSize; //总页数/页大小
+    if (rowCount % pageSize &gt; 0) {
+        totalPage += 1;  //如果取余大于0，则总页数加一
+    }
+    setTotalPage(totalPage);
+    this.rowCount = rowCount;
+    }
+</code></pre>
+
+<p><code/></p>
+
+<ul>
+<li>接下来在IndexController中设置当前页为1，处理从页面传来的页面参数转为int型，</li>
+</ul>
+
+<p><code></p>
+
+<pre><code>@Controller
+public class IndexController {
+
+@Resource
+ArticleService aService;
+
+@RequestMapping(value = &quot;index&quot;)
+public String index(HttpServletRequest request){
+    String currPageStr = request.getParameter(&quot;page&quot;);
+    int currPage =1;
+    try {
+        currPage = Integer.parseInt(currPageStr);
+    } catch (NumberFormatException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+    int rowCount = aService.getRowCount();
+    PageParam pageParam = new PageParam();
+    pageParam.setRowCount(rowCount);
+    if(pageParam.getTotalPage()&lt;currPage){
+        currPage = pageParam.getTotalPage();
+    }
+    pageParam.setCurrPage(currPage);
+    pageParam = aService.getListByPage(pageParam);
+    request.setAttribute(&quot;pageParam&quot;, pageParam);
+    return &quot;index&quot;;
+    }
+}
+</code></pre>
+
+<p></code></p>
+
+<ul>
+<li>在Service中设置处理方法</li>
+</ul>
+
+<p><code></p>
+
+<pre><code>@Service
+public class ArticleService {
+
+@Resource
+ArticleDao articleDao;
+public int getRowCount() {
+    // TODO Auto-generated method stub
+    return articleDao.getRowCount();
+}
+public PageParam getListByPage(PageParam pageParam) {
+    // TODO Auto-generated method stub
+    int currPage = pageParam.getCurrPage();
+    int offset = (currPage -1) * PageParam.pageSize;
+    int size = pageParam.pageSize;
+    Map&lt;String, Object&gt; param = new HashMap&lt;String,Object&gt;();
+    param.put(&quot;offset&quot;, offset);
+    param.put(&quot;size&quot;, size);
+    List&lt;Article&gt; articles = articleDao.selectByParams(param);
+    pageParam.setData(articles);
+    return pageParam;
+    }
+}
+</code></pre>
+
+<p></code></p>
+
+<ul>
+<li>在ArticleDao中设置接口</li>
+</ul>
+
+<p><code></p>
+
+<pre><code>@Repository
+public interface ArticleDao {
+int getRowCount();
+List&lt;Article&gt; selectByParams(Map&lt;String, Object&gt; param);
+}
+</code></pre>
+
+<p></code></p>
+
+<ul>
+<li>在ArticleMapper中设置sql语句</li>
+</ul>
+
+<p><code></p>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE mapper PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot; &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+&lt;mapper namespace = &quot;com.zzb.myblog.dao.ArticleDao&quot;&gt;
+&lt;select id=&quot;getRowCount&quot; resultType=&quot;int&quot;&gt;
+    select count(*) from article
+&lt;/select&gt;
+&lt;select id=&quot;selectByParams&quot; resultType = &quot;com.zzb.myblog.entity.Article&quot; parameterType=&quot;map&quot;&gt;
+    select * from article
+    order by id asc
+    limit ${offset}, ${size}
+&lt;/select&gt;
+&lt;/mapper&gt;
+</code></pre>
+
+<p></code></p>
+
+<ul>
+<li>jsp页面的设置</li>
+</ul>
+
+<p><code></p>
+
+<pre><code>&lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;%
+        PageParam pageParam = (PageParam)request.getAttribute(&quot;pageParam&quot;);
+        int currPage = pageParam.getCurrPage();
+        int totalPage = pageParam.getTotalPage();
+        for(int i = 1; i &lt;= totalPage; i ++){
+            if(i == currPage){
+            %&gt;&lt;span class=&quot;current&quot;&gt;&lt;%=currPage %&gt;&lt;/span&gt;&lt;%
+            }else{
+            %&gt;&lt;a href=&quot;index.html?page=&lt;%=i %&gt;&quot;&gt;&lt;%=i %&gt;&lt;/a&gt;&lt;%
+            }
+            }
+         %&gt;&lt;/a&gt;&lt;/li&gt;
+</code></pre>
+
+<p></code></p>
+
+<h2 id="整个demo在我的github">整个demo在我的GitHub：</h2>
+
+<ul>
+<li><a href="https://github.com/pugongyingbo/myblog-ssm">https://github.com/pugongyingbo/myblog-ssm</a></li>
+</ul>
+
+    </div>
+
+    
+    
+
+    
+    
+
+    <footer class="post-footer">
+      
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/ssh/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">SSH三大框架配置及整合</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/post/joinnumber/">
+            <span class="next-text nav-default">输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+    
+
+  
+
+  
+
+  <div id="comments-gitment"></div>
+  <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
+    <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
+  <script type="text/javascript">
+  const gitment = new Gitment({
+    id: 'PageParam.md',
+    title: 'SpringMVC中的简单分页实现',
+    link: decodeURI(location.href),
+    desc: '分页每各项目都在使用，却不是很清楚，以至于每次写都要翻看以前的资料。 这次在学习SpringMVC的时候又用到了，就在这整理一遍。我的demo',
+    owner: 'pugongyingbo@gmail.com',
+    repo: 'https:\/\/github.com\/pugongyingbo\/pugongyingbo.com',
+    oauth: {
+      client_id: '75c6cdb87916846429c6',
+      client_secret: '1d357d8fef00e2e061cde20737e215d6c551db86'
+    }
+  })
+  gitment.render('comments-gitment')
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="pugongyingbo@163.com" rel="me" class="iconfont icon-email" 
+        title="email" target="_blank">
+      </a>
+      <a href="https://github.com/pugongyingbo" rel="me" class="iconfont icon-github" 
+        title="github" target="_blank">
+      </a>
+  <a href="http://www.pugongyingbo.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" 
+    title="rss" target="_blank">
+  </a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zzb</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+</body>
+</html>

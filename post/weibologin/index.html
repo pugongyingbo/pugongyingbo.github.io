@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>新浪微博授权登录 - My Blog</title>
+  <link rel="alternate" hreflang="zh-cn" href="http://www.pugongyingbo.com/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+
+<meta name="author" content="zzb" />
+  <meta name="description" content="使用新浪微博授权登录 先登录新浪微博开发者平台，注册一个开发者账号或者登录自己的微博号 新浪微博开发者平台：http://open.weibo." />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.38.2" />
+
+
+<link rel="canonical" href="http://www.pugongyingbo.com/post/weibologin/" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+
+<meta property="og:title" content="新浪微博授权登录" />
+<meta property="og:description" content="使用新浪微博授权登录 先登录新浪微博开发者平台，注册一个开发者账号或者登录自己的微博号 新浪微博开发者平台：http://open.weibo." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.pugongyingbo.com/post/weibologin/" />
+
+
+
+<meta property="article:published_time" content="2017-03-24T19:53:01&#43;08:00"/>
+
+<meta property="article:modified_time" content="2017-03-24T19:53:01&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="新浪微博授权登录">
+<meta itemprop="description" content="使用新浪微博授权登录 先登录新浪微博开发者平台，注册一个开发者账号或者登录自己的微博号 新浪微博开发者平台：http://open.weibo.">
+
+
+<meta itemprop="datePublished" content="2017-03-24T19:53:01&#43;08:00" />
+<meta itemprop="dateModified" content="2017-03-24T19:53:01&#43;08:00" />
+<meta itemprop="wordCount" content="1003">
+
+
+
+<meta itemprop="keywords" content="Development," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="新浪微博授权登录"/>
+<meta name="twitter:description" content="使用新浪微博授权登录 先登录新浪微博开发者平台，注册一个开发者账号或者登录自己的微博号 新浪微博开发者平台：http://open.weibo."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">博客小站</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="https://gohugo.io">
+        <li class="mobile-menu-item">external-link</li>
+      </a>
+  </ul>
+</nav>
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">博客小站</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        
+        <a class="menu-item-link" href="/">Home</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/post/">Archives</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/tags/">Tags</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/categories/">Categories</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="https://gohugo.io" target="_blank">
+          external-link
+          <i class="iconfont icon-new-window"></i>
+        </a>
+        
+      </li>
+  </ul>
+</nav>
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">新浪微博授权登录</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2017-03-24 </span>
+        <div class="post-category">
+            
+              <a href="/categories/development/"> Development </a>
+            
+          </div>
+        <span class="more-meta"> 约 1003 字 </span>
+        <span class="more-meta"> 预计阅读 3 分钟 </span>
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h2 id="使用新浪微博授权登录">使用新浪微博授权登录</h2>
+
+<ul>
+<li><p>先登录新浪微博开发者平台，注册一个开发者账号或者登录自己的微博号</p></li>
+
+<li><p>新浪微博开发者平台：<a href="http://weibo.com">http://open.weibo.com</a></p></li>
+
+<li><p>在网站主页面点击微连接，移动应用，添加新应用。</p></li>
+
+<li><p>创建完成后就生成一个APP Key。</p></li>
+
+<li><p>去下载新浪微博SDK,选择对应版本。</p></li>
+
+<li><p>把app_signatures.apk装入测试机或模拟器，点击运行填入你正在开发的包名，生成MD5标签</p></li>
+
+<li><p>在新浪微博开发网站进入我的应用，应用信息，基本应用，编辑，把包名和MD5签名写入保存。</p></li>
+
+<li><p>最后不要忘了，注册一下回调地址，授权回调页和取消或授权回调页都写: <a href="http://www.sina.com">http://www.sina.com</a></p></li>
+
+<li><p>把weiboSDKCore_3.1.2.jar包复制到AS中libs目录下，点击该jar包，右键，as a library ，把libs中的文件也放到libs下。</p></li>
+
+<li><p>记得在AndroidMainfest.xml中添加权限</p></li>
+</ul>
+
+<p><code></p>
+
+<pre><code>&lt;activity
+android:name = &quot;com.sina.weibo.sdk.component.WeiboSdkBrowser&quot;
+android:configChanges = &quot;keyboardHidden|orientation&quot;
+android:windowSoftInputMode = &quot;adjustResize&quot;
+android:exported = &quot;false&quot; &gt;
+&lt;/activity&gt;
+</code></pre>
+
+<p><code/></p>
+
+<ul>
+<li>新建一个接口</li>
+</ul>
+
+<p><code></p>
+
+<pre><code>public interface Constants {
+public static final String APP_KEY      = &quot;2703292856&quot;;          // 应用的APP_KEY
+public static final String REDIRECT_URL = &quot;http://www.sina.com&quot;;// 应用的回调页根据注册的回调页填写
+public static final String SCOPE =                          // 应用申请的高级权限
+        &quot;email,direct_messages_read,direct_messages_write,&quot;
+                + &quot;friendships_groups_read,friendships_groups_write,statuses_to_me_read,&quot;
+                + &quot;follow_app_official_microblog,&quot; + &quot;invitation_write&quot;;
+}
+</code></pre>
+
+<p><code/></p>
+
+<ul>
+<li>新建一个activity</li>
+</ul>
+
+<p><code></p>
+
+<pre><code>public class MainActivity extends Activity {
+private AuthInfo authInfo;
+private Oauth2AccessToken accessToken;
+private SsoHandler ssoHandler;
+private Button button;//登录按钮
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_wbauth);
+    button= (Button) findViewById(R.id.btn);
+  authInfo=new AuthInfo(this, Constants.APP_KEY,Constants.REDIRECT_URL,Constants.SCOPE);
+    ssoHandler=new SsoHandler(this,authInfo);
+//按钮点击事件
+    button.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            ssoHandler.authorize(new AuthListener());
+        }
+    });
+}
+/**
+ * 当 SSO 授权 Activity 退出时，该函数被调用。
+ * @see {@link Activity#onActivityResult}
+ */
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    // SSO 授权回调
+    // 重要：发起 SSO 登陆的 Activity 必须重写 onActivityResults
+    if ( ssoHandler!= null) {
+        ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+    }
+}
+/**
+ * 微博认证授权回调类。
+ * 1. SSO 授权时，需要在 {@link #onActivityResult} 中调用 {@link SsoHandler#authorizeCallBack} 后，
+ *    该回调才会被执行。
+ * 2. 非 SSO 授权时，当授权结束后，该回调就会被执行。
+ * 当授权成功后，请保存该 access_token、expires_in、uid 等信息到 SharedPreferences 中。
+ */
+class AuthListener implements WeiboAuthListener {
+    @Override
+    public void onComplete(Bundle values) {
+        // 从 Bundle 中解析 Token
+        accessToken = Oauth2AccessToken.parseAccessToken(values);
+        //从这里获取用户输入的 电话号码信息
+        String  phoneNum =  accessToken.getPhoneNum();
+        if (accessToken.isSessionValid()) {
+    // 可以获取各种信息
+            Toast.makeText(WBAuthActivity.this,&quot;授权成功&quot;, Toast.LENGTH_SHORT).show();
+        } else {
+            // 以下几种情况，您会收到 Code：
+            // 1. 当您未在平台上注册的应用程序的包名与签名时；
+            // 2. 当您注册的应用程序包名与签名不正确时；
+            // 3. 当您在平台上注册的包名和签名与您当前测试的应用的包名和签名不匹配时。
+            String code = values.getString(&quot;code&quot;);
+            Toast.makeText(WBAuthActivity.this, &quot;shibai&quot;, Toast.LENGTH_LONG).show();
+        }
+    }
+    @Override
+    public void onCancel() {
+        Toast.makeText(WBAuthActivity.this,&quot;取消授权&quot;, Toast.LENGTH_LONG).show();
+    }
+    @Override
+    public void onWeiboException(WeiboException e) {
+      Toast.makeText(WBAuthActivity.this,&quot;exception:&quot; +e.getMessage(),Toast.LENGTH_LONG).show();
+    }
+}
+}
+</code></pre>
+
+<p><code/></p>
+
+<h2 id="我的github">我的GitHub：</h2>
+
+<ul>
+<li><a href="https://github.com/pugongyingbo">https://github.com/pugongyingbo</a></li>
+</ul>
+
+    </div>
+
+    
+    
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/development/">Development</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/joinnumber/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">输入一个正整数数组，将他们拼接成一个数，输出拼接出所有数字中最小的一个</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/post/hellohugo/">
+            <span class="next-text nav-default">使用hugo创建博客</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+    
+
+  
+
+  
+
+  <div id="comments-gitment"></div>
+  <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
+    <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
+  <script type="text/javascript">
+  const gitment = new Gitment({
+    id: 'weibologin.md',
+    title: '新浪微博授权登录',
+    link: decodeURI(location.href),
+    desc: '使用新浪微博授权登录 先登录新浪微博开发者平台，注册一个开发者账号或者登录自己的微博号 新浪微博开发者平台：http:\/\/open.weibo.',
+    owner: 'pugongyingbo@gmail.com',
+    repo: 'https:\/\/github.com\/pugongyingbo\/pugongyingbo.com',
+    oauth: {
+      client_id: '75c6cdb87916846429c6',
+      client_secret: '1d357d8fef00e2e061cde20737e215d6c551db86'
+    }
+  })
+  gitment.render('comments-gitment')
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="pugongyingbo@163.com" rel="me" class="iconfont icon-email" 
+        title="email" target="_blank">
+      </a>
+      <a href="https://github.com/pugongyingbo" rel="me" class="iconfont icon-github" 
+        title="github" target="_blank">
+      </a>
+  <a href="http://www.pugongyingbo.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" 
+    title="rss" target="_blank">
+  </a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zzb</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+</body>
+</html>

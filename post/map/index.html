@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>map的几种遍历 - My Blog</title>
+  <link rel="alternate" hreflang="zh-cn" href="http://www.pugongyingbo.com/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+
+<meta name="author" content="zzb" />
+  <meta name="description" content="近期用到了map遍历，也查找了部分资料，自己整理一下 使用场景是我要从数据库获取一个人的几种奖励类别，但是我要把每个人的类别拼接起来，在ser" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.38.2" />
+
+
+<link rel="canonical" href="http://www.pugongyingbo.com/post/map/" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+
+<meta property="og:title" content="map的几种遍历" />
+<meta property="og:description" content="近期用到了map遍历，也查找了部分资料，自己整理一下 使用场景是我要从数据库获取一个人的几种奖励类别，但是我要把每个人的类别拼接起来，在ser" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.pugongyingbo.com/post/map/" />
+
+
+
+<meta property="article:published_time" content="2017-08-06T14:43:10&#43;08:00"/>
+
+<meta property="article:modified_time" content="2017-08-06T14:43:10&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="map的几种遍历">
+<meta itemprop="description" content="近期用到了map遍历，也查找了部分资料，自己整理一下 使用场景是我要从数据库获取一个人的几种奖励类别，但是我要把每个人的类别拼接起来，在ser">
+
+
+<meta itemprop="datePublished" content="2017-08-06T14:43:10&#43;08:00" />
+<meta itemprop="dateModified" content="2017-08-06T14:43:10&#43;08:00" />
+<meta itemprop="wordCount" content="612">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="map的几种遍历"/>
+<meta name="twitter:description" content="近期用到了map遍历，也查找了部分资料，自己整理一下 使用场景是我要从数据库获取一个人的几种奖励类别，但是我要把每个人的类别拼接起来，在ser"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">博客小站</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="https://gohugo.io">
+        <li class="mobile-menu-item">external-link</li>
+      </a>
+  </ul>
+</nav>
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">博客小站</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        
+        <a class="menu-item-link" href="/">Home</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/post/">Archives</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/tags/">Tags</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/categories/">Categories</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="https://gohugo.io" target="_blank">
+          external-link
+          <i class="iconfont icon-new-window"></i>
+        </a>
+        
+      </li>
+  </ul>
+</nav>
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">map的几种遍历</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2017-08-06 </span>
+        <div class="post-category">
+            
+              <a href="/categories/development/"> development </a>
+            
+          </div>
+        <span class="more-meta"> 约 612 字 </span>
+        <span class="more-meta"> 预计阅读 2 分钟 </span>
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      <ul>
+<li>近期用到了map遍历，也查找了部分资料，自己整理一下</li>
+<li>使用场景是我要从数据库获取一个人的几种奖励类别，但是我要把每个人的类别拼接起来，在service里使用map遍历拼接在一起，在回传到页面。
+
+<ul>
+<li>1、通过Map.entrySet遍历key和value</li>
+<li>2、通过Map.entrySet使用iterator遍历key和value</li>
+<li>3、通过Map.keySet遍历key和value</li>
+<li>4、通过Map.values()遍历所有的value，但不能遍历key</li>
+</ul></li>
+</ul>
+
+<p><code></p>
+
+<pre><code>import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+/**
+ * Created by zzb on 2017/8/6.
+ */
+public class MapDemo {
+public static void main(String[] args){
+    Map&lt;String,Integer&gt; map = new HashMap&lt;String,Integer&gt;();
+    map.put(&quot;a&quot;,1);
+    map.put(&quot;b&quot;,2);
+    map.put(&quot;c&quot;,3);
+    //最常用的遍历方式，键值对都需要时使用
+    for (Map.Entry&lt;String,Integer&gt; entry:map.entrySet()) {
+        System.out.println(&quot;Key = &quot;+entry.getKey()+&quot;,value = &quot;+entry.getValue());
+    }
+    //只获取key或者value
+    for (String key:map.keySet()) {
+        System.out.println(&quot;key = &quot; +key);
+    }
+    for (Integer value:map.values()) {
+        System.out.println(&quot;value = &quot; +value);
+    }
+    //使用Iterator遍历
+    Iterator&lt;Map.Entry&lt;String, Integer&gt;&gt; entries = map.entrySet().iterator();
+    while (entries.hasNext()){
+        Map.Entry&lt;String,Integer&gt; entry = entries.next();
+        System.out.println(&quot;key= &quot;+entry.getKey() +&quot;,value = &quot;+entry.getValue());
+    }
+    //通过键找值遍历 效率低
+    for (String key:map.keySet()) {
+        Integer value = map.get(key);
+        System.out.println(&quot;key = &quot;+ key +&quot;,value = &quot; +value);
+    }
+}
+}
+</code></pre>
+
+<p></code></p>
+
+<ul>
+<li>项目中实际用到的map</li>
+</ul>
+
+<p><code></p>
+
+<pre><code>public List&lt;JfhjlQueryBean&gt;  selectJfhjlList(JfhjlQueryBean cx) {
+List&lt;JfhjlQueryBean&gt; jfjlBeans =  jlDao.selectJfhjlList(cx);
+ //剔除重复信息
+   Map&lt;String, JfhjlQueryBean&gt; zfjfs = new HashMap&lt;String,          
+ JfhjlQueryBean&gt;();
+//统计各个奖励详细情况
+Map&lt;String, HashMap&lt;String, Integer&gt;&gt; jfjlinfo  = new HashMap&lt;String, HashMap&lt;String, Integer&gt;&gt;();
+//遍历数据
+for (JfhjlQueryBean jfhjlQueryBean : jfjlBeans) {
+String zfbh = jfhjlQueryBean.getZfbh();
+if (zfjfs.get(zfbh) == null) {
+    zfjfs.put(zfbh, jfhjlQueryBean);
+}   
+String jllb = jfhjlQueryBean.getJllb();
+//如果包含此人，则奖励类别的value加1  
+if(!jfjlinfo.containsKey(zfbh)){
+    HashMap&lt;String, Integer&gt; jfjl = new HashMap&lt;String, Integer&gt;();
+    jfjl.put(jllb, 1);
+    jfjlinfo.put(zfbh, jfjl);
+}              
+else {
+HashMap&lt;String,Integer&gt; hashMap = jfjlinfo.get(zfbh);
+Integer jllbnum = hashMap.get(jllb);
+if (jllbnum != null) {
+    hashMap.put(jllb, (jllbnum+1));
+} else {
+   hashMap.put(jllb, 1);
+}
+}
+//结果处理
+List&lt;JfhjlQueryBean&gt; resultAll = new ArrayList&lt;JfhjlQueryBean&gt;();
+    for(Map.Entry&lt;String, JfhjlQueryBean&gt; entry:zfjfs.entrySet()){
+        StringBuffer jlinfo=new StringBuffer();
+        Map&lt;String, Integer&gt; jldetail=jfjlinfo.get(entry.getKey());
+        if(!jldetail.equals(null)){
+            for(Map.Entry&lt;String, Integer&gt; entry2:jldetail.entrySet()){
+                jlinfo.append(entry2.getValue()+&quot;个&quot;+getJlmc(entry2.getKey())+&quot;\n&quot;);
+            }
+            entry.getValue().setWsyjl(jlinfo.toString());
+            resultAll.add(entry.getValue());
+        }
+        }
+    return resultAll;
+}
+</code></pre>
+
+<p></code></p>
+
+    </div>
+
+    
+    
+
+    
+    
+
+    <footer class="post-footer">
+      
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/gitemoji/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">git提交使用emoji</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/post/ssm/">
+            <span class="next-text nav-default">SSM框架配置</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+    
+
+  
+
+  
+
+  <div id="comments-gitment"></div>
+  <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
+    <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
+  <script type="text/javascript">
+  const gitment = new Gitment({
+    id: 'map.md',
+    title: 'map的几种遍历',
+    link: decodeURI(location.href),
+    desc: '近期用到了map遍历，也查找了部分资料，自己整理一下 使用场景是我要从数据库获取一个人的几种奖励类别，但是我要把每个人的类别拼接起来，在ser',
+    owner: 'pugongyingbo@gmail.com',
+    repo: 'https:\/\/github.com\/pugongyingbo\/pugongyingbo.com',
+    oauth: {
+      client_id: '75c6cdb87916846429c6',
+      client_secret: '1d357d8fef00e2e061cde20737e215d6c551db86'
+    }
+  })
+  gitment.render('comments-gitment')
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="pugongyingbo@163.com" rel="me" class="iconfont icon-email" 
+        title="email" target="_blank">
+      </a>
+      <a href="https://github.com/pugongyingbo" rel="me" class="iconfont icon-github" 
+        title="github" target="_blank">
+      </a>
+  <a href="http://www.pugongyingbo.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" 
+    title="rss" target="_blank">
+  </a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zzb</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+</body>
+</html>
