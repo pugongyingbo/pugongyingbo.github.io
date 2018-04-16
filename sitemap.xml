@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.pugongyingbo.com/post/singleton/</loc>
+    <lastmod>2018-04-16T23:32:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://www.pugongyingbo.com/post/gitemoji/</loc>
     <lastmod>2018-04-10T22:35:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -80,28 +87,28 @@
   
   <url>
     <loc>http://www.pugongyingbo.com/tags/development/</loc>
-    <lastmod>2018-04-10T22:35:32+08:00</lastmod>
+    <lastmod>2018-04-16T23:32:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://www.pugongyingbo.com/categories/development/</loc>
-    <lastmod>2018-04-10T22:35:32+08:00</lastmod>
+    <lastmod>2018-04-16T23:32:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://www.pugongyingbo.com/</loc>
-    <lastmod>2018-04-10T22:35:32+08:00</lastmod>
+    <lastmod>2018-04-16T23:32:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://www.pugongyingbo.com/post/</loc>
-    <lastmod>2018-04-10T22:35:32+08:00</lastmod>
+    <lastmod>2018-04-16T23:32:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

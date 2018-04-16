@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>单例模式的几种写法 - My Blog</title>
+  <link rel="alternate" hreflang="zh-cn" href="http://www.pugongyingbo.com/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+
+<meta name="author" content="zzb" />
+  <meta name="description" content="单例的几种写法 饿汉式 懒汉式 双重检查 使用volitile关键字 枚举 懒汉与饿汉 要想让一个类只能构建一个对象，自然不能让他随便去做new操作，因此" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.38.2" />
+
+
+<link rel="canonical" href="http://www.pugongyingbo.com/post/singleton/" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+
+<meta property="og:title" content="单例模式的几种写法" />
+<meta property="og:description" content="单例的几种写法 饿汉式 懒汉式 双重检查 使用volitile关键字 枚举 懒汉与饿汉 要想让一个类只能构建一个对象，自然不能让他随便去做new操作，因此" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.pugongyingbo.com/post/singleton/" />
+
+
+
+<meta property="article:published_time" content="2018-04-16T23:32:36&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-04-16T23:32:36&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="单例模式的几种写法">
+<meta itemprop="description" content="单例的几种写法 饿汉式 懒汉式 双重检查 使用volitile关键字 枚举 懒汉与饿汉 要想让一个类只能构建一个对象，自然不能让他随便去做new操作，因此">
+
+
+<meta itemprop="datePublished" content="2018-04-16T23:32:36&#43;08:00" />
+<meta itemprop="dateModified" content="2018-04-16T23:32:36&#43;08:00" />
+<meta itemprop="wordCount" content="2068">
+
+
+
+<meta itemprop="keywords" content="Development," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="单例模式的几种写法"/>
+<meta name="twitter:description" content="单例的几种写法 饿汉式 懒汉式 双重检查 使用volitile关键字 枚举 懒汉与饿汉 要想让一个类只能构建一个对象，自然不能让他随便去做new操作，因此"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">博客小站</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="https://gohugo.io">
+        <li class="mobile-menu-item">external-link</li>
+      </a>
+  </ul>
+</nav>
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">博客小站</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        
+        <a class="menu-item-link" href="/">Home</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/post/">Archives</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/tags/">Tags</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/categories/">Categories</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="https://gohugo.io" target="_blank">
+          external-link
+          <i class="iconfont icon-new-window"></i>
+        </a>
+        
+      </li>
+  </ul>
+</nav>
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">单例模式的几种写法</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2018-04-16 </span>
+        <div class="post-category">
+            
+              <a href="/categories/development/"> Development </a>
+            
+          </div>
+        <span class="more-meta"> 约 2068 字 </span>
+        <span class="more-meta"> 预计阅读 5 分钟 </span>
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h2 id="单例的几种写法">单例的几种写法</h2>
+
+<blockquote>
+<ul>
+<li>饿汉式</li>
+<li>懒汉式</li>
+<li>双重检查</li>
+<li>使用volitile关键字</li>
+<li>枚举</li>
+</ul>
+</blockquote>
+
+<h3 id="懒汉与饿汉">懒汉与饿汉</h3>
+
+<blockquote>
+<ul>
+<li>要想让一个类只能构建一个对象，自然不能让他随便去做new操作，因此Singleton的构造方法是私有的。</li>
+<li>instance是Singleton类的静态成员，也是我们的单利对象。它的初始值可以写成null，也可以写成new Singleton()。</li>
+<li>getInstance是获取单例对象的方法。
+
+<ul>
+<li>如果单例初始值是null，还未构建，则构建单例对象并返回。这个写法属于单例模式当中的懒汉模式。</li>
+<li>如果单例对象一开始就被new Singleton()主动构建，则不再需要判空操作，这种属于饿汉模式。饿汉主动找食物吃，懒汉躺在地上等人喂。</li>
+</ul></li>
+</ul>
+</blockquote>
+
+<h4 id="1-饿汉式-静态常量">1.饿汉式 （静态常量）</h4>
+
+<pre><code>public class Singleton {
+
+    private final static Singleton INSTANCE = new Singleton();
+
+    private Singleton(){}
+
+    public static Singleton getInstance(){
+        return INSTANCE;
+    }
+}
+</code></pre>
+
+<p>缺点：在类装载的时候就完成实例化，没有达到Lazy Loading的效果。如果从始至终从未使用过这个实例，则会造成内存的浪费。</p>
+
+<h3 id="2-饿汉-静态代码块">2.饿汉（静态代码块）</h3>
+
+<pre><code>public class Singleton {
+
+    private static Singleton instance;
+
+    static {
+        instance = new Singleton();
+    }
+
+    private Singleton() {}
+
+    public Singleton getInstance() {
+        return instance;
+    }
+}
+</code></pre>
+
+<p>缺点：在类装载的时候就完成实例化，没有达到Lazy Loading的效果。如果从始至终从未使用过这个实例，则会造成内存的浪费。</p>
+
+<h3 id="3-懒汉式-线程不安全">3.懒汉式（线程不安全）</h3>
+
+<pre><code>public class Singleton {
+
+    private static Singleton singleton;
+
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        if (singleton == null) {
+            singleton = new Singleton();
+        }
+        return singleton;
+    }
+}
+</code></pre>
+
+<p>这种写法起到了Lazy Loading的效果，但是只能在单线程下使用。如果在多线程下，一个线程进入了if (singleton == null)判断语句块，还未来得及往下执行，另一个线程也通过了这个判断语句，这时便会产生多个实例。所以在多线程环境下不可使用这种方式。</p>
+
+<h3 id="4-懒汉式-线程安全-同步方法-效率低">4.懒汉式（线程安全 同步方法 效率低）</h3>
+
+<pre><code>public class Singleton {
+
+    private static Singleton singleton;
+
+    private Singleton() {}
+
+    public static synchronized Singleton getInstance() {
+        if (singleton == null) {
+            singleton = new Singleton();
+        }
+        return singleton;
+    }
+}
+</code></pre>
+
+<p>缺点：效率太低了，每个线程在想获得类的实例时候，执行getInstance()方法都要进行同步。而其实这个方法只执行一次实例化代码就够了，后面的想获得该类实例，直接return就行了。</p>
+
+<h3 id="5-懒汉式-线程安全-同步代码块">5.懒汉式（线程安全 同步代码块）</h3>
+
+<pre><code>public class Singleton {
+
+    private static Singleton singleton;
+
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        if (singleton == null) {
+            synchronized (Singleton.class) {
+                singleton = new Singleton();
+            }
+        }
+        return singleton;
+    }
+}
+</code></pre>
+
+<p>由于第四种实现方式同步效率太低，所以摒弃同步方法，改为同步产生实例化的的代码块。但是这种同步并不能起到线程同步的作用。跟第3种实现方式遇到的情形一致，假如一个线程进入了if (singleton == null)判断语句块，还未来得及往下执行，另一个线程也通过了这个判断语句，这时便会产生多个实例。</p>
+
+<h3 id="6-双重检查">6.双重检查</h3>
+
+<pre><code>public class Singleton {
+
+    private static volatile Singleton singleton;
+
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        if (singleton == null) {
+            synchronized (Singleton.class) {
+                if (singleton == null) {
+                    singleton = new Singleton();
+                }
+            }
+        }
+        return singleton;
+    }
+}
+</code></pre>
+
+<ul>
+<li>为了防止new Instance被执行多次，因此在new操作之前加上synchronized同步锁，锁住整个类。</li>
+<li>进入synchronized临界区后，还要再做一次判空，因为当两个线程同时访问的时候，线程a构建完对象，线程b也已经通过了最初的判空验证，不做第二次判空的话，线程b也已经通过了最初的判空验证，不做第二次判空的haul，线程b还是会再次构建instance对象。</li>
+</ul>
+
+<blockquote>
+<h3 id="使用volatile关键字">使用volatile关键字</h3>
+
+<p>volatile修饰符阻止了变量访问前后的指令重拍，保证了指令执行顺序。进过volatile的修饰，当线程a执行instance = new Singleton的时候，JVM的执行顺序，
+  1、分配对象的内存空间
+  2、初始化对象
+  3、设置instance指向刚分配的内存地址
+ 如此在线程b看来，instance对象的引用要么指向null，要么指向一个初始化完毕的instance，而不会出现某个中间态，保证了安全。</p>
+</blockquote>
+
+<h3 id="7-静态内部类">7.静态内部类</h3>
+
+<pre><code>public class Singleton {
+
+    private Singleton() {}
+
+    private static class SingletonInstance {
+        private static final Singleton INSTANCE = new Singleton();
+    }
+
+    public static Singleton getInstance() {
+        return SingletonInstance.INSTANCE;
+    }
+}
+</code></pre>
+
+<p>这种方式跟饿汉式方式采用的机制类似，但又有不同。两者都是采用了类装载的机制来保证初始化实例时只有一个线程。不同的地方在饿汉式方式是只要Singleton类被装载就会实例化，没有Lazy-Loading的作用，而静态内部类方式在Singleton类被装载时并不会立即实例化，而是在需要实例化时，调用getInstance方法，才会装载SingletonInstance类，从而完成Singleton的实例化。</p>
+
+<p>类的静态属性只会在第一次加载类的时候初始化，所以在这里，JVM帮助我们保证了线程的安全性，在类进行初始化时，别的线程是无法进入的。</p>
+
+<p>优点：避免了线程不安全，延迟加载，效率高。
+&gt; 从外部类无法访问静态内部类，只有调用getInstance方法的时候，才能得到单例对象。
+INSTANCE对象初始化的时机并不是在单例类Singleton被加载的时候，而是在调用getInstance方法，使得静态内部类LazyHolder被加载的时候。利用classloader的加载机制来实现懒加载，并保证构建单例的线程安全。</p>
+
+<h3 id="8-使用枚举">8.使用枚举</h3>
+
+<p>有了enum语法糖，JVM会阻止反射获取枚举类的私有构造函数。</p>
+
+<pre><code>public enum SingletonEnum(){
+    INSTANCE;
+}
+</code></pre>
+
+<p>利用反射打破单例
+1、获得构造器
+2、把构造器设置为可访问
+3、使用getInstance方法构造对象</p>
+
+<pre><code>//获得构造器
+Constructor con = Singleton.class.getDeclaredConstructor()
+//设置可访问
+con.setAccsessible(true);
+//构造不同对象
+Singleton s1 = (Singleton)con.newInstance();
+Singleton s2 = (Singleton)con.newInstance();
+//验证
+System.out.println(s1.equals(s2));//false
+</code></pre>
+
+<hr />
+
+<ul>
+<li>总结</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th align="center">单例实现模式</th>
+<th align="center">是否线程安全</th>
+<th align="center">是否懒加载</th>
+<th align="center">是否防止反射构建</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">双重检查</td>
+<td align="center">是</td>
+<td align="center">是</td>
+<td align="center">否</td>
+</tr>
+
+<tr>
+<td align="center">静态内部类</td>
+<td align="center">是</td>
+<td align="center">是</td>
+<td align="center">否</td>
+</tr>
+
+<tr>
+<td align="center">枚举</td>
+<td align="center">是</td>
+<td align="center">否</td>
+<td align="center">是</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+    
+    
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/development/">Development</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/gitemoji/">
+            <span class="next-text nav-default">git提交使用emoji</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+    
+
+  
+
+  
+
+  <div id="comments-gitment"></div>
+  <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
+    <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
+  <script type="text/javascript">
+  const gitment = new Gitment({
+    id: 'singleton.md',
+    title: '单例模式的几种写法',
+    link: decodeURI(location.href),
+    desc: '单例的几种写法 饿汉式 懒汉式 双重检查 使用volitile关键字 枚举 懒汉与饿汉 要想让一个类只能构建一个对象，自然不能让他随便去做new操作，因此',
+    owner: 'pugongyingbo',
+    repo: 'https:\/\/github.com\/pugongyingbo\/pugongyingbo.com',
+    oauth: {
+      client_id: '75c6cdb87916846429c6',
+      client_secret: '1d357d8fef00e2e061cde20737e215d6c551db86'
+    }
+  })
+  gitment.render('comments-gitment')
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="pugongyingbo@163.com" rel="me" class="iconfont icon-email" 
+        title="email" target="_blank">
+      </a>
+      <a href="https://github.com/pugongyingbo" rel="me" class="iconfont icon-github" 
+        title="github" target="_blank">
+      </a>
+  <a href="http://www.pugongyingbo.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" 
+    title="rss" target="_blank">
+  </a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zzb</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+</body>
+</html>
