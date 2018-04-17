@@ -6,10 +6,19 @@
     <description>Recent content in Development on My Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 16 Apr 2018 23:32:36 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 17 Apr 2018 23:24:17 +0800</lastBuildDate>
     
 	<atom:link href="http://www.pugongyingbo.com/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>volatile关键字</title>
+      <link>http://www.pugongyingbo.com/post/volatile/</link>
+      <pubDate>Tue, 17 Apr 2018 23:24:17 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/volatile/</guid>
+      <description>volatile的工作原理？ 1.保证了不同线程对这个变量进行操作时的可见性，即一个线程修改了某个变量的值，这新值对其他线程来说是立即可见的。</description>
+    </item>
     
     <item>
       <title>单例模式的几种写法</title>
