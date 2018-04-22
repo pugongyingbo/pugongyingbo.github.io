@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>类加载器ClassLoader - My Blog</title>
+  <link rel="alternate" hreflang="zh-cn" href="http://www.pugongyingbo.com/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+
+<meta name="author" content="zzb" />
+  <meta name="description" content="类加载器 类加载的七个阶段 加载-验证-准备-解析-初始化-使用-卸载 类加载器的工作机制 装载：查找和导入Class文件 链接：执行校验、准备、解析" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.38.2" />
+
+
+<link rel="canonical" href="http://www.pugongyingbo.com/post/classloader/" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+
+<meta property="og:title" content="类加载器ClassLoader" />
+<meta property="og:description" content="类加载器 类加载的七个阶段 加载-验证-准备-解析-初始化-使用-卸载 类加载器的工作机制 装载：查找和导入Class文件 链接：执行校验、准备、解析" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.pugongyingbo.com/post/classloader/" />
+
+
+
+<meta property="article:published_time" content="2018-04-22T14:01:52&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-04-22T14:01:52&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="类加载器ClassLoader">
+<meta itemprop="description" content="类加载器 类加载的七个阶段 加载-验证-准备-解析-初始化-使用-卸载 类加载器的工作机制 装载：查找和导入Class文件 链接：执行校验、准备、解析">
+
+
+<meta itemprop="datePublished" content="2018-04-22T14:01:52&#43;08:00" />
+<meta itemprop="dateModified" content="2018-04-22T14:01:52&#43;08:00" />
+<meta itemprop="wordCount" content="2771">
+
+
+
+<meta itemprop="keywords" content="Development," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="类加载器ClassLoader"/>
+<meta name="twitter:description" content="类加载器 类加载的七个阶段 加载-验证-准备-解析-初始化-使用-卸载 类加载器的工作机制 装载：查找和导入Class文件 链接：执行校验、准备、解析"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">博客小站</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="https://gohugo.io">
+        <li class="mobile-menu-item">external-link</li>
+      </a>
+  </ul>
+</nav>
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">博客小站</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        
+        <a class="menu-item-link" href="/">Home</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/post/">Archives</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/tags/">Tags</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/categories/">Categories</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="https://gohugo.io" target="_blank">
+          external-link
+          <i class="iconfont icon-new-window"></i>
+        </a>
+        
+      </li>
+  </ul>
+</nav>
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">类加载器ClassLoader</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2018-04-22 </span>
+        <div class="post-category">
+            
+              <a href="/categories/development/"> Development </a>
+            
+          </div>
+        <span class="more-meta"> 约 2771 字 </span>
+        <span class="more-meta"> 预计阅读 6 分钟 </span>
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h3 id="类加载器">类加载器</h3>
+
+<h4 id="类加载的七个阶段">类加载的七个阶段</h4>
+
+<p>加载-验证-准备-解析-初始化-使用-卸载</p>
+
+<h4 id="类加载器的工作机制">类加载器的工作机制</h4>
+
+<ul>
+<li>装载：查找和导入Class文件</li>
+
+<li><p>链接：执行校验、准备、解析，其中解析是可以选择的。</p>
+
+<ul>
+<li>校验：检查载入class文件数据的准确性
+
+<ul>
+<li>文件格式验证</li>
+<li>元数据验证</li>
+<li>字节码验证</li>
+<li>符号引用验证</li>
+</ul></li>
+
+<li><p>准备：给类的静态变量分配存储空间。private static int var = 100, 准备阶段完成后，value为0 ，而不是100，在初始化阶段才把100赋值给value。如果是private static final int value = 100 ，编译时javac会为value生成ConstantValue属性，在准备阶段虚拟机就会根据ConstantValue的设置将value赋值为100。</p></li>
+
+<li><p>解析：将符号引用转换成直接引用</p>
+
+<ul>
+<li>符号引用以一组符号来描述所引用的目标，符号可以是任何形式的字面量，只要使用是能无歧义地定位到目标即可</li>
+<li>直接引用可以是直接指向目标的指针、相对偏移量或是一个能间接定位到目标的句柄。</li>
+</ul></li>
+</ul></li>
+
+<li><p>初始化：对类的引用转换成直接引用</p></li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">getParent()</td>
+<td align="center">获取类装载器的父 装载器。除根装载器外，所有的类装载器都有且只有一个父装载器。ExtClassLoader的父装载器是根装载器，因为根装载器非Java语言编写，所以无法获得，将返回null。</td>
+</tr>
+
+<tr>
+<td align="center">loadClass(String name)</td>
+<td align="center">name参数指定类加载器需要装载类的名字，必须使用权限定类名。该方法有一个重载方法laodClass(String name,boolean resolve),resolve参数告诉类加载器是都需要解析该类。在初始哈市类之前，应考虑进行类解析的工作，但不是所有的类都需要解析，如果JVM只需要知道该类是否存在或找出该类的超累，那么久不需要解析。</td>
+</tr>
+
+<tr>
+<td align="center">defineClass(String name,byte[] b,int off,int len)</td>
+<td align="center">将类文件的字节数组转换成JVM内部java.lang.Class对象，字节数组可以从本地文件系统、远程网络获取。name为字节数组对应的全限定类名。</td>
+</tr>
+
+<tr>
+<td align="center">findSystemClass(String name)</td>
+<td align="center">从本地文件系统载入class文件。如果本地文件系统不粗载该class文件，将抛出ClassNotFoundException异常。该方法是JVM默认是用的装载机制。</td>
+</tr>
+
+<tr>
+<td align="center">findLoadClass(String name)</td>
+<td align="center">调用该方法来查看ClassLoader是否已经载入某个类，如果已装入，那么返回java.lang.Class对象；否则返回null。如果强行装载已存在的类，那么将会抛出链接错误。</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="jvm提供了3种类加载器">JVM提供了3种类加载器：</h4>
+
+<p>1、启动类加载器（Bootstrap ClassLoader）：负责加载 JAVAHOME\lib 目录中的，或通过-Xbootclasspath参数指定路径中的，且被虚拟机认可（按文件名识别，如rt.jar）的类。
+2、扩展类加载器（Extension ClassLoader）：负责加载 JAVAHOME\lib\ext 目录中的，或通过java.ext.dirs系统变量指定路径中的类库。
+3、应用程序类加载器（Application ClassLoader）：负责加载用户路径（classpath）上的类库。</p>
+
+<ul>
+<li>根装载器是ExtClassLoader的父装载器，ExtClassLoader是AppClassLoader的父装载器。JVM装载类时使用“全盘负责委托机制”，全盘负责是指当一个ClassLoader装载一个类时，除非显示地使用另一个ClassLoader载入，委托机制是指先委托父装载器寻找目标类，只有在找不到的情况下才从自己的类路径中查找并装载目标类。</li>
+</ul>
+
+<h4 id="双亲委派模型">双亲委派模型</h4>
+
+<p>如果一个类加载器收到了类加载的请求，它首先不会自己去尝试加载这个类，而是把这个请求委派给父类加载器去完成，每一个层次的类加载器都是如此，因此所有的加载器请求最终都应该传送到顶层的启动类加载器中，只有父加载器反馈自己无法完成这个加载请求时，子加载器才会尝试自己去加载。</p>
+
+<ul>
+<li>有5种情况必须对类进行初始化，这5种场景中的行为称为对一个类进行主动引用。除此之外多有引用类的方法都不会触发初始化，称为被动引用。
+
+<ul>
+<li>遇到new、getstatic、putstatic或invokestatic这4条字节码指令时，如果类没有进行过初始化，则先需要触发其初始化。生成这4条指令的最常见的Java代码场景是：使用new关键字实例化对象的时候、读取或设置一个类的静态字段（被final修饰、已在编译期把结果放入常量池的静态字段除外）的时候，以及调用一个类的静态方法的时候。</li>
+<li>使用java.lang.reflect包的方法对类进行反调用的时候，如果类没有进行过初始化，则需要先触发器初始化。</li>
+<li>当初始化一个类的时候，如果发现其父类还没有进行过初始化，则需要先触发器父类的初始化。</li>
+<li>当虚拟机启动时，用户需要指定一个要执行的主类（包含main方法的那个类），虚拟机会先初始化这个主类。</li>
+<li>当使用JDK1.7的动态语言支持时，如果一个java.lang.invoke.MethdHandle实例最后的解析结果REF_getstatic、REF_putstatic、REF_invokestatic的方法句柄，并且这个方法句柄所对应的类没有进行过初始化，则需要先触发其初始化。</li>
+</ul></li>
+
+<li><p>被动引用的例子，不会触发初始化</p>
+
+<ul>
+<li>通过子类引用父类的静态字段，不会导致子类初始化。输出结果是parent init! 100</li>
+</ul>
+
+<pre><code>public class Parent {
+    static int a = 100;
+    static {
+        System.out.println(&quot;parent init!&quot;);
+    }
+}
+class child extends  Parent{
+    static {
+        System.out.println(&quot;child init!&quot;);
+    }
+}
+    
+    public class Init {
+    public static void main(String[] args) {
+        System.out.println(child.a);
+    }
+}
+
+</code></pre>
+
+<ul>
+<li>通过数组定义来引用类，不会触发此类的初始化.无输出
+<br /></li>
+</ul>
+
+<pre><code>public class Init {
+    public static void main(String[] args) {
+        Parent[] parents = new Parent[10];
+     }
+}
+    
+    
+</code></pre>
+
+<ul>
+<li>常量在编译阶段会存入调用类的常量池中，本质上并没有直接引用到定义常量的类，因此不会触发定义常量的类的初始化。输出：100。说明没有触发Const的初始化，在编译阶段，Const类中常量A的值100存储到init类的常量池中，这两个类在编译成class文件之后就没有联系了。
+<br /></li>
+</ul>
+
+<pre><code>    public class Conts {
+    static final int A = 100;
+    static {
+        System.out.println(&quot;Const init!&quot;);
+    }
+}
+    
+    public class Init {
+    public static void main(String[] args) {
+        System.out.println(Conts.A);
+     }
+}
+
+</code></pre>
+
+<ul>
+<li>通过类名获取class对象，不会触发类的初始化。输出：cat is load
+<br /></li>
+</ul>
+
+<pre><code>public class Cat {
+    private String name;
+    private int age;
+    static {
+        System.out.println(&quot;Cat is load&quot;);
+    }
+}
+    
+public class Dog {
+    private String name;
+    private int age;
+    static {
+        System.out.println(&quot;Dog is load&quot;);
+    }
+}
+    
+public class Init {
+    public static void main(String[] args) throws ClassNotFoundException {
+        Class dog = Dog.class;
+        Class clazz = Class.forName(&quot;ClassLoader.Cat&quot;);
+    
+     }
+}
+
+</code></pre>
+
+<ul>
+<li>通过Class.forName()加载指定类时，如果指定参数initialize为false时，也不会触发类初始化，其实这个参数是告诉虚拟机，是否要对类进行初始化。无输出。
+<br /></li>
+</ul>
+
+<pre><code>public class Init {
+    public static void main(String[] args) throws ClassNotFoundException {
+        Class clazz = Class.forName(&quot;ClassLoader.Cat&quot;,false,Cat.class.getClassLoader());
+     }
+}
+</code></pre>
+
+<ul>
+<li>通过ClassLoader默认的loadClass方法，也不会触发初始化动作。无输出。
+<br /></li>
+</ul>
+
+<pre><code>    public static void main(String[] args) throws ClassNotFoundException {
+        new ClassLoader(){}.loadClass(&quot;ClassLoader.Cat&quot;);
+     }
+}
+</code></pre></li>
+</ul>
+
+<blockquote>
+<p>java.lang.NoSuchMethodError基本上是由JVM的全盘负责委托机制引起的，例如，在类路径下放置了多个不同版本的类包，如commons-lang2.x.jar和commons-lang4.x.jar都位于类路径下，代码中用到了commons-lang4.x类的方法，而这个方法在commons-lang2.x中并不存在，JVM加载器碰巧又从commons-lang2.x.jar中加载类，运行时就会抛出这个错。</p>
+</blockquote>
+
+<ul>
+<li>参考</li>
+<li><a href="https://mp.weixin.qq.com/s/-Q255hbgbMIVymxceH_odw">java类加载的那些事</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/java/j-lo-classloader/#download">深入探讨类加载器</a></li>
+</ul>
+
+    </div>
+
+    
+    
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/development/">Development</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/volatile/">
+            <span class="next-text nav-default">volatile关键字</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+    
+
+  
+
+  
+
+  <div id="comments-gitment"></div>
+  <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
+    <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
+  <script type="text/javascript">
+  const gitment = new Gitment({
+    id: 'classLoader.md',
+    title: '类加载器ClassLoader',
+    link: decodeURI(location.href),
+    desc: '类加载器 类加载的七个阶段 加载-验证-准备-解析-初始化-使用-卸载 类加载器的工作机制 装载：查找和导入Class文件 链接：执行校验、准备、解析',
+    owner: 'pugongyingbo',
+    repo: 'https:\/\/github.com\/pugongyingbo\/pugongyingbo.com',
+    oauth: {
+      client_id: '75c6cdb87916846429c6',
+      client_secret: '1d357d8fef00e2e061cde20737e215d6c551db86'
+    }
+  })
+  gitment.render('comments-gitment')
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="pugongyingbo@163.com" rel="me" class="iconfont icon-email" 
+        title="email" target="_blank">
+      </a>
+      <a href="https://github.com/pugongyingbo" rel="me" class="iconfont icon-github" 
+        title="github" target="_blank">
+      </a>
+  <a href="http://www.pugongyingbo.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" 
+    title="rss" target="_blank">
+  </a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zzb</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+</body>
+</html>
