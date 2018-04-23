@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on My Blog</title>
+    <title>Tags on Hello Code</title>
     <link>http://www.pugongyingbo.com/tags/</link>
-    <description>Recent content in Tags on My Blog</description>
+    <description>Recent content in Tags on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Mon, 10 Apr 2017 21:28:38 +0800</lastBuildDate>
@@ -23,7 +23,7 @@
     <item>
       <title>Development</title>
       <link>http://www.pugongyingbo.com/tags/development/</link>
-      <pubDate>Sun, 22 Apr 2018 14:01:52 +0800</pubDate>
+      <pubDate>Mon, 23 Apr 2018 22:42:49 +0800</pubDate>
       
       <guid>http://www.pugongyingbo.com/tags/development/</guid>
       <description></description>

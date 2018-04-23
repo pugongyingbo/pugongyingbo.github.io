@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on My Blog</title>
+    <title>Posts on Hello Code</title>
     <link>http://www.pugongyingbo.com/post/</link>
-    <description>Recent content in Posts on My Blog</description>
+    <description>Recent content in Posts on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 22 Apr 2018 14:01:52 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 23 Apr 2018 22:42:49 +0800</lastBuildDate>
     
 	<atom:link href="http://www.pugongyingbo.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>适配器模式</title>
+      <link>http://www.pugongyingbo.com/post/adapterpattern/</link>
+      <pubDate>Mon, 23 Apr 2018 22:42:49 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/adapterpattern/</guid>
+      <description>解释 现实世界例子 &amp;gt; 想象你有一些图片在内存卡中，你需要传输它们到电脑。为了传输它们你需要一些兼容电脑接口的适配器，你才能连接电脑。在这个例子中</description>
+    </item>
     
     <item>
       <title>类加载器ClassLoader</title>

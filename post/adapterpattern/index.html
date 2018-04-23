@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>map的几种遍历 - Hello Code</title>
+  <title>适配器模式 - Hello Code</title>
   <link rel="alternate" hreflang="zh-cn" href="http://www.pugongyingbo.com/" />
 
 <meta name="renderer" content="webkit" />
@@ -26,7 +26,7 @@
 
 
 <meta name="author" content="zzb" />
-  <meta name="description" content="近期用到了map遍历，也查找了部分资料，自己整理一下 使用场景是我要从数据库获取一个人的几种奖励类别，但是我要把每个人的类别拼接起来，在ser" />
+  <meta name="description" content="解释 现实世界例子 &amp;gt; 想象你有一些图片在内存卡中，你需要传输它们到电脑。为了传输它们你需要一些兼容电脑接口的适配器，你才能连接电脑。在这个例子中" />
 
   <meta name="keywords" content="Hugo, theme, jane" />
 
@@ -38,7 +38,7 @@
 <meta name="generator" content="Hugo 0.38.2" />
 
 
-<link rel="canonical" href="http://www.pugongyingbo.com/post/map/" />
+<link rel="canonical" href="http://www.pugongyingbo.com/post/adapterpattern/" />
 
 
 
@@ -58,20 +58,16 @@
 
 
 
-<meta property="og:title" content="map的几种遍历" />
-<meta property="og:description" content="近期用到了map遍历，也查找了部分资料，自己整理一下 使用场景是我要从数据库获取一个人的几种奖励类别，但是我要把每个人的类别拼接起来，在ser" />
+<meta property="og:title" content="适配器模式" />
+<meta property="og:description" content="解释 现实世界例子 &gt; 想象你有一些图片在内存卡中，你需要传输它们到电脑。为了传输它们你需要一些兼容电脑接口的适配器，你才能连接电脑。在这个例子中" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://www.pugongyingbo.com/post/map/" />
+<meta property="og:url" content="http://www.pugongyingbo.com/post/adapterpattern/" />
 
 
 
-<meta property="article:published_time" content="2017-08-06T14:43:10&#43;08:00"/>
+<meta property="article:published_time" content="2018-04-23T22:42:49&#43;08:00"/>
 
-<meta property="article:modified_time" content="2017-08-06T14:43:10&#43;08:00"/>
-
-
-
-
+<meta property="article:modified_time" content="2018-04-23T22:42:49&#43;08:00"/>
 
 
 
@@ -79,20 +75,24 @@
 
 
 
-<meta itemprop="name" content="map的几种遍历">
-<meta itemprop="description" content="近期用到了map遍历，也查找了部分资料，自己整理一下 使用场景是我要从数据库获取一个人的几种奖励类别，但是我要把每个人的类别拼接起来，在ser">
-
-
-<meta itemprop="datePublished" content="2017-08-06T14:43:10&#43;08:00" />
-<meta itemprop="dateModified" content="2017-08-06T14:43:10&#43;08:00" />
-<meta itemprop="wordCount" content="612">
 
 
 
-<meta itemprop="keywords" content="" />
+
+<meta itemprop="name" content="适配器模式">
+<meta itemprop="description" content="解释 现实世界例子 &gt; 想象你有一些图片在内存卡中，你需要传输它们到电脑。为了传输它们你需要一些兼容电脑接口的适配器，你才能连接电脑。在这个例子中">
+
+
+<meta itemprop="datePublished" content="2018-04-23T22:42:49&#43;08:00" />
+<meta itemprop="dateModified" content="2018-04-23T22:42:49&#43;08:00" />
+<meta itemprop="wordCount" content="675">
+
+
+
+<meta itemprop="keywords" content="Development," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="map的几种遍历"/>
-<meta name="twitter:description" content="近期用到了map遍历，也查找了部分资料，自己整理一下 使用场景是我要从数据库获取一个人的几种奖励类别，但是我要把每个人的类别拼接起来，在ser"/>
+<meta name="twitter:title" content="适配器模式"/>
+<meta name="twitter:description" content="解释 现实世界例子 &gt; 想象你有一些图片在内存卡中，你需要传输它们到电脑。为了传输它们你需要一些兼容电脑接口的适配器，你才能连接电脑。在这个例子中"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -186,16 +186,16 @@ var _hmt = _hmt || [];
           <article class="post bg-white">
     
     <header class="post-header">
-      <h1 class="post-title">map的几种遍历</h1>
+      <h1 class="post-title">适配器模式</h1>
       
       <div class="post-meta">
-        <span class="post-time"> 2017-08-06 </span>
+        <span class="post-time"> 2018-04-23 </span>
         <div class="post-category">
             
-              <a href="/categories/development/"> development </a>
+              <a href="/categories/development/"> Development </a>
             
           </div>
-        <span class="more-meta"> 约 612 字 </span>
+        <span class="more-meta"> 约 675 字 </span>
         <span class="more-meta"> 预计阅读 2 分钟 </span>
       </div>
     </header>
@@ -205,105 +205,99 @@ var _hmt = _hmt || [];
 
     
     <div class="post-content">
-      <ul>
-<li>近期用到了map遍历，也查找了部分资料，自己整理一下</li>
-<li>使用场景是我要从数据库获取一个人的几种奖励类别，但是我要把每个人的类别拼接起来，在service里使用map遍历拼接在一起，在回传到页面。
+      
+
+<h4 id="解释">解释</h4>
 
 <ul>
-<li>1、通过Map.entrySet遍历key和value</li>
-<li>2、通过Map.entrySet使用iterator遍历key和value</li>
-<li>3、通过Map.keySet遍历key和value</li>
-<li>4、通过Map.values()遍历所有的value，但不能遍历key</li>
-</ul></li>
+<li>现实世界例子
+&gt; 想象你有一些图片在内存卡中，你需要传输它们到电脑。为了传输它们你需要一些兼容电脑接口的适配器，你才能连接电脑。在这个例子中，读卡器是一个适配器。另一个例子更加贴合适配器， 一个三叉口的插头不能插入两叉口的插座，它需要使用转换头。另一个例子是翻译工作。</li>
+<li>用浅显的话来说
+&gt;  适配器模式允许你把一个不兼容的对象包装在适配器中，使其符合另一个类。</li>
+<li>维基百科
+&gt; 在软件工程中，适配器模式是一种软件设计模式，允许将现有类的接口用作另一个接口。它经常被用来无需修改现有类的源码和其他类一起工作。</li>
 </ul>
 
-<pre><code>    import java.util.HashMap;
-    import java.util.Iterator;
-    import java.util.Map;
-    /**
-     * Created by zzb on 2017/8/6.
-     */
-    public class MapDemo {
-    public static void main(String[] args){
-        Map&lt;String,Integer&gt; map = new HashMap&lt;String,Integer&gt;();
-        map.put(&quot;a&quot;,1);
-        map.put(&quot;b&quot;,2);
-        map.put(&quot;c&quot;,3);
-        //最常用的遍历方式，键值对都需要时使用
-        for (Map.Entry&lt;String,Integer&gt; entry:map.entrySet()) {
-            System.out.println(&quot;Key = &quot;+entry.getKey()+&quot;,value = &quot;+entry.getValue());
-        }
-        //只获取key或者value
-        for (String key:map.keySet()) {
-            System.out.println(&quot;key = &quot; +key);
-        }
-        for (Integer value:map.values()) {
-            System.out.println(&quot;value = &quot; +value);
-        }
-        //使用Iterator遍历
-        Iterator&lt;Map.Entry&lt;String, Integer&gt;&gt; entries = map.entrySet().iterator();
-        while (entries.hasNext()){
-            Map.Entry&lt;String,Integer&gt; entry = entries.next();
-            System.out.println(&quot;key= &quot;+entry.getKey() +&quot;,value = &quot;+entry.getValue());
-        }
-        //通过键找值遍历 效率低
-        for (String key:map.keySet()) {
-            Integer value = map.get(key);
-            System.out.println(&quot;key = &quot;+ key +&quot;,value = &quot; +value);
-        }
-    }
-    }
+<h4 id="代码解释">代码解释</h4>
+
+<p>想象一个船长只会划船不会航行。
+首先我们有RowingBoat和FishingBoat接口</p>
+
+<pre><code>public interface RowingBoat {
+  void row();
+}
+
+public class FishingBoat {
+  private static final Logger LOGGER = LoggerFactory.getLogger(FishingBoat.class);
+  public void sail() {
+    LOGGER.info(&quot;The fishing boat is sailing&quot;);
+  }
+}
 </code></pre>
+
+<p>另外船长期望实现一个划船接口可以移动。</p>
+
+<pre><code>public class Captain implements RowingBoat {
+
+  private RowingBoat rowingBoat;
+
+  public Captain(RowingBoat rowingBoat) {
+    this.rowingBoat = rowingBoat;
+  }
+
+  @Override
+  public void row() {
+    rowingBoat.row();
+  }
+}
+</code></pre>
+
+<p>现在海盗即将到来，船长需要逃跑，但是这里只有一个渔船。我们需要创建一个适配器允许船长操作这个渔船用他的划船技巧。</p>
+
+<pre><code>public class FishingBoatAdapter implements RowingBoat {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(FishingBoatAdapter.class);
+
+  private FishingBoat boat;
+
+  public FishingBoatAdapter() {
+    boat = new FishingBoat();
+  }
+
+  @Override
+  public void row() {
+    boat.sail();
+  }
+}
+</code></pre>
+
+<p>现在这个船长可以使用渔船躲避海盗了。</p>
+
+<pre><code>Captain captain = new Captain(new FishingBoatAdapter());
+captain.row();
+</code></pre>
+
+<h4 id="什么时候使用">什么时候使用</h4>
 
 <ul>
-<li>项目中实际用到的map</li>
+<li>要使用现有类，但是其接口不匹配你的要求</li>
+<li>要创建一个可重用的类与合作无关的意料之外的类，那些不一定具有兼容接口的类。</li>
+<li>您需要使用几个现有的子类，但通过子类化每个子类来适配它们的接口是不切实际的。 对象适配器可以适配其父类的接口。</li>
+<li>大多数使用第三方库的应用程序都使用适配器作为应用程序和第三方库之间的中间层，以将应用程序与库分离。 如果必须使用另一个库，则只需要用于新库的适配器而无需更改应用程序代码。</li>
 </ul>
 
-<pre><code>    public List&lt;JfhjlQueryBean&gt;  selectJfhjlList(JfhjlQueryBean cx) {
-    List&lt;JfhjlQueryBean&gt; jfjlBeans =  jlDao.selectJfhjlList(cx);
-     //剔除重复信息
-       Map&lt;String, JfhjlQueryBean&gt; zfjfs = new HashMap&lt;String,          
-     JfhjlQueryBean&gt;();
-    //统计各个奖励详细情况
-    Map&lt;String, HashMap&lt;String, Integer&gt;&gt; jfjlinfo  = new HashMap&lt;String, HashMap&lt;String, Integer&gt;&gt;();
-    //遍历数据
-    for (JfhjlQueryBean jfhjlQueryBean : jfjlBeans) {
-    String zfbh = jfhjlQueryBean.getZfbh();
-    if (zfjfs.get(zfbh) == null) {
-        zfjfs.put(zfbh, jfhjlQueryBean);
-    }   
-    String jllb = jfhjlQueryBean.getJllb();
-    //如果包含此人，则奖励类别的value加1  
-    if(!jfjlinfo.containsKey(zfbh)){
-        HashMap&lt;String, Integer&gt; jfjl = new HashMap&lt;String, Integer&gt;();
-        jfjl.put(jllb, 1);
-        jfjlinfo.put(zfbh, jfjl);
-    }              
-    else {
-    HashMap&lt;String,Integer&gt; hashMap = jfjlinfo.get(zfbh);
-    Integer jllbnum = hashMap.get(jllb);
-    if (jllbnum != null) {
-        hashMap.put(jllb, (jllbnum+1));
-    } else {
-       hashMap.put(jllb, 1);
-    }
-    }
-    //结果处理
-    List&lt;JfhjlQueryBean&gt; resultAll = new ArrayList&lt;JfhjlQueryBean&gt;();
-        for(Map.Entry&lt;String, JfhjlQueryBean&gt; entry:zfjfs.entrySet()){
-            StringBuffer jlinfo=new StringBuffer();
-            Map&lt;String, Integer&gt; jldetail=jfjlinfo.get(entry.getKey());
-            if(!jldetail.equals(null)){
-                for(Map.Entry&lt;String, Integer&gt; entry2:jldetail.entrySet()){
-                    jlinfo.append(entry2.getValue()+&quot;个&quot;+getJlmc(entry2.getKey())+&quot;\n&quot;);
-                }
-                entry.getValue().setWsyjl(jlinfo.toString());
-                resultAll.add(entry.getValue());
-            }
-            }
-        return resultAll;
-    }
-</code></pre>
+<h4 id="代码实例">代码实例</h4>
+
+<ul>
+<li>java.util.Arrays#asList()</li>
+<li>java.util.Collections#list()</li>
+<li>java.util.Collections#enumeration()</li>
+<li>javax.xml.bind.annotation.adapters.XMLAdapter</li>
+</ul>
+
+<blockquote>
+<p>翻译自<a href="https://github.com/iluwatar/java-design-patterns">java设计模式大全</a></p>
+</blockquote>
 
     </div>
 
@@ -314,19 +308,18 @@ var _hmt = _hmt || [];
     
 
     <footer class="post-footer">
-      
+      <div class="post-tags">
+          
+          <a href="/tags/development/">Development</a>
+          
+        </div>
 
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/gitemoji/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">git提交使用emoji</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
         
-          <a class="next" href="/post/ssm/">
-            <span class="next-text nav-default">SSM框架配置</span>
+          <a class="next" href="/post/classloader/">
+            <span class="next-text nav-default">类加载器ClassLoader</span>
             <span class="prev-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -343,10 +336,10 @@ var _hmt = _hmt || [];
     <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
   <script type="text/javascript">
   const gitment = new Gitment({
-    id: 'map.md',
-    title: 'map的几种遍历',
+    id: 'adapterPattern.md',
+    title: '适配器模式',
     link: decodeURI(location.href),
-    desc: '近期用到了map遍历，也查找了部分资料，自己整理一下 使用场景是我要从数据库获取一个人的几种奖励类别，但是我要把每个人的类别拼接起来，在ser',
+    desc: '解释 现实世界例子 \x26gt; 想象你有一些图片在内存卡中，你需要传输它们到电脑。为了传输它们你需要一些兼容电脑接口的适配器，你才能连接电脑。在这个例子中',
     owner: 'pugongyingbo',
     repo: 'https:\/\/github.com\/pugongyingbo\/pugongyingbo.com',
     oauth: {
