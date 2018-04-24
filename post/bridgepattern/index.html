@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>桥接模式 - Hello Code</title>
+  <link rel="alternate" hreflang="zh-cn" href="http://www.pugongyingbo.com/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+
+<meta name="author" content="zzb" />
+  <meta name="description" content="目的 将抽象从其实现中分离出来，以使两者可以独立变化。 “Decouple an abstraction from its implementation so that the two can vary independently” 解释 现实世界例子 考虑" />
+
+  <meta name="keywords" content="Hugo, theme, jane" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.38.2" />
+
+
+<link rel="canonical" href="http://www.pugongyingbo.com/post/bridgepattern/" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+
+<meta property="og:title" content="桥接模式" />
+<meta property="og:description" content="目的 将抽象从其实现中分离出来，以使两者可以独立变化。 “Decouple an abstraction from its implementation so that the two can vary independently” 解释 现实世界例子 考虑" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.pugongyingbo.com/post/bridgepattern/" />
+
+
+
+<meta property="article:published_time" content="2018-04-24T23:56:35&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-04-24T23:56:35&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="桥接模式">
+<meta itemprop="description" content="目的 将抽象从其实现中分离出来，以使两者可以独立变化。 “Decouple an abstraction from its implementation so that the two can vary independently” 解释 现实世界例子 考虑">
+
+
+<meta itemprop="datePublished" content="2018-04-24T23:56:35&#43;08:00" />
+<meta itemprop="dateModified" content="2018-04-24T23:56:35&#43;08:00" />
+<meta itemprop="wordCount" content="1380">
+
+
+
+<meta itemprop="keywords" content="Java设计模式," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="桥接模式"/>
+<meta name="twitter:description" content="目的 将抽象从其实现中分离出来，以使两者可以独立变化。 “Decouple an abstraction from its implementation so that the two can vary independently” 解释 现实世界例子 考虑"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">晴天</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">历史</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="https://gohugo.io">
+        <li class="mobile-menu-item">关于hugo</li>
+      </a>
+  </ul>
+</nav>
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">晴天</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        
+        <a class="menu-item-link" href="/">首页</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/post/">历史</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/tags/">标签</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/categories/">分类</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="https://gohugo.io" target="_blank">
+          关于hugo
+          <i class="iconfont icon-new-window"></i>
+        </a>
+        
+      </li>
+  </ul>
+</nav>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca4837698f527dfc5b1df9cea50c23e3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">桥接模式</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2018-04-24 </span>
+        <div class="post-category">
+            
+              <a href="/categories/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> Java设计模式 </a>
+            
+          </div>
+        <span class="more-meta"> 约 1380 字 </span>
+        <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span class="more-meta" id="busuanzi_container_page_pv">
+         本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        </span>
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h4 id="目的">目的</h4>
+
+<p>将抽象从其实现中分离出来，以使两者可以独立变化。</p>
+
+<blockquote>
+<p>“Decouple an abstraction from its implementation so that the two can vary independently”</p>
+</blockquote>
+
+<h4 id="解释">解释</h4>
+
+<ul>
+<li>现实世界例子</li>
+</ul>
+
+<blockquote>
+<p>考虑你有一个不同魔法的武器，并且你打算允许混合不同的拥有不同魔法的武器。 你会怎么做？为每个魔法创建多个复制品关于每一个武器，或者你创建独立的魔法并且设置它作为需要的武器？桥接模式允许你做第二种方法。</p>
+</blockquote>
+
+<ul>
+<li>简单来说</li>
+</ul>
+
+<blockquote>
+<p>桥接模式是关于选择组合而非继承。实现细节从层次结构推送到具有单独层次结构的另一个对象。</p>
+</blockquote>
+
+<ul>
+<li>维基百科解释</li>
+</ul>
+
+<blockquote>
+<p>桥接模式是一种设计模式被用在软件工程中，意思是将抽象从其实现中分离出来，以使两者可以独立变化。</p>
+</blockquote>
+
+<h4 id="代码示例">代码示例</h4>
+
+<ul>
+<li>先来个容易理解的： 颜色和形状。</li>
+</ul>
+
+<p>我们有一个接口结构包括接口和实现如下图所示：
+<img src="https://raw.githubusercontent.com/pugongyingbo/pugongyingbo.github.io/master/images/Bridge-Interface-Hierarchy.png" alt="1" /></p>
+
+<p>现在我们用桥接模式分离接口和实现，如下面UML图：
+<img src="https://raw.githubusercontent.com/pugongyingbo/pugongyingbo.github.io/master/images/bridge-design-pattern.png" alt="2" /></p>
+
+<p>注意在形状和颜色接口使用了合成实现桥接模式。</p>
+
+<ul>
+<li>Color</li>
+</ul>
+
+<pre><code>package com.journaldev.design.bridge;
+
+public interface Color {
+
+    public void applyColor();
+}
+</code></pre>
+
+<ul>
+<li>Shape</li>
+</ul>
+
+<pre><code>package com.journaldev.design.bridge;
+
+public abstract class Shape {
+    //Composition - implementor
+    protected Color color;
+    
+    //constructor with implementor as input argument
+    public Shape(Color c){
+        this.color=c;
+    }
+    
+    abstract public void applyColor();
+}
+</code></pre>
+
+<ul>
+<li>三角形</li>
+</ul>
+
+<pre><code>package com.journaldev.design.bridge;
+
+public class Triangle extends Shape{
+
+    public Triangle(Color c) {
+        super(c);
+    }
+
+    @Override
+    public void applyColor() {
+        System.out.print(&quot;Triangle filled with color &quot;);
+        color.applyColor();
+    } 
+
+}
+</code></pre>
+
+<ul>
+<li>五角形</li>
+</ul>
+
+<pre><code>package com.journaldev.design.bridge;
+
+public class Pentagon extends Shape{
+
+    public Pentagon(Color c) {
+        super(c);
+    }
+
+    @Override
+    public void applyColor() {
+        System.out.print(&quot;Pentagon filled with color &quot;);
+        color.applyColor();
+    } 
+
+}
+</code></pre>
+
+<ul>
+<li>RedColor.java</li>
+</ul>
+
+<pre><code>package com.journaldev.design.bridge;
+
+public class RedColor implements Color{
+
+    public void applyColor(){
+        System.out.println(&quot;red.&quot;);
+    }
+}
+</code></pre>
+
+<ul>
+<li>GreenColor.java</li>
+</ul>
+
+<pre><code>package com.journaldev.design.bridge;
+
+public class GreenColor implements Color{
+
+    public void applyColor(){
+        System.out.println(&quot;green.&quot;);
+    }
+}
+</code></pre>
+
+<ul>
+<li>BridgePatternTest.java</li>
+</ul>
+
+<pre><code>package com.journaldev.design.test;
+
+import com.journaldev.design.bridge.GreenColor;
+import com.journaldev.design.bridge.Pentagon;
+import com.journaldev.design.bridge.RedColor;
+import com.journaldev.design.bridge.Shape;
+import com.journaldev.design.bridge.Triangle;
+
+public class BridgePatternTest {
+
+    public static void main(String[] args) {
+        Shape tri = new Triangle(new RedColor());
+        tri.applyColor();
+        
+        Shape pent = new Pentagon(new GreenColor());
+        pent.applyColor();
+    }
+
+}
+
+//输出：
+//Triangle filled with color red.
+//Pentagon filled with color green.
+
+</code></pre>
+
+<hr />
+
+<p>以下是原文带的例子</p>
+
+<ul>
+<li>这里我们有武器等级制度</li>
+</ul>
+
+<pre><code>public interface Weapon {
+  void wield();
+  void swing();
+  void unwield();
+  Enchantment getEnchantment();
+}
+
+public class Sword implements Weapon {
+
+  private final Enchantment enchantment;
+
+  public Sword(Enchantment enchantment) {
+    this.enchantment = enchantment;
+  }
+
+  @Override
+  public void wield() {
+    LOGGER.info(&quot;The sword is wielded.&quot;);
+    enchantment.onActivate();
+  }
+
+  @Override
+  public void swing() {
+    LOGGER.info(&quot;The sword is swinged.&quot;);
+    enchantment.apply();
+  }
+
+  @Override
+  public void unwield() {
+    LOGGER.info(&quot;The sword is unwielded.&quot;);
+    enchantment.onDeactivate();
+  }
+
+  @Override
+  public Enchantment getEnchantment() {
+    return enchantment;
+  }
+}
+
+public class Hammer implements Weapon {
+
+  private final Enchantment enchantment;
+
+  public Hammer(Enchantment enchantment) {
+    this.enchantment = enchantment;
+  }
+
+  @Override
+  public void wield() {
+    LOGGER.info(&quot;The hammer is wielded.&quot;);
+    enchantment.onActivate();
+  }
+
+  @Override
+  public void swing() {
+    LOGGER.info(&quot;The hammer is swinged.&quot;);
+    enchantment.apply();
+  }
+
+  @Override
+  public void unwield() {
+    LOGGER.info(&quot;The hammer is unwielded.&quot;);
+    enchantment.onDeactivate();
+  }
+
+  @Override
+  public Enchantment getEnchantment() {
+    return enchantment;
+  }
+}
+</code></pre>
+
+<p>*　还有独立的魔法等级制度</p>
+
+<pre><code>public interface Enchantment {
+  void onActivate();
+  void apply();
+  void onDeactivate();
+}
+
+public class FlyingEnchantment implements Enchantment {
+
+  @Override
+  public void onActivate() {
+    LOGGER.info(&quot;The item begins to glow faintly.&quot;);
+  }
+
+  @Override
+  public void apply() {
+    LOGGER.info(&quot;The item flies and strikes the enemies finally returning to owner's hand.&quot;);
+  }
+
+  @Override
+  public void onDeactivate() {
+    LOGGER.info(&quot;The item's glow fades.&quot;);
+  }
+}
+
+public class SoulEatingEnchantment implements Enchantment {
+
+  @Override
+  public void onActivate() {
+    LOGGER.info(&quot;The item spreads bloodlust.&quot;);
+  }
+
+  @Override
+  public void apply() {
+    LOGGER.info(&quot;The item eats the soul of enemies.&quot;);
+  }
+
+  @Override
+  public void onDeactivate() {
+    LOGGER.info(&quot;Bloodlust slowly disappears.&quot;);
+  }
+}
+</code></pre>
+
+<p>执行这两个等级</p>
+
+<pre><code>Sword enchantedSword = new Sword(new SoulEatingEnchantment());
+enchantedSword.wield();
+enchantedSword.swing();
+enchantedSword.unwield();
+// The sword is wielded.
+// The item spreads bloodlust.
+// The sword is swinged.
+// The item eats the soul of enemies.
+// The sword is unwielded.
+// Bloodlust slowly disappears.
+
+Hammer hammer = new Hammer(new FlyingEnchantment());
+hammer.wield();
+hammer.swing();
+hammer.unwield();
+// The hammer is wielded.
+// The item begins to glow faintly.
+// The hammer is swinged.
+// The item flies and strikes the enemies finally returning to owner's hand.
+// The hammer is unwielded.
+// The item's glow fades.
+</code></pre>
+
+<h4 id="什么时候使用">什么时候使用</h4>
+
+<ul>
+<li>你想避免抽象及其实现之间的永久绑定。例如，必须在运行时选择或转换实现。</li>
+<li>两个抽象及其实现应该被子类扩展。桥接模式允许你将不同的抽象和实现组合起来，并独立扩展它们。</li>
+<li>抽象的实现变化不应该对客户产生影响，也就是说，他们的代码不应该被重新编译。</li>
+<li>你有很多类，恰好有个类层次结构表明需要将对象拆分成两部分。</li>
+<li>你想在多个类之间共享一个实现，这个实现细节应该对客户端隐藏</li>
+</ul>
+
+<h4 id="延伸">延伸</h4>
+
+<blockquote>
+<p>聚合(Aggregation)表示一种弱的拥有关系，体现的是A对象可以包含B对象，但B对象不是A对象的一部分；合成(composition)则是一种强的拥有关系，体现了严格的部分和整体的关系，部分和整体的生命周期一样。&ndash;《设计模式解析》
+优先使用对象的合成/聚合将有助于你保持每个类被封装，并被集中在单个任务上。这样类和类继承层次会保持较小规模，并且不太可能增长为不可控制的庞然大物。&ndash;《设计模式》</p>
+</blockquote>
+
+<ul>
+<li>桥接模式与适配器模式在代码实现上是相同的。差别在于适配器模式是已经有一个进水管和家用水龙头存在了，这时候生产一个接头来连接进水管和水龙头，这个接头就是适配器。桥接是定下生产接头策略，再让进水管有开发的自由度。只是先后的问题。</li>
+</ul>
+
+<blockquote>
+<p>翻译自<a href="https://github.com/iluwatar/java-design-patterns/tree/master/bridge">Java设计模式</a></p>
+</blockquote>
+
+<h4 id="参考">参考</h4>
+
+<ul>
+<li><a href="https://www.journaldev.com/1491/bridge-design-pattern-java">https://www.journaldev.com/1491/bridge-design-pattern-java</a></li>
+</ul>
+
+    </div>
+
+    
+    
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">Java设计模式</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/adapterpattern/">
+            <span class="next-text nav-default">适配器模式</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+    
+
+  
+
+  
+
+  <div id="comments-gitment"></div>
+  <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
+    <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
+  <script type="text/javascript">
+  const gitment = new Gitment({
+    id: 'bridgePattern.md',
+    title: '桥接模式',
+    link: decodeURI(location.href),
+    desc: '目的 将抽象从其实现中分离出来，以使两者可以独立变化。 “Decouple an abstraction from its implementation so that the two can vary independently” 解释 现实世界例子 考虑',
+    owner: 'pugongyingbo',
+    repo: 'https:\/\/github.com\/pugongyingbo\/pugongyingbo.com',
+    oauth: {
+      client_id: '75c6cdb87916846429c6',
+      client_secret: '1d357d8fef00e2e061cde20737e215d6c551db86'
+    }
+  })
+  gitment.render('comments-gitment')
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="pugongyingbo@163.com" rel="me" class="iconfont icon-email" 
+        title="email" target="_blank">
+      </a>
+      <a href="https://github.com/pugongyingbo" rel="me" class="iconfont icon-github" 
+        title="github" target="_blank">
+      </a>
+  <a href="http://www.pugongyingbo.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" 
+    title="rss" target="_blank">
+  </a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ <span class="division">|</span>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span class="division">|</span>
+<span id="busuanzi_container_site_uv" style="display: inline;">
+    欢迎第<span id="busuanzi_value_site_uv"></span>位小伙伴
+  </span>
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zzb</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script><script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?ca4837698f527dfc5b1df9cea50c23e3";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+</body>
+</html>
