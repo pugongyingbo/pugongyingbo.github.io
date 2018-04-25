@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.pugongyingbo.com/post/decorator/</loc>
+    <lastmod>2018-04-25T23:43:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://www.pugongyingbo.com/post/bridgepattern/</loc>
     <lastmod>2018-04-24T23:56:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -129,28 +136,28 @@
   
   <url>
     <loc>http://www.pugongyingbo.com/</loc>
-    <lastmod>2018-04-24T23:56:35+08:00</lastmod>
+    <lastmod>2018-04-25T23:43:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://www.pugongyingbo.com/tags/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2018-04-24T23:56:35+08:00</lastmod>
+    <lastmod>2018-04-25T23:43:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://www.pugongyingbo.com/categories/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2018-04-24T23:56:35+08:00</lastmod>
+    <lastmod>2018-04-25T23:43:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://www.pugongyingbo.com/post/</loc>
-    <lastmod>2018-04-24T23:56:35+08:00</lastmod>
+    <lastmod>2018-04-25T23:43:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

@@ -6,10 +6,19 @@
     <description>Recent content in Java设计模式 on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 24 Apr 2018 23:56:35 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 25 Apr 2018 23:43:14 +0800</lastBuildDate>
     
 	<atom:link href="http://www.pugongyingbo.com/categories/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>装饰器模式</title>
+      <link>http://www.pugongyingbo.com/post/decorator/</link>
+      <pubDate>Wed, 25 Apr 2018 23:43:14 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/decorator/</guid>
+      <description>举个例子 有一个巨怪住在山附近，平时它都是空手的，但是有时它有一个武器，为了武装自己，它不必创建一个新的巨怪，而是用合适的武器动态的装饰自己。</description>
+    </item>
     
     <item>
       <title>桥接模式</title>
