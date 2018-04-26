@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>责任链模式 - Hello Code</title>
+  <link rel="alternate" hreflang="zh-cn" href="http://www.pugongyingbo.com/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+
+<meta name="author" content="zzb" />
+  <meta name="description" content="解释 使多个对象都有机会处理请求，从而避免请求的发送者和接收着之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理" />
+
+  <meta name="keywords" content="Hugo, theme, jane" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.38.2" />
+
+
+<link rel="canonical" href="http://www.pugongyingbo.com/post/responsibility/" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+
+<meta property="og:title" content="责任链模式" />
+<meta property="og:description" content="解释 使多个对象都有机会处理请求，从而避免请求的发送者和接收着之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.pugongyingbo.com/post/responsibility/" />
+
+
+
+<meta property="article:published_time" content="2018-04-26T23:26:24&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-04-26T23:26:24&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="责任链模式">
+<meta itemprop="description" content="解释 使多个对象都有机会处理请求，从而避免请求的发送者和接收着之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理">
+
+
+<meta itemprop="datePublished" content="2018-04-26T23:26:24&#43;08:00" />
+<meta itemprop="dateModified" content="2018-04-26T23:26:24&#43;08:00" />
+<meta itemprop="wordCount" content="988">
+
+
+
+<meta itemprop="keywords" content="Java设计模式," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="责任链模式"/>
+<meta name="twitter:description" content="解释 使多个对象都有机会处理请求，从而避免请求的发送者和接收着之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">晴天</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">历史</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="https://gohugo.io">
+        <li class="mobile-menu-item">关于hugo</li>
+      </a>
+  </ul>
+</nav>
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">晴天</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        
+        <a class="menu-item-link" href="/">首页</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/post/">历史</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/tags/">标签</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/categories/">分类</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="https://gohugo.io" target="_blank">
+          关于hugo
+          <i class="iconfont icon-new-window"></i>
+        </a>
+        
+      </li>
+  </ul>
+</nav>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca4837698f527dfc5b1df9cea50c23e3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">责任链模式</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2018-04-26 </span>
+        <div class="post-category">
+            
+              <a href="/categories/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> Java设计模式 </a>
+            
+          </div>
+        <span class="more-meta"> 约 988 字 </span>
+        <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span class="more-meta" id="busuanzi_container_page_pv">
+         本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        </span>
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h4 id="解释">解释</h4>
+
+<blockquote>
+<p>使多个对象都有机会处理请求，从而避免请求的发送者和接收着之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止。</p>
+</blockquote>
+
+<h4 id="代码例子">代码例子</h4>
+
+<p>ATM取款机是一个很好的例子。用户输入指定的数额，然后机器分配货币按照定义好的数额例如50,20,10块的。如果用户输入一个数字不是10的倍数，它会抛出异常。我们用责任链模式来实现解决方案。</p>
+
+<h4 id="基本的接口和类">基本的接口和类</h4>
+
+<ul>
+<li>Currency.java</li>
+</ul>
+
+<pre><code>package com.journaldev.design.chainofresponsibility;
+
+public class Currency {
+
+    private int amount;
+    
+    public Currency(int amt){
+        this.amount=amt;
+    }
+    
+    public int getAmount(){
+        return this.amount;
+    }
+}
+</code></pre>
+
+<p>基本接口应该有一个方法来定义下一个处理在责任链中，并且这个处理会传递请求。ATM的分配接口如下：</p>
+
+<ul>
+<li>DispenseChain.java</li>
+</ul>
+
+<pre><code>package com.journaldev.design.chainofresponsibility;
+
+public interface DispenseChain {
+
+    void setNextChain(DispenseChain nextChain);
+    
+    void dispense(Currency cur);
+}
+</code></pre>
+
+<h4 id="链的实现">链的实现</h4>
+
+<p>我们需要创建不同的处理类，这些类将会实现分配链接口，并且提供分配方法的实现。我们开发我们的系统用三种类型的货币-50 、20 、10，我们将会创建三个具体的实现。</p>
+
+<ul>
+<li>Dollar50Dispenser.java</li>
+</ul>
+
+<pre><code>package com.journaldev.design.chainofresponsibility;
+
+public class Dollar50Dispenser implements DispenseChain {
+
+    private DispenseChain chain;
+    
+    @Override
+    public void setNextChain(DispenseChain nextChain) {
+        this.chain=nextChain;
+    }
+
+    @Override
+    public void dispense(Currency cur) {
+        if(cur.getAmount() &gt;= 50){
+            int num = cur.getAmount()/50;
+            int remainder = cur.getAmount() % 50;
+            System.out.println(&quot;Dispensing &quot;+num+&quot; 50$ note&quot;);
+            if(remainder !=0) this.chain.dispense(new Currency(remainder));
+        }else{
+            this.chain.dispense(cur);
+        }
+    }
+
+}
+</code></pre>
+
+<ul>
+<li>Dollar20Dispenser.java</li>
+</ul>
+
+<pre><code>package com.journaldev.design.chainofresponsibility;
+
+public class Dollar20Dispenser implements DispenseChain{
+
+    private DispenseChain chain;
+    
+    @Override
+    public void setNextChain(DispenseChain nextChain) {
+        this.chain=nextChain;
+    }
+
+    @Override
+    public void dispense(Currency cur) {
+        if(cur.getAmount() &gt;= 20){
+            int num = cur.getAmount()/20;
+            int remainder = cur.getAmount() % 20;
+            System.out.println(&quot;Dispensing &quot;+num+&quot; 20$ note&quot;);
+            if(remainder !=0) this.chain.dispense(new Currency(remainder));
+        }else{
+            this.chain.dispense(cur);
+        }
+    }
+
+}
+</code></pre>
+
+<ul>
+<li>Dollar10Dispenser.java</li>
+</ul>
+
+<pre><code>package com.journaldev.design.chainofresponsibility;
+
+public class Dollar10Dispenser implements DispenseChain {
+
+    private DispenseChain chain;
+    
+    @Override
+    public void setNextChain(DispenseChain nextChain) {
+        this.chain=nextChain;
+    }
+
+    @Override
+    public void dispense(Currency cur) {
+        if(cur.getAmount() &gt;= 10){
+            int num = cur.getAmount()/10;
+            int remainder = cur.getAmount() % 10;
+            System.out.println(&quot;Dispensing &quot;+num+&quot; 10$ note&quot;);
+            if(remainder !=0) this.chain.dispense(new Currency(remainder));
+        }else{
+            this.chain.dispense(cur);
+        }
+    }
+
+}
+</code></pre>
+
+<h4 id="创建链">创建链</h4>
+
+<p>这是非常重要的一步，我们应该仔细的创建链，否则一个处理可能不会得到任何请求。比如，如果我们让第一个处理链是10块和20 块的分配方法，那么该请求将不会被转发到第二个处理，并且链也将变得无用。</p>
+
+<ul>
+<li>ATMDispenseChain.java</li>
+</ul>
+
+<pre><code>package com.journaldev.design.chainofresponsibility;
+
+import java.util.Scanner;
+
+public class ATMDispenseChain {
+
+    private DispenseChain c1;
+
+    public ATMDispenseChain() {
+        // initialize the chain
+        this.c1 = new Dollar50Dispenser();
+        DispenseChain c2 = new Dollar20Dispenser();
+        DispenseChain c3 = new Dollar10Dispenser();
+
+        // set the chain of responsibility
+        c1.setNextChain(c2);
+        c2.setNextChain(c3);
+    }
+
+    public static void main(String[] args) {
+        ATMDispenseChain atmDispenser = new ATMDispenseChain();
+        while (true) {
+            int amount = 0;
+            System.out.println(&quot;Enter amount to dispense&quot;);
+            Scanner input = new Scanner(System.in);
+            amount = input.nextInt();
+            if (amount % 10 != 0) {
+                System.out.println(&quot;Amount should be in multiple of 10s.&quot;);
+                return;
+            }
+            // process the request
+            atmDispenser.c1.dispense(new Currency(amount));
+        }
+
+    }
+
+}
+</code></pre>
+
+<ul>
+<li>输出</li>
+</ul>
+
+<pre><code>Enter amount to dispense
+530
+Dispensing 10 50$ note
+Dispensing 1 20$ note
+Dispensing 1 10$ note
+Enter amount to dispense
+100
+Dispensing 2 50$ note
+Enter amount to dispense
+120
+Dispensing 2 50$ note
+Dispensing 1 20$ note
+Enter amount to dispense
+15
+Amount should be in multiple of 10s.
+</code></pre>
+
+<h4 id="注意的点">注意的点</h4>
+
+<ul>
+<li>客户端不知道链的哪一部分将处理请求，并且它将把请求发送给链中的第一个对象。</li>
+<li>链中的每个对象都有自己的实现类来处理请求，可以是全部或部分，也可以将它发送给链中的下一个对象。</li>
+<li>链中的每个对象都应该引用链中的下一个对象类转发请求，它由Java组合实现。</li>
+<li>仔细的创建链非常重要，否则可能吹出现请求永远不会转发到特定处理器的情况，或链中没有任何对象能够处理该请求。</li>
+<li>责任链模式可以很好的实现解耦，但如果大多数代码在所有实现类中都很常见，那么它会带来很多实现类和维护问题。</li>
+</ul>
+
+<h4 id="实际例子">实际例子</h4>
+
+<ul>
+<li>java.util.logging.Logger#log()</li>
+<li>javax.servlet.Filter#doFilter()</li>
+<li><a href="https://commons.apache.org/proper/commons-chain/index.html">Apache Commons Chain</a></li>
+</ul>
+
+<blockquote>
+<p>翻译自 <a href="https://www.journaldev.com/1617/chain-of-responsibility-design-pattern-in-java">https://www.journaldev.com/1617/chain-of-responsibility-design-pattern-in-java</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">Java设计模式</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/decorator/">
+            <span class="next-text nav-default">装饰器模式</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+    
+
+  
+
+  
+
+  <div id="comments-gitment"></div>
+  <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
+    <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
+  <script type="text/javascript">
+  const gitment = new Gitment({
+    id: 'responsibility.md',
+    title: '责任链模式',
+    link: decodeURI(location.href),
+    desc: '解释 使多个对象都有机会处理请求，从而避免请求的发送者和接收着之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理',
+    owner: 'pugongyingbo',
+    repo: 'https:\/\/github.com\/pugongyingbo\/pugongyingbo.com',
+    oauth: {
+      client_id: '75c6cdb87916846429c6',
+      client_secret: '1d357d8fef00e2e061cde20737e215d6c551db86'
+    }
+  })
+  gitment.render('comments-gitment')
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="pugongyingbo@163.com" rel="me" class="iconfont icon-email" 
+        title="email" target="_blank">
+      </a>
+      <a href="https://github.com/pugongyingbo" rel="me" class="iconfont icon-github" 
+        title="github" target="_blank">
+      </a>
+  <a href="http://www.pugongyingbo.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" 
+    title="rss" target="_blank">
+  </a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ <span class="division">|</span>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span class="division">|</span>
+<span id="busuanzi_container_site_uv" style="display: inline;">
+    欢迎第<span id="busuanzi_value_site_uv"></span>位小伙伴
+  </span>
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zzb</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script><script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?ca4837698f527dfc5b1df9cea50c23e3";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+</body>
+</html>
