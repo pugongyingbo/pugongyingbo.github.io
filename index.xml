@@ -6,10 +6,21 @@
     <description>Recent content on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 26 Apr 2018 23:26:24 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 27 Apr 2018 23:41:37 +0800</lastBuildDate>
     
         <atom:link href="http://www.pugongyingbo.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>观察者模式</title>
+      <link>http://www.pugongyingbo.com/post/observer/</link>
+      <pubDate>Fri, 27 Apr 2018 23:41:37 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/observer/</guid>
+      
+        <description>解释 观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。这个主题对象在状态发生变化时，会通知所有观察者对象，使它们</description>
+      
+    </item>
     
     <item>
       <title>责任链模式</title>
