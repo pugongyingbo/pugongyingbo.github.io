@@ -6,10 +6,21 @@
     <description>Recent content on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 27 Apr 2018 23:41:37 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 01 May 2018 22:28:06 +0800</lastBuildDate>
     
         <atom:link href="http://www.pugongyingbo.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SpringBoot的第一个web</title>
+      <link>http://www.pugongyingbo.com/post/springboot/</link>
+      <pubDate>Tue, 01 May 2018 22:28:06 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/springboot/</guid>
+      
+        <description>学习都是从简单的Hello World 到打印数据库的数据，入门很简单，但是也有不少坑，需要亲自动手才能遇见。 首先分层 java包 com.example.controller - Controller</description>
+      
+    </item>
     
     <item>
       <title>观察者模式</title>
