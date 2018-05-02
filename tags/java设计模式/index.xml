@@ -6,10 +6,28 @@
     <description>Recent content in Java设计模式 on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 27 Apr 2018 23:41:37 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 02 May 2018 23:20:15 +0800</lastBuildDate>
     
 	<atom:link href="http://www.pugongyingbo.com/tags/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>工厂设计模式</title>
+      <link>http://www.pugongyingbo.com/post/factory/</link>
+      <pubDate>Wed, 02 May 2018 23:20:15 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/factory/</guid>
+      <description>解释 定义一个用于创建对象的接口，让子类决定示例化哪一个类，工厂方法使一个类的实例化延迟到其子类。 超类 工厂模式中的超类可以是一个接口，抽象类或</description>
+    </item>
+    
+    <item>
+      <title>Java设计模式</title>
+      <link>http://www.pugongyingbo.com/post/java_pattern/</link>
+      <pubDate>Wed, 02 May 2018 23:19:54 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/java_pattern/</guid>
+      <description>创建型模式 单例模式(singleton) 工厂模式(factory) 抽象工厂模式(abstract factory) 建造者模式(builder) 原型模式(pr</description>
+    </item>
     
     <item>
       <title>观察者模式</title>
