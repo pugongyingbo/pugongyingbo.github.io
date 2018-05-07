@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>工厂设计模式 - Hello Code</title>
+  <title>抽象工厂模式 - Hello Code</title>
   <link rel="alternate" hreflang="zh-cn" href="http://www.pugongyingbo.com/" />
 
 <meta name="renderer" content="webkit" />
@@ -26,7 +26,7 @@
 
 
 <meta name="author" content="zzb" />
-  <meta name="description" content="解释 定义一个用于创建对象的接口，让子类决定示例化哪一个类，工厂方法使一个类的实例化延迟到其子类。 超类 工厂模式中的超类可以是一个接口，抽象类或" />
+  <meta name="description" content="解释 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。 在抽象工厂中，我们摆脱了厂if-else代码块，并为每个子类设置了工" />
 
   <meta name="keywords" content="Hugo, theme, jane" />
 
@@ -38,7 +38,7 @@
 <meta name="generator" content="Hugo 0.38.2" />
 
 
-<link rel="canonical" href="http://www.pugongyingbo.com/post/factory/" />
+<link rel="canonical" href="http://www.pugongyingbo.com/post/abstractfactory/" />
 
 
 
@@ -58,20 +58,16 @@
 
 
 
-<meta property="og:title" content="工厂设计模式" />
-<meta property="og:description" content="解释 定义一个用于创建对象的接口，让子类决定示例化哪一个类，工厂方法使一个类的实例化延迟到其子类。 超类 工厂模式中的超类可以是一个接口，抽象类或" />
+<meta property="og:title" content="抽象工厂模式" />
+<meta property="og:description" content="解释 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。 在抽象工厂中，我们摆脱了厂if-else代码块，并为每个子类设置了工" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://www.pugongyingbo.com/post/factory/" />
+<meta property="og:url" content="http://www.pugongyingbo.com/post/abstractfactory/" />
 
 
 
-<meta property="article:published_time" content="2018-05-02T23:20:15&#43;08:00"/>
+<meta property="article:published_time" content="2018-05-07T23:29:46&#43;08:00"/>
 
-<meta property="article:modified_time" content="2018-05-02T23:20:15&#43;08:00"/>
-
-
-
-
+<meta property="article:modified_time" content="2018-05-07T23:29:46&#43;08:00"/>
 
 
 
@@ -79,20 +75,24 @@
 
 
 
-<meta itemprop="name" content="工厂设计模式">
-<meta itemprop="description" content="解释 定义一个用于创建对象的接口，让子类决定示例化哪一个类，工厂方法使一个类的实例化延迟到其子类。 超类 工厂模式中的超类可以是一个接口，抽象类或">
 
 
-<meta itemprop="datePublished" content="2018-05-02T23:20:15&#43;08:00" />
-<meta itemprop="dateModified" content="2018-05-02T23:20:15&#43;08:00" />
-<meta itemprop="wordCount" content="588">
+
+
+<meta itemprop="name" content="抽象工厂模式">
+<meta itemprop="description" content="解释 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。 在抽象工厂中，我们摆脱了厂if-else代码块，并为每个子类设置了工">
+
+
+<meta itemprop="datePublished" content="2018-05-07T23:29:46&#43;08:00" />
+<meta itemprop="dateModified" content="2018-05-07T23:29:46&#43;08:00" />
+<meta itemprop="wordCount" content="572">
 
 
 
 <meta itemprop="keywords" content="Java设计模式," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="工厂设计模式"/>
-<meta name="twitter:description" content="解释 定义一个用于创建对象的接口，让子类决定示例化哪一个类，工厂方法使一个类的实例化延迟到其子类。 超类 工厂模式中的超类可以是一个接口，抽象类或"/>
+<meta name="twitter:title" content="抽象工厂模式"/>
+<meta name="twitter:description" content="解释 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。 在抽象工厂中，我们摆脱了厂if-else代码块，并为每个子类设置了工"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -186,16 +186,16 @@ var _hmt = _hmt || [];
           <article class="post bg-white">
     
     <header class="post-header">
-      <h1 class="post-title">工厂设计模式</h1>
+      <h1 class="post-title">抽象工厂模式</h1>
       
       <div class="post-meta">
-        <span class="post-time"> 2018-05-02 </span>
+        <span class="post-time"> 2018-05-07 </span>
         <div class="post-category">
             
               <a href="/categories/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> Java设计模式 </a>
             
           </div>
-        <span class="more-meta"> 约 588 字 </span>
+        <span class="more-meta"> 约 572 字 </span>
         <span class="more-meta"> 预计阅读 2 分钟 </span>
         <span class="more-meta" id="busuanzi_container_page_pv">
          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
@@ -213,21 +213,25 @@ var _hmt = _hmt || [];
 <h4 id="解释">解释</h4>
 
 <blockquote>
-<p>定义一个用于创建对象的接口，让子类决定示例化哪一个类，工厂方法使一个类的实例化延迟到其子类。</p>
+<p>提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。</p>
 </blockquote>
 
-<h4 id="超类">超类</h4>
+<p>在抽象工厂中，我们摆脱了厂if-else代码块，并为每个子类设置了工厂类。然后抽象工厂类将根据输入的工厂类返回子类。一开始他似乎令人困惑，但一旦你看到实现，它很容易掌握并理解工厂和抽象工厂模式之间的微小差异。</p>
 
-<p>工厂模式中的超类可以是一个接口，抽象类或普通的Java类。</p>
+<h4 id="超类和子类">超类和子类</h4>
+
+<ul>
+<li>Computer.java</li>
+</ul>
 
 <pre><code>package com.journaldev.design.model;
-
+ 
 public abstract class Computer {
-    
+     
     public abstract String getRAM();
     public abstract String getHDD();
     public abstract String getCPU();
-    
+     
     @Override
     public String toString(){
         return &quot;RAM= &quot;+this.getRAM()+&quot;, HDD=&quot;+this.getHDD()+&quot;, CPU=&quot;+this.getCPU();
@@ -235,18 +239,18 @@ public abstract class Computer {
 }
 </code></pre>
 
-<h4 id="子类">子类</h4>
-
-<p>PC和Server两个子类</p>
+<ul>
+<li>PC.java</li>
+</ul>
 
 <pre><code>package com.journaldev.design.model;
-
+ 
 public class PC extends Computer {
-
+ 
     private String ram;
     private String hdd;
     private String cpu;
-    
+     
     public PC(String ram, String hdd, String cpu){
         this.ram=ram;
         this.hdd=hdd;
@@ -256,32 +260,32 @@ public class PC extends Computer {
     public String getRAM() {
         return this.ram;
     }
-
+ 
     @Override
     public String getHDD() {
         return this.hdd;
     }
-
+ 
     @Override
     public String getCPU() {
         return this.cpu;
     }
-
+ 
 }
 </code></pre>
 
 <ul>
-<li>server子类</li>
+<li>Server.java</li>
 </ul>
 
 <pre><code>package com.journaldev.design.model;
 
 public class Server extends Computer {
-
+ 
     private String ram;
     private String hdd;
     private String cpu;
-    
+     
     public Server(String ram, String hdd, String cpu){
         this.ram=ram;
         this.hdd=hdd;
@@ -291,62 +295,135 @@ public class Server extends Computer {
     public String getRAM() {
         return this.ram;
     }
-
+ 
     @Override
     public String getHDD() {
         return this.hdd;
     }
-
+ 
     @Override
     public String getCPU() {
         return this.cpu;
     }
-
 }
 </code></pre>
 
-<h4 id="工厂类">工厂类</h4>
+<h4 id="每个子类的工厂类">每个子类的工厂类</h4>
 
-<ol>
-<li>我们可以保持工厂类单例，或者使用static方法返回子类。</li>
-<li>注意基于不同的输入参数，不同的子类被创建并且返回，getComputer是工厂方法。</li>
-</ol>
+<p>首先我们需要创建一个抽象工厂接口或抽象类。</p>
 
-<pre><code>package com.journaldev.design.factory;
+<ul>
+<li>ComputerAbstractFactory.java</li>
+</ul>
+
+<pre><code>package com.journaldev.design.abstractfactory;
+
+import com.journaldev.design.model.Computer;
+
+public interface ComputerAbstractFactory {
+
+    public Computer createComputer();
+}
+</code></pre>
+
+<p>现在我们的工厂类将实现这个接口并返回它们各自的子类。</p>
+
+<ul>
+<li>PCFactory.java</li>
+</ul>
+
+<pre><code>package com.journaldev.design.abstractfactory;
 
 import com.journaldev.design.model.Computer;
 import com.journaldev.design.model.PC;
-import com.journaldev.design.model.Server;
 
-public class ComputerFactory {
+public class PCFactory implements ComputerAbstractFactory {
 
-    public static Computer getComputer(String type, String ram, String hdd, String cpu){
-        if(&quot;PC&quot;.equalsIgnoreCase(type)) return new PC(ram, hdd, cpu);
-        else if(&quot;Server&quot;.equalsIgnoreCase(type)) return new Server(ram, hdd, cpu);
-        
-        return null;
+    private String ram;
+    private String hdd;
+    private String cpu;
+    
+    public PCFactory(String ram, String hdd, String cpu){
+        this.ram=ram;
+        this.hdd=hdd;
+        this.cpu=cpu;
+    }
+    @Override
+    public Computer createComputer() {
+        return new PC(ram,hdd,cpu);
     }
 }
 </code></pre>
 
 <ul>
-<li>测试代码</li>
+<li>ServerFactory.java</li>
+</ul>
+
+<pre><code>package com.journaldev.design.abstractfactory;
+
+import com.journaldev.design.model.Computer;
+import com.journaldev.design.model.Server;
+
+public class ServerFactory implements ComputerAbstractFactory {
+
+    private String ram;
+    private String hdd;
+    private String cpu;
+    
+    public ServerFactory(String ram, String hdd, String cpu){
+        this.ram=ram;
+        this.hdd=hdd;
+        this.cpu=cpu;
+    }
+    
+    @Override
+    public Computer createComputer() {
+        return new Server(ram,hdd,cpu);
+    }
+}
+</code></pre>
+
+<p>现在我们将创建一个消费者类，它将为客户端类创建子类提供入口点。</p>
+
+<ul>
+<li>ComputerFactory.java</li>
+</ul>
+
+<pre><code>package com.journaldev.design.abstractfactory;
+
+import com.journaldev.design.model.Computer;
+
+public class ComputerFactory {
+
+    public static Computer getComputer(ComputerAbstractFactory factory){
+        return factory.createComputer();
+    }
+}
+</code></pre>
+
+<ul>
+<li>TestDesignPatterns.java</li>
 </ul>
 
 <pre><code>package com.journaldev.design.test;
 
+import com.journaldev.design.abstractfactory.PCFactory;
+import com.journaldev.design.abstractfactory.ServerFactory;
 import com.journaldev.design.factory.ComputerFactory;
 import com.journaldev.design.model.Computer;
 
-public class TestFactory {
+public class TestDesignPatterns {
 
     public static void main(String[] args) {
-        Computer pc = ComputerFactory.getComputer(&quot;pc&quot;,&quot;2 GB&quot;,&quot;500 GB&quot;,&quot;2.4 GHz&quot;);
-        Computer server = ComputerFactory.getComputer(&quot;server&quot;,&quot;16 GB&quot;,&quot;1 TB&quot;,&quot;2.9 GHz&quot;);
-        System.out.println(&quot;Factory PC Config::&quot;+pc);
-        System.out.println(&quot;Factory Server Config::&quot;+server);
+        testAbstractFactory();
     }
 
+    private static void testAbstractFactory() {
+        Computer pc = com.journaldev.design.abstractfactory.ComputerFactory.getComputer(new PCFactory(&quot;2 GB&quot;,&quot;500 GB&quot;,&quot;2.4 GHz&quot;));
+        Computer server = com.journaldev.design.abstractfactory.ComputerFactory.getComputer(new ServerFactory(&quot;16 GB&quot;,&quot;1 TB&quot;,&quot;2.9 GHz&quot;));
+        System.out.println(&quot;AbstractFactory PC Config::&quot;+pc);
+        System.out.println(&quot;AbstractFactory Server Config::&quot;+server);
+    }
 }
 </code></pre>
 
@@ -354,24 +431,17 @@ public class TestFactory {
 <li>输出</li>
 </ul>
 
-<pre><code>Factory PC Config::RAM= 2 GB, HDD=500 GB, CPU=2.4 GHz
-Factory Server Config::RAM= 16 GB, HDD=1 TB, CPU=2.9 GHz
+<pre><code>AbstractFactory PC Config::RAM= 2 GB, HDD=500 GB, CPU=2.4 GHz
+AbstractFactory Server Config::RAM= 16 GB, HDD=1 TB, CPU=2.9 GHz
 </code></pre>
 
-<h4 id="优点">优点</h4>
+<h4 id="抽象工厂设计模式的好处">抽象工厂设计模式的好处</h4>
 
-<ol>
-<li>工厂设计模式为接口而不是实现提供了代码方法。</li>
-<li>工厂设计模式从客户端代码中移除了实现类的实例化。工厂模式让我们的代码更健壮，耦合更少且易于扩展。例如我们可以很简单的实现PC类，因为客户端程序没有意识到它。</li>
-<li>工厂模式通过继承在实现类和客户端类之间提供了抽象。</li>
-</ol>
-
-<h4 id="jdk例子">JDK例子</h4>
-
-<ol>
-<li>java.util.Calendar ,ResourceBundle ,NumberFormat 的getInstance()方法</li>
-<li>包装类的valueOf()方法，Boolean,Integer等</li>
-</ol>
+<ul>
+<li>抽象工厂提供了接口而不是实现接口</li>
+<li>抽象工厂是工厂中的工厂，并且可以被很轻松的扩展以容纳更多的产品。</li>
+<li>抽象工厂模式是健壮的，避免了工厂模式的条件逻辑。</li>
+</ul>
 
     </div>
 
@@ -391,14 +461,9 @@ Factory Server Config::RAM= 16 GB, HDD=1 TB, CPU=2.9 GHz
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/abstractfactory/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">抽象工厂模式</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
         
-          <a class="next" href="/post/java_pattern/">
-            <span class="next-text nav-default">Java设计模式</span>
+          <a class="next" href="/post/factory/">
+            <span class="next-text nav-default">工厂设计模式</span>
             <span class="prev-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -415,10 +480,10 @@ Factory Server Config::RAM= 16 GB, HDD=1 TB, CPU=2.9 GHz
     <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
   <script type="text/javascript">
   const gitment = new Gitment({
-    id: 'factory.md',
-    title: '工厂设计模式',
+    id: 'abstractFactory.md',
+    title: '抽象工厂模式',
     link: decodeURI(location.href),
-    desc: '解释 定义一个用于创建对象的接口，让子类决定示例化哪一个类，工厂方法使一个类的实例化延迟到其子类。 超类 工厂模式中的超类可以是一个接口，抽象类或',
+    desc: '解释 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。 在抽象工厂中，我们摆脱了厂if-else代码块，并为每个子类设置了工',
     owner: 'pugongyingbo',
     repo: 'https:\/\/github.com\/pugongyingbo\/pugongyingbo.com',
     oauth: {

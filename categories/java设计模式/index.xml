@@ -6,10 +6,19 @@
     <description>Recent content in Java设计模式 on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 02 May 2018 23:20:15 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 07 May 2018 23:29:46 +0800</lastBuildDate>
     
 	<atom:link href="http://www.pugongyingbo.com/categories/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>抽象工厂模式</title>
+      <link>http://www.pugongyingbo.com/post/abstractfactory/</link>
+      <pubDate>Mon, 07 May 2018 23:29:46 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/abstractfactory/</guid>
+      <description>解释 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。 在抽象工厂中，我们摆脱了厂if-else代码块，并为每个子类设置了工</description>
+    </item>
     
     <item>
       <title>工厂设计模式</title>
