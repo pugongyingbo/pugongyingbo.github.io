@@ -6,10 +6,19 @@
     <description>Recent content in Java设计模式 on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 07 May 2018 23:29:46 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 08 May 2018 23:13:07 +0800</lastBuildDate>
     
 	<atom:link href="http://www.pugongyingbo.com/tags/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>策略模式</title>
+      <link>http://www.pugongyingbo.com/post/strategypattern/</link>
+      <pubDate>Tue, 08 May 2018 23:13:07 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/strategypattern/</guid>
+      <description>策略模式 我们定义了多种算法，并且让客户端应用传递被用来作为参数的算法。 PaymentStrategy.java package com.journaldev.design.strategy; public interface PaymentStrategy { public void pay(int amount); } CreditCardStrategy.java package com.journaldev.design.strategy; public class CreditCardStrategy implements PaymentStrategy { private String name; private String cardNumber; private String cvv; private String dateOfExpiry; public CreditCardStrategy(String</description>
+    </item>
     
     <item>
       <title>抽象工厂模式</title>

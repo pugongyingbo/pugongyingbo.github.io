@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>抽象工厂模式 - Hello Code</title>
+  <title>策略模式 - Hello Code</title>
   <link rel="alternate" hreflang="zh-cn" href="http://www.pugongyingbo.com/" />
 
 <meta name="renderer" content="webkit" />
@@ -26,7 +26,7 @@
 
 
 <meta name="author" content="zzb" />
-  <meta name="description" content="解释 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。 在抽象工厂中，我们摆脱了厂if-else代码块，并为每个子类设置了工" />
+  <meta name="description" content="策略模式 我们定义了多种算法，并且让客户端应用传递被用来作为参数的算法。 PaymentStrategy.java package com.journaldev.design.strategy; public interface PaymentStrategy { public void pay(int amount); } CreditCardStrategy.java package com.journaldev.design.strategy; public class CreditCardStrategy implements PaymentStrategy { private String name; private String cardNumber; private String cvv; private String dateOfExpiry; public CreditCardStrategy(String" />
 
   <meta name="keywords" content="Hugo, theme, jane" />
 
@@ -38,7 +38,7 @@
 <meta name="generator" content="Hugo 0.38.2" />
 
 
-<link rel="canonical" href="http://www.pugongyingbo.com/post/abstractfactory/" />
+<link rel="canonical" href="http://www.pugongyingbo.com/post/strategypattern/" />
 
 
 
@@ -58,20 +58,16 @@
 
 
 
-<meta property="og:title" content="抽象工厂模式" />
-<meta property="og:description" content="解释 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。 在抽象工厂中，我们摆脱了厂if-else代码块，并为每个子类设置了工" />
+<meta property="og:title" content="策略模式" />
+<meta property="og:description" content="策略模式 我们定义了多种算法，并且让客户端应用传递被用来作为参数的算法。 PaymentStrategy.java package com.journaldev.design.strategy; public interface PaymentStrategy { public void pay(int amount); } CreditCardStrategy.java package com.journaldev.design.strategy; public class CreditCardStrategy implements PaymentStrategy { private String name; private String cardNumber; private String cvv; private String dateOfExpiry; public CreditCardStrategy(String" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://www.pugongyingbo.com/post/abstractfactory/" />
+<meta property="og:url" content="http://www.pugongyingbo.com/post/strategypattern/" />
 
 
 
-<meta property="article:published_time" content="2018-05-07T23:29:46&#43;08:00"/>
+<meta property="article:published_time" content="2018-05-08T23:13:07&#43;08:00"/>
 
-<meta property="article:modified_time" content="2018-05-07T23:29:46&#43;08:00"/>
-
-
-
-
+<meta property="article:modified_time" content="2018-05-08T23:13:07&#43;08:00"/>
 
 
 
@@ -79,20 +75,24 @@
 
 
 
-<meta itemprop="name" content="抽象工厂模式">
-<meta itemprop="description" content="解释 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。 在抽象工厂中，我们摆脱了厂if-else代码块，并为每个子类设置了工">
 
 
-<meta itemprop="datePublished" content="2018-05-07T23:29:46&#43;08:00" />
-<meta itemprop="dateModified" content="2018-05-07T23:29:46&#43;08:00" />
-<meta itemprop="wordCount" content="572">
+
+
+<meta itemprop="name" content="策略模式">
+<meta itemprop="description" content="策略模式 我们定义了多种算法，并且让客户端应用传递被用来作为参数的算法。 PaymentStrategy.java package com.journaldev.design.strategy; public interface PaymentStrategy { public void pay(int amount); } CreditCardStrategy.java package com.journaldev.design.strategy; public class CreditCardStrategy implements PaymentStrategy { private String name; private String cardNumber; private String cvv; private String dateOfExpiry; public CreditCardStrategy(String">
+
+
+<meta itemprop="datePublished" content="2018-05-08T23:13:07&#43;08:00" />
+<meta itemprop="dateModified" content="2018-05-08T23:13:07&#43;08:00" />
+<meta itemprop="wordCount" content="593">
 
 
 
 <meta itemprop="keywords" content="Java设计模式," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="抽象工厂模式"/>
-<meta name="twitter:description" content="解释 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。 在抽象工厂中，我们摆脱了厂if-else代码块，并为每个子类设置了工"/>
+<meta name="twitter:title" content="策略模式"/>
+<meta name="twitter:description" content="策略模式 我们定义了多种算法，并且让客户端应用传递被用来作为参数的算法。 PaymentStrategy.java package com.journaldev.design.strategy; public interface PaymentStrategy { public void pay(int amount); } CreditCardStrategy.java package com.journaldev.design.strategy; public class CreditCardStrategy implements PaymentStrategy { private String name; private String cardNumber; private String cvv; private String dateOfExpiry; public CreditCardStrategy(String"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -186,16 +186,16 @@ var _hmt = _hmt || [];
           <article class="post bg-white">
     
     <header class="post-header">
-      <h1 class="post-title">抽象工厂模式</h1>
+      <h1 class="post-title">策略模式</h1>
       
       <div class="post-meta">
-        <span class="post-time"> 2018-05-07 </span>
+        <span class="post-time"> 2018-05-08 </span>
         <div class="post-category">
             
               <a href="/categories/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> Java设计模式 </a>
             
           </div>
-        <span class="more-meta"> 约 572 字 </span>
+        <span class="more-meta"> 约 593 字 </span>
         <span class="more-meta"> 预计阅读 2 分钟 </span>
         <span class="more-meta" id="busuanzi_container_page_pv">
          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
@@ -210,237 +210,190 @@ var _hmt = _hmt || [];
     <div class="post-content">
       
 
-<h4 id="解释">解释</h4>
+<h4 id="策略模式">策略模式</h4>
 
 <blockquote>
-<p>提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。</p>
+<p>我们定义了多种算法，并且让客户端应用传递被用来作为参数的算法。</p>
 </blockquote>
 
-<p>在抽象工厂中，我们摆脱了厂if-else代码块，并为每个子类设置了工厂类。然后抽象工厂类将根据输入的工厂类返回子类。一开始他似乎令人困惑，但一旦你看到实现，它很容易掌握并理解工厂和抽象工厂模式之间的微小差异。</p>
-
-<h4 id="超类和子类">超类和子类</h4>
-
 <ul>
-<li>Computer.java</li>
+<li>PaymentStrategy.java</li>
 </ul>
 
-<pre><code>package com.journaldev.design.model;
- 
-public abstract class Computer {
-     
-    public abstract String getRAM();
-    public abstract String getHDD();
-    public abstract String getCPU();
-     
-    @Override
-    public String toString(){
-        return &quot;RAM= &quot;+this.getRAM()+&quot;, HDD=&quot;+this.getHDD()+&quot;, CPU=&quot;+this.getCPU();
-    }
+<pre><code>package com.journaldev.design.strategy;
+
+public interface PaymentStrategy {
+
+    public void pay(int amount);
 }
 </code></pre>
 
 <ul>
-<li>PC.java</li>
+<li>CreditCardStrategy.java</li>
 </ul>
 
-<pre><code>package com.journaldev.design.model;
- 
-public class PC extends Computer {
- 
-    private String ram;
-    private String hdd;
-    private String cpu;
-     
-    public PC(String ram, String hdd, String cpu){
-        this.ram=ram;
-        this.hdd=hdd;
-        this.cpu=cpu;
-    }
-    @Override
-    public String getRAM() {
-        return this.ram;
-    }
- 
-    @Override
-    public String getHDD() {
-        return this.hdd;
-    }
- 
-    @Override
-    public String getCPU() {
-        return this.cpu;
-    }
- 
-}
-</code></pre>
+<pre><code>package com.journaldev.design.strategy;
 
-<ul>
-<li>Server.java</li>
-</ul>
+public class CreditCardStrategy implements PaymentStrategy {
 
-<pre><code>package com.journaldev.design.model;
-
-public class Server extends Computer {
- 
-    private String ram;
-    private String hdd;
-    private String cpu;
-     
-    public Server(String ram, String hdd, String cpu){
-        this.ram=ram;
-        this.hdd=hdd;
-        this.cpu=cpu;
-    }
-    @Override
-    public String getRAM() {
-        return this.ram;
-    }
- 
-    @Override
-    public String getHDD() {
-        return this.hdd;
-    }
- 
-    @Override
-    public String getCPU() {
-        return this.cpu;
-    }
-}
-</code></pre>
-
-<h4 id="每个子类的工厂类">每个子类的工厂类</h4>
-
-<p>首先我们需要创建一个抽象工厂接口或抽象类。</p>
-
-<ul>
-<li>ComputerAbstractFactory.java</li>
-</ul>
-
-<pre><code>package com.journaldev.design.abstractfactory;
-
-import com.journaldev.design.model.Computer;
-
-public interface ComputerAbstractFactory {
-
-    public Computer createComputer();
-}
-</code></pre>
-
-<p>现在我们的工厂类将实现这个接口并返回它们各自的子类。</p>
-
-<ul>
-<li>PCFactory.java</li>
-</ul>
-
-<pre><code>package com.journaldev.design.abstractfactory;
-
-import com.journaldev.design.model.Computer;
-import com.journaldev.design.model.PC;
-
-public class PCFactory implements ComputerAbstractFactory {
-
-    private String ram;
-    private String hdd;
-    private String cpu;
+    private String name;
+    private String cardNumber;
+    private String cvv;
+    private String dateOfExpiry;
     
-    public PCFactory(String ram, String hdd, String cpu){
-        this.ram=ram;
-        this.hdd=hdd;
-        this.cpu=cpu;
+    public CreditCardStrategy(String nm, String ccNum, String cvv, String expiryDate){
+        this.name=nm;
+        this.cardNumber=ccNum;
+        this.cvv=cvv;
+        this.dateOfExpiry=expiryDate;
     }
     @Override
-    public Computer createComputer() {
-        return new PC(ram,hdd,cpu);
+    public void pay(int amount) {
+        System.out.println(amount +&quot; paid with credit/debit card&quot;);
     }
+
 }
 </code></pre>
 
 <ul>
-<li>ServerFactory.java</li>
+<li>PaypalStrategy.java</li>
 </ul>
 
-<pre><code>package com.journaldev.design.abstractfactory;
+<pre><code>package com.journaldev.design.strategy;
 
-import com.journaldev.design.model.Computer;
-import com.journaldev.design.model.Server;
+public class PaypalStrategy implements PaymentStrategy {
 
-public class ServerFactory implements ComputerAbstractFactory {
-
-    private String ram;
-    private String hdd;
-    private String cpu;
+    private String emailId;
+    private String password;
     
-    public ServerFactory(String ram, String hdd, String cpu){
-        this.ram=ram;
-        this.hdd=hdd;
-        this.cpu=cpu;
+    public PaypalStrategy(String email, String pwd){
+        this.emailId=email;
+        this.password=pwd;
     }
     
     @Override
-    public Computer createComputer() {
-        return new Server(ram,hdd,cpu);
+    public void pay(int amount) {
+        System.out.println(amount + &quot; paid using Paypal.&quot;);
     }
-}
-</code></pre>
 
-<p>现在我们将创建一个消费者类，它将为客户端类创建子类提供入口点。</p>
-
-<ul>
-<li>ComputerFactory.java</li>
-</ul>
-
-<pre><code>package com.journaldev.design.abstractfactory;
-
-import com.journaldev.design.model.Computer;
-
-public class ComputerFactory {
-
-    public static Computer getComputer(ComputerAbstractFactory factory){
-        return factory.createComputer();
-    }
 }
 </code></pre>
 
 <ul>
-<li>TestDesignPatterns.java</li>
+<li>Item.java</li>
 </ul>
 
-<pre><code>package com.journaldev.design.test;
+<pre><code>package com.journaldev.design.strategy;
 
-import com.journaldev.design.abstractfactory.PCFactory;
-import com.journaldev.design.abstractfactory.ServerFactory;
-import com.journaldev.design.factory.ComputerFactory;
-import com.journaldev.design.model.Computer;
+public class Item {
 
-public class TestDesignPatterns {
+    private String upcCode;
+    private int price;
+    
+    public Item(String upc, int cost){
+        this.upcCode=upc;
+        this.price=cost;
+    }
+
+    public String getUpcCode() {
+        return upcCode;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+    
+}
+</code></pre>
+
+<ul>
+<li>ShoppingCart.java</li>
+</ul>
+
+<pre><code>package com.journaldev.design.strategy;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ShoppingCart {
+
+    //List of items
+    List&lt;Item&gt; items;
+    
+    public ShoppingCart(){
+        this.items=new ArrayList&lt;Item&gt;();
+    }
+    
+    public void addItem(Item item){
+        this.items.add(item);
+    }
+    public void removeItem(Item item){
+        this.items.remove(item);
+    }
+    
+    public int calculateTotal(){
+        int sum = 0;
+        for(Item item : items){
+            sum += item.getPrice();
+        }
+        return sum;
+    }
+    
+    public void pay(PaymentStrategy paymentMethod){
+        int amount = calculateTotal();
+        paymentMethod.pay(amount);
+    }
+}
+</code></pre>
+
+<p>注意，购物车的付款方式需要支付算法作为参数，并不会将其作为实例变量存储在任何位置。</p>
+
+<ul>
+<li>ShoppingCartTest.java</li>
+</ul>
+
+<pre><code>package com.journaldev.design.strategy;
+
+public class ShoppingCartTest {
 
     public static void main(String[] args) {
-        testAbstractFactory();
-    }
-
-    private static void testAbstractFactory() {
-        Computer pc = com.journaldev.design.abstractfactory.ComputerFactory.getComputer(new PCFactory(&quot;2 GB&quot;,&quot;500 GB&quot;,&quot;2.4 GHz&quot;));
-        Computer server = com.journaldev.design.abstractfactory.ComputerFactory.getComputer(new ServerFactory(&quot;16 GB&quot;,&quot;1 TB&quot;,&quot;2.9 GHz&quot;));
-        System.out.println(&quot;AbstractFactory PC Config::&quot;+pc);
-        System.out.println(&quot;AbstractFactory Server Config::&quot;+server);
+        ShoppingCart cart = new ShoppingCart();
+        
+        Item item1 = new Item(&quot;1234&quot;,10);
+        Item item2 = new Item(&quot;5678&quot;,40);
+        
+        cart.addItem(item1);
+        cart.addItem(item2);
+        
+        //pay by paypal
+        cart.pay(new PaypalStrategy(&quot;myemail@example.com&quot;, &quot;mypwd&quot;));
+        
+        //pay by credit card
+        cart.pay(new CreditCardStrategy(&quot;Pankaj Kumar&quot;, &quot;1234567890123456&quot;, &quot;786&quot;, &quot;12/15&quot;));
     }
 }
+
 </code></pre>
 
 <ul>
 <li>输出</li>
 </ul>
 
-<pre><code>AbstractFactory PC Config::RAM= 2 GB, HDD=500 GB, CPU=2.4 GHz
-AbstractFactory Server Config::RAM= 16 GB, HDD=1 TB, CPU=2.9 GHz
+<pre><code>50 paid using Paypal.
+50 paid with credit/debit card
 </code></pre>
 
-<h4 id="抽象工厂设计模式的好处">抽象工厂设计模式的好处</h4>
+<ul>
+<li>我们可以使用组合来为策略创建实例变量，但我们应该避免这种情况，因为我们夕阳将特定策略应用于特定任务。在将比较器作为参数的Collections.sort()和Array.sort()方法中也是如此。</li>
+<li>策略模式与状态模式非常相似。不同之处在于contex包含state作为实例变量，并且可以有多个任务，其实现可以依赖于状态，而策略模式将策略作为参数传递给方法，并且context对象没有任何变量来存储它。</li>
+<li>当我们有针对特定任务的多种算法是，策略模式非常有用，我们希望我们的应用程序能够灵活地运行时为特定任务选择任何算法。</li>
+</ul>
+
+<h4 id="参考">参考</h4>
 
 <ul>
-<li>抽象工厂提供了接口而不是实现接口</li>
-<li>抽象工厂是工厂中的工厂，并且可以被很轻松的扩展以容纳更多的产品。</li>
-<li>抽象工厂模式是健壮的，避免了工厂模式的条件逻辑。</li>
+<li><a href="https://www.journaldev.com/1754/strategy-design-pattern-in-java-example-tutorial">https://www.journaldev.com/1754/strategy-design-pattern-in-java-example-tutorial</a></li>
 </ul>
 
     </div>
@@ -461,14 +414,9 @@ AbstractFactory Server Config::RAM= 16 GB, HDD=1 TB, CPU=2.9 GHz
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/strategypattern/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">策略模式</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
         
-          <a class="next" href="/post/factory/">
-            <span class="next-text nav-default">工厂设计模式</span>
+          <a class="next" href="/post/abstractfactory/">
+            <span class="next-text nav-default">抽象工厂模式</span>
             <span class="prev-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -485,10 +433,10 @@ AbstractFactory Server Config::RAM= 16 GB, HDD=1 TB, CPU=2.9 GHz
     <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
   <script type="text/javascript">
   const gitment = new Gitment({
-    id: 'abstractFactory.md',
-    title: '抽象工厂模式',
+    id: 'strategyPattern.md',
+    title: '策略模式',
     link: decodeURI(location.href),
-    desc: '解释 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。 在抽象工厂中，我们摆脱了厂if-else代码块，并为每个子类设置了工',
+    desc: '策略模式 我们定义了多种算法，并且让客户端应用传递被用来作为参数的算法。 PaymentStrategy.java package com.journaldev.design.strategy; public interface PaymentStrategy { public void pay(int amount); } CreditCardStrategy.java package com.journaldev.design.strategy; public class CreditCardStrategy implements PaymentStrategy { private String name; private String cardNumber; private String cvv; private String dateOfExpiry; public CreditCardStrategy(String',
     owner: 'pugongyingbo',
     repo: 'https:\/\/github.com\/pugongyingbo\/pugongyingbo.com',
     oauth: {
