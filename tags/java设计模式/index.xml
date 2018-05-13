@@ -6,10 +6,19 @@
     <description>Recent content in Java设计模式 on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 10 May 2018 23:04:31 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 13 May 2018 23:06:36 +0800</lastBuildDate>
     
 	<atom:link href="http://www.pugongyingbo.com/tags/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>建造者模式</title>
+      <link>http://www.pugongyingbo.com/post/builder/</link>
+      <pubDate>Sun, 13 May 2018 23:06:36 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/builder/</guid>
+      <description>解释 将一个复杂对象的构建与它的表示分离，使的同样的构建过程可以创建不同的表示。 当object有许多属性时，工厂和抽象工厂会有三个问题。 太多的</description>
+    </item>
     
     <item>
       <title>原型设计模式</title>

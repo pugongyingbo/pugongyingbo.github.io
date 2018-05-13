@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>原型设计模式 - Hello Code</title>
+  <title>建造者模式 - Hello Code</title>
   <link rel="alternate" hreflang="zh-cn" href="http://www.pugongyingbo.com/" />
 
 <meta name="renderer" content="webkit" />
@@ -26,7 +26,7 @@
 
 
 <meta name="author" content="zzb" />
-  <meta name="description" content="解释 用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。 举一个例子来理解原型设计模式会很容易。假设我们有一个车从数据库加载数据的" />
+  <meta name="description" content="解释 将一个复杂对象的构建与它的表示分离，使的同样的构建过程可以创建不同的表示。 当object有许多属性时，工厂和抽象工厂会有三个问题。 太多的" />
 
   <meta name="keywords" content="Hugo, theme, jane" />
 
@@ -38,7 +38,7 @@
 <meta name="generator" content="Hugo 0.38.2" />
 
 
-<link rel="canonical" href="http://www.pugongyingbo.com/post/prototype/" />
+<link rel="canonical" href="http://www.pugongyingbo.com/post/builder/" />
 
 
 
@@ -58,20 +58,16 @@
 
 
 
-<meta property="og:title" content="原型设计模式" />
-<meta property="og:description" content="解释 用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。 举一个例子来理解原型设计模式会很容易。假设我们有一个车从数据库加载数据的" />
+<meta property="og:title" content="建造者模式" />
+<meta property="og:description" content="解释 将一个复杂对象的构建与它的表示分离，使的同样的构建过程可以创建不同的表示。 当object有许多属性时，工厂和抽象工厂会有三个问题。 太多的" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://www.pugongyingbo.com/post/prototype/" />
+<meta property="og:url" content="http://www.pugongyingbo.com/post/builder/" />
 
 
 
-<meta property="article:published_time" content="2018-05-10T23:04:31&#43;08:00"/>
+<meta property="article:published_time" content="2018-05-13T23:06:36&#43;08:00"/>
 
-<meta property="article:modified_time" content="2018-05-10T23:04:31&#43;08:00"/>
-
-
-
-
+<meta property="article:modified_time" content="2018-05-13T23:06:36&#43;08:00"/>
 
 
 
@@ -79,20 +75,24 @@
 
 
 
-<meta itemprop="name" content="原型设计模式">
-<meta itemprop="description" content="解释 用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。 举一个例子来理解原型设计模式会很容易。假设我们有一个车从数据库加载数据的">
 
 
-<meta itemprop="datePublished" content="2018-05-10T23:04:31&#43;08:00" />
-<meta itemprop="dateModified" content="2018-05-10T23:04:31&#43;08:00" />
-<meta itemprop="wordCount" content="555">
+
+
+<meta itemprop="name" content="建造者模式">
+<meta itemprop="description" content="解释 将一个复杂对象的构建与它的表示分离，使的同样的构建过程可以创建不同的表示。 当object有许多属性时，工厂和抽象工厂会有三个问题。 太多的">
+
+
+<meta itemprop="datePublished" content="2018-05-13T23:06:36&#43;08:00" />
+<meta itemprop="dateModified" content="2018-05-13T23:06:36&#43;08:00" />
+<meta itemprop="wordCount" content="790">
 
 
 
 <meta itemprop="keywords" content="Java设计模式," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="原型设计模式"/>
-<meta name="twitter:description" content="解释 用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。 举一个例子来理解原型设计模式会很容易。假设我们有一个车从数据库加载数据的"/>
+<meta name="twitter:title" content="建造者模式"/>
+<meta name="twitter:description" content="解释 将一个复杂对象的构建与它的表示分离，使的同样的构建过程可以创建不同的表示。 当object有许多属性时，工厂和抽象工厂会有三个问题。 太多的"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -186,16 +186,16 @@ var _hmt = _hmt || [];
           <article class="post bg-white">
     
     <header class="post-header">
-      <h1 class="post-title">原型设计模式</h1>
+      <h1 class="post-title">建造者模式</h1>
       
       <div class="post-meta">
-        <span class="post-time"> 2018-05-10 </span>
+        <span class="post-time"> 2018-05-13 </span>
         <div class="post-category">
             
               <a href="/categories/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> Java设计模式 </a>
             
           </div>
-        <span class="more-meta"> 约 555 字 </span>
+        <span class="more-meta"> 约 790 字 </span>
         <span class="more-meta"> 预计阅读 2 分钟 </span>
         <span class="more-meta" id="busuanzi_container_page_pv">
          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
@@ -213,98 +213,120 @@ var _hmt = _hmt || [];
 <h4 id="解释">解释</h4>
 
 <blockquote>
-<p>用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。</p>
+<p>将一个复杂对象的构建与它的表示分离，使的同样的构建过程可以创建不同的表示。</p>
 </blockquote>
 
-<p>举一个例子来理解原型设计模式会很容易。假设我们有一个车从数据库加载数据的对象，现在我们需要多次修改程序中的这些数据，因此使用new关键字创建object并从数据库再次加载所有数据并不是一个好主意。更好的方法是将现有对象克隆到新对象中，然后执行数据操作。
- 原型设计模式要求你正在复制的对象提供复制功能。这不应该用其他任何类来完成。但是，是否使用对象属性的浅或深克隆取决于需求及其设计决策。</p>
-
 <ul>
-<li>Employees.java</li>
+<li>当object有许多属性时，工厂和抽象工厂会有三个问题。</li>
 </ul>
 
-<pre><code>import java.util.ArrayList;
-import java.util.List;
+<ol>
+<li>太多的参数从客户端传递到factory类可能出错，因为大部分的时间参数的类型都是相同的，而从客户端来看，它很难维护参数的顺序。</li>
+<li>一些参数可能是可选的，但在工厂模式下，我们被迫发送所有需要发送的参数和为null的可选的参数。</li>
+<li>如果对象很重且器创建过程很复杂，那么所有这些复杂性都将成为令人困惑的factory类的一部分。</li>
+</ol>
 
-public class Employees implements Cloneable{
+<ul>
+<li>通过为构造函数提供所需的参数，然后使用不同的setter方法来设置可选参数，我们可以解决大量参数的问题。这种方法的问题是，除非所有属性都被明确设置，否则对象状态将不一致。</li>
+<li>构造器模式通过提供一种逐步构建对象的方法并提供实际返回最终对象的方法类解决具有大量不可选参数和不一致的问题。</li>
+</ul>
 
-    private List&lt;String&gt; empList;
+<h4 id="例子">例子</h4>
+
+<ul>
+<li>首先你需要创建一个静态嵌套类，然后将所有参数从外部类复制到builder类，我们应该遵循命名约定，如果类名是computer，那么builder类应命名为ComputerBuilder。</li>
+<li>builder类应该有一个公共构造函数，并具有所有必须的属性作为参数。</li>
+<li>builder类应该有设置可选参数的方法，并且在设置可选属性之后它应该返回相同的builder对象。</li>
+<li>最后一步是在构造器类中提供一个build方法，该方法将返回客户端程序所需要的对象，为此，我们需要在具有builder类的类中使用一个私有构造函数作为参数。</li>
+</ul>
+
+<pre><code>public class Computer {
     
-    public Employees(){
-        empList = new ArrayList&lt;String&gt;();
-    }
+    //required parameters
+    private String HDD;
+    private String RAM;
     
-    public Employees(List&lt;String&gt; list){
-        this.empList=list;
-    }
-public void loadData(){
-        //read all employees from database and put into the list
-        empList.add(&quot;Pankaj&quot;);
-        empList.add(&quot;Raj&quot;);
-        empList.add(&quot;David&quot;);
-        empList.add(&quot;Lisa&quot;);
-    }
+    //optional parameters
+    private boolean isGraphicsCardEnabled;
+    private boolean isBluetoothEnabled;
     
-    public List&lt;String&gt; getEmpList() {
-        return empList;
+
+    public String getHDD() {
+        return HDD;
     }
 
-    @Override
-    public Object clone() throws CloneNotSupportedException{
-            List&lt;String&gt; temp = new ArrayList&lt;String&gt;();
-            for(String s : this.getEmpList()){
-                temp.add(s);
-            }
-            return new Employees(temp);
+    public String getRAM() {
+        return RAM;
+    }
+
+    public boolean isGraphicsCardEnabled() {
+        return isGraphicsCardEnabled;
+    }
+
+    public boolean isBluetoothEnabled() {
+        return isBluetoothEnabled;
     }
     
+    private Computer(ComputerBuilder builder) {
+        this.HDD=builder.HDD;
+        this.RAM=builder.RAM;
+        this.isGraphicsCardEnabled=builder.isGraphicsCardEnabled;
+        this.isBluetoothEnabled=builder.isBluetoothEnabled;
+    }
+    
+    //Builder Class
+    public static class ComputerBuilder{
+
+        // required parameters
+        private String HDD;
+        private String RAM;
+
+        // optional parameters
+        private boolean isGraphicsCardEnabled;
+        private boolean isBluetoothEnabled;
+        
+        public ComputerBuilder(String hdd, String ram){
+            this.HDD=hdd;
+            this.RAM=ram;
+        }
+
+        public ComputerBuilder setGraphicsCardEnabled(boolean isGraphicsCardEnabled) {
+            this.isGraphicsCardEnabled = isGraphicsCardEnabled;
+            return this;
+        }
+
+        public ComputerBuilder setBluetoothEnabled(boolean isBluetoothEnabled) {
+            this.isBluetoothEnabled = isBluetoothEnabled;
+            return this;
+        }
+        
+        public Computer build(){
+            return new Computer(this);
+        }
+
+    }
+
 }
 </code></pre>
 
-<p>注意到clone()方法被重写来提供一个员工列表的深克隆。</p>
-
 <ul>
-<li>PrototypePatternTest.java</li>
+<li>注意，computer类只有getter方法，没有公共构造函数，所以唯一的办法是通过computerBuilder类的计算机对象。</li>
 </ul>
 
-<pre><code>import com.journaldev.design.prototype.Employees;
+<pre><code>import com.journaldev.design.builder.Computer;
 
-public class PrototypePatternTest {
+public class TestBuilderPattern {
 
-    public static void main(String[] args) throws CloneNotSupportedException {
-        Employees emps = new Employees();
-        emps.loadData();
-        
-        //Use the clone method to get the Employee object
-        Employees empsNew = (Employees) emps.clone();
-        Employees empsNew1 = (Employees) emps.clone();
-        List&lt;String&gt; list = empsNew.getEmpList();
-        list.add(&quot;John&quot;);
-        List&lt;String&gt; list1 = empsNew1.getEmpList();
-        list1.remove(&quot;Pankaj&quot;);
-        
-        System.out.println(&quot;emps List: &quot;+emps.getEmpList());
-        System.out.println(&quot;empsNew List: &quot;+list);
-        System.out.println(&quot;empsNew1 List: &quot;+list1);
+    public static void main(String[] args) {
+        //Using builder to get the object in a single line of code and 
+                //without any inconsistent state or arguments management issues     
+        Computer comp = new Computer.ComputerBuilder(
+                &quot;500 GB&quot;, &quot;2 GB&quot;).setBluetoothEnabled(true)
+                .setGraphicsCardEnabled(true).build();
     }
 
 }
 </code></pre>
-
-<ul>
-<li>输出</li>
-</ul>
-
-<pre><code>emps List: [Pankaj, Raj, David, Lisa]
-empsNew List: [Pankaj, Raj, David, Lisa, John]
-empsNew1 List: [Raj, David, Lisa]
-</code></pre>
-
-<p>如果没有提供对象克隆，我们将不得不每次都进行数据库调用以获取员工列表，然后做操作，这将是资源和时间的消耗。</p>
-
-<h4 id="深克隆和浅克隆">深克隆和浅克隆</h4>
-
-<p>object中的克隆方法是浅克隆，JDK规定了克隆需要满足的一些条件，对某个对象进行克隆，对象的成员变量如果包括引用类型或者数组，那么克隆的时候其实不会把这些对象也带着复制到克隆出来的对象里面的，只是复制一个引用，这个引用指向被克隆对象的成员对象，但是基本数据类型是会跟着被带到克隆对象里面去的，而深度可能是把对象所有属性都渎职一份新的到目标对象里面去。</p>
 
     </div>
 
@@ -324,14 +346,9 @@ empsNew1 List: [Raj, David, Lisa]
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/builder/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">建造者模式</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
         
-          <a class="next" href="/post/strategypattern/">
-            <span class="next-text nav-default">策略模式</span>
+          <a class="next" href="/post/prototype/">
+            <span class="next-text nav-default">原型设计模式</span>
             <span class="prev-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -348,10 +365,10 @@ empsNew1 List: [Raj, David, Lisa]
     <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
   <script type="text/javascript">
   const gitment = new Gitment({
-    id: 'prototype.md',
-    title: '原型设计模式',
+    id: 'builder.md',
+    title: '建造者模式',
     link: decodeURI(location.href),
-    desc: '解释 用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。 举一个例子来理解原型设计模式会很容易。假设我们有一个车从数据库加载数据的',
+    desc: '解释 将一个复杂对象的构建与它的表示分离，使的同样的构建过程可以创建不同的表示。 当object有许多属性时，工厂和抽象工厂会有三个问题。 太多的',
     owner: 'pugongyingbo',
     repo: 'https:\/\/github.com\/pugongyingbo\/pugongyingbo.com',
     oauth: {
