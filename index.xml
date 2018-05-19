@@ -6,10 +6,21 @@
     <description>Recent content on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 17 May 2018 21:31:49 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 19 May 2018 14:04:04 +0800</lastBuildDate>
     
         <atom:link href="http://www.pugongyingbo.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SpringBoot整合Thymeleaf</title>
+      <link>http://www.pugongyingbo.com/post/thymeleaf/</link>
+      <pubDate>Sat, 19 May 2018 14:04:04 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/thymeleaf/</guid>
+      
+        <description>引入依赖 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-thymeleaf&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; 无数据源 application.properties配置文件 #设定thymeleaf文件路径 默认为src/main/reso</description>
+      
+    </item>
     
     <item>
       <title>代理模式</title>
@@ -217,17 +228,6 @@
       <guid>http://www.pugongyingbo.com/post/ssm/</guid>
       
         <description>最近学了SSM框架，在此整理一下配置过程 推荐使用maven配置依赖，在pom.xml中添加需要的依赖包 &amp;lt;project xmlns=&amp;quot;http://maven.apache.org/POM/4.0.0&amp;quot; xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; xsi:schemaLocation=&amp;quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&amp;quot;&amp;gt; &amp;lt;modelVersion&amp;gt;4.0.0&amp;lt;/modelVersion&amp;gt; &amp;lt;groupId&amp;gt;com.zzb&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;myblog&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;0.0.1-SNAPSHOT&amp;lt;/version&amp;gt; &amp;lt;packaging&amp;gt;war&amp;lt;/packaging&amp;gt; &amp;lt;name&amp;gt;myblog&amp;lt;/name&amp;gt; &amp;lt;url&amp;gt;http://maven.apache.org&amp;lt;/url&amp;gt; &amp;lt;properties&amp;gt; &amp;lt;springside.version&amp;gt;4.2.2.GA&amp;lt;/springside.version&amp;gt; &amp;lt;!-- spri</description>
-      
-    </item>
-    
-    <item>
-      <title>SSH三大框架配置及整合</title>
-      <link>http://www.pugongyingbo.com/post/ssh/</link>
-      <pubDate>Mon, 15 May 2017 19:13:29 +0800</pubDate>
-      
-      <guid>http://www.pugongyingbo.com/post/ssh/</guid>
-      
-        <description>学了三大框架有一段时间，虽然现在用的很少了，但是面试还是会问到，再次整理一下 这个是做一个模仿电力公司的项目，包括前后台 首先是spring配置</description>
       
     </item>
     
