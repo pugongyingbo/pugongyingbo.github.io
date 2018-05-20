@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.pugongyingbo.com/post/dynamicproxy/</loc>
+    <lastmod>2018-05-20T21:53:51+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://www.pugongyingbo.com/post/thymeleaf/</loc>
     <lastmod>2018-05-19T14:04:04+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -213,7 +220,21 @@
   
   <url>
     <loc>http://www.pugongyingbo.com/</loc>
-    <lastmod>2018-05-19T14:04:04+08:00</lastmod>
+    <lastmod>2018-05-20T21:53:51+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.pugongyingbo.com/tags/java/</loc>
+    <lastmod>2018-05-20T21:53:51+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.pugongyingbo.com/categories/java/</loc>
+    <lastmod>2018-05-20T21:53:51+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -234,7 +255,7 @@
   
   <url>
     <loc>http://www.pugongyingbo.com/post/</loc>
-    <lastmod>2018-05-19T14:04:04+08:00</lastmod>
+    <lastmod>2018-05-20T21:53:51+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

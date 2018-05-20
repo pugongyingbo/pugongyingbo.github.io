@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on Hello Code</title>
+    <link>http://www.pugongyingbo.com/categories/java/</link>
+    <description>Recent content in Java on Hello Code</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 20 May 2018 21:53:51 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.pugongyingbo.com/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>JDK动态代理和CGLib动态代理</title>
+      <link>http://www.pugongyingbo.com/post/dynamicproxy/</link>
+      <pubDate>Sun, 20 May 2018 21:53:51 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/dynamicproxy/</guid>
+      <description>静态代理 静态代理的缺点很明显：一个代理类只能对一个业务接口的实现类进行包装，如果有多个业务接口的话就要定义很多实现类和代理类才行。而且，如果</description>
+    </item>
+    
+  </channel>
+</rss>
