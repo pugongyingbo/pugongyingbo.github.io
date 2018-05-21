@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mybatis on Hello Code</title>
+    <link>http://www.pugongyingbo.com/categories/mybatis/</link>
+    <description>Recent content in Mybatis on Hello Code</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 21 May 2018 22:46:43 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.pugongyingbo.com/categories/mybatis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>mybatis中plugin源码分析</title>
+      <link>http://www.pugongyingbo.com/post/pluginofmybatis/</link>
+      <pubDate>Mon, 21 May 2018 22:46:43 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/pluginofmybatis/</guid>
+      <description>官方文档解释 MyBatis 允许你在已映射语句执行过程中的某一点进行拦截调用。默认情况下，MyBatis 允许使用插件来拦截的方法调用包括： Executor (update, query, flushStatements, commit, rollback, getTransaction, close,</description>
+    </item>
+    
+  </channel>
+</rss>

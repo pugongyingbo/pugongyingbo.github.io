@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 20 May 2018 21:53:51 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 21 May 2018 22:46:43 +0800</lastBuildDate>
     
 	<atom:link href="http://www.pugongyingbo.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>mybatis中plugin源码分析</title>
+      <link>http://www.pugongyingbo.com/post/pluginofmybatis/</link>
+      <pubDate>Mon, 21 May 2018 22:46:43 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/pluginofmybatis/</guid>
+      <description>官方文档解释 MyBatis 允许你在已映射语句执行过程中的某一点进行拦截调用。默认情况下，MyBatis 允许使用插件来拦截的方法调用包括： Executor (update, query, flushStatements, commit, rollback, getTransaction, close,</description>
+    </item>
     
     <item>
       <title>JDK动态代理和CGLib动态代理</title>
@@ -180,15 +189,6 @@
       
       <guid>http://www.pugongyingbo.com/post/gitemoji/</guid>
       <description>git commit 使用emoji 看到GitHub上有在提交信息里使用emoji的，感觉很好玩所以就搜了一下，发现gitemoji开源库，然后打算以后使用表</description>
-    </item>
-    
-    <item>
-      <title>map的几种遍历</title>
-      <link>http://www.pugongyingbo.com/post/map/</link>
-      <pubDate>Sun, 06 Aug 2017 14:43:10 +0800</pubDate>
-      
-      <guid>http://www.pugongyingbo.com/post/map/</guid>
-      <description>近期用到了map遍历，也查找了部分资料，自己整理一下 使用场景是我要从数据库获取一个人的几种奖励类别，但是我要把每个人的类别拼接起来，在ser</description>
     </item>
     
   </channel>
