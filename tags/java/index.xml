@@ -20,5 +20,14 @@
       <description>静态代理 静态代理的缺点很明显：一个代理类只能对一个业务接口的实现类进行包装，如果有多个业务接口的话就要定义很多实现类和代理类才行。而且，如果</description>
     </item>
     
+    <item>
+      <title>volatile关键字</title>
+      <link>http://www.pugongyingbo.com/post/volatile/</link>
+      <pubDate>Tue, 17 Apr 2018 23:24:17 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/volatile/</guid>
+      <description>volatile的工作原理？ 1.保证了不同线程对这个变量进行操作时的可见性，即一个线程修改了某个变量的值，这新值对其他线程来说是立即可见的。</description>
+    </item>
+    
   </channel>
 </rss>
