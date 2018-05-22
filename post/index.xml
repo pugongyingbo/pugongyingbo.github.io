@@ -6,13 +6,22 @@
     <description>Recent content in Posts on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 21 May 2018 22:46:43 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 22 May 2018 23:44:45 +0800</lastBuildDate>
     
 	<atom:link href="http://www.pugongyingbo.com/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>mybatis中plugin源码分析</title>
+      <title>mybatis源码：Mapper实现-动态代理</title>
+      <link>http://www.pugongyingbo.com/post/mapper/</link>
+      <pubDate>Tue, 22 May 2018 23:44:45 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/mapper/</guid>
+      <description>解释 在Mybatis提供的编程接口中，开发人员只需要定义好Mapper接口(如：UserDao)，开发人员无需去实现。Mybatis会利用J</description>
+    </item>
+    
+    <item>
+      <title>mybatis源码:plugin源码分析</title>
       <link>http://www.pugongyingbo.com/post/pluginofmybatis/</link>
       <pubDate>Mon, 21 May 2018 22:46:43 +0800</pubDate>
       
@@ -180,15 +189,6 @@
       
       <guid>http://www.pugongyingbo.com/post/singleton/</guid>
       <description>单例的几种写法 饿汉式 懒汉式 双重检查 使用volitile关键字 枚举 懒汉与饿汉 要想让一个类只能构建一个对象，自然不能让他随便去做new操作，因此</description>
-    </item>
-    
-    <item>
-      <title>git提交使用emoji</title>
-      <link>http://www.pugongyingbo.com/post/gitemoji/</link>
-      <pubDate>Tue, 10 Apr 2018 22:35:32 +0800</pubDate>
-      
-      <guid>http://www.pugongyingbo.com/post/gitemoji/</guid>
-      <description>git commit 使用emoji 看到GitHub上有在提交信息里使用emoji的，感觉很好玩所以就搜了一下，发现gitemoji开源库，然后打算以后使用表</description>
     </item>
     
   </channel>
