@@ -85,7 +85,7 @@
 
 <meta itemprop="datePublished" content="2018-08-12T23:00:15&#43;08:00" />
 <meta itemprop="dateModified" content="2018-08-12T23:00:15&#43;08:00" />
-<meta itemprop="wordCount" content="515">
+<meta itemprop="wordCount" content="517">
 
 
 
@@ -195,7 +195,7 @@ var _hmt = _hmt || [];
               <a href="/categories/java/"> Java </a>
             
           </div>
-        <span class="more-meta"> 约 515 字 </span>
+        <span class="more-meta"> 约 517 字 </span>
         <span class="more-meta"> 预计阅读 2 分钟 </span>
         <span class="more-meta" id="busuanzi_container_page_pv">
          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
@@ -230,10 +230,11 @@ public class SynchronizedTest {
 
 <p>编译成class文件，然后在反编译命令为： javap -c SychronizedTest 或者
 javap -verbose SynchronizedTest(更详细)
-发现会有以下指令控制
-<img src="https://raw.githubusercontent.com/pugongyingbo/pugongyingbo.github.io/master/images/sync2.png" alt="示例" /></p>
+发现会有以下指令控制</p>
 
-<p>主要是monitorenter和monitorexit指令控制，
+<p><img src="https://raw.githubusercontent.com/pugongyingbo/pugongyingbo.github.io/master/images/sync2.png" alt="示例" /></p>
+
+<p>主要是通过monitorenter和monitorexit指令控制，
 monitorexit出现两次是因为第一次为正常退出释放锁，第二次是发生异常退出释放锁。编译器必须确保无论方法通过何种方式完成，方法中调用过的每条monitorenter指令都必须执行其对应的monitorexit指令，而无论这个方法是正常结束还是异常结束。（notify,wait也是通过这俩指令）</p>
 
 <blockquote>
@@ -344,7 +345,7 @@ monitorexit出现两次是因为第一次为正常退出释放锁，第二次是
     &copy; 
     
       2017 - 
-    2018
+    2019
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
