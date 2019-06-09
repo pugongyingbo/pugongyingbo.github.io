@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>字符串相似度 - Hello Code</title>
+  <link rel="alternate" hreflang="zh-cn" href="http://www.pugongyingbo.com/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+
+<meta name="author" content="zzb" />
+  <meta name="description" content="字符串相似度 Levenshtein Distance，又称编辑距离，指的是两个字符串之间，由一个转换成另一个所需的最少编辑操作次数。许可的编辑操作包括将一个字符替" />
+
+  <meta name="keywords" content="Hugo, theme, jane" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.38.2" />
+
+
+<link rel="canonical" href="http://www.pugongyingbo.com/post/similarityofstring/" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+
+<meta property="og:title" content="字符串相似度" />
+<meta property="og:description" content="字符串相似度 Levenshtein Distance，又称编辑距离，指的是两个字符串之间，由一个转换成另一个所需的最少编辑操作次数。许可的编辑操作包括将一个字符替" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.pugongyingbo.com/post/similarityofstring/" />
+
+
+
+<meta property="article:published_time" content="2019-06-09T15:17:14&#43;08:00"/>
+
+<meta property="article:modified_time" content="2019-06-09T15:17:14&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="字符串相似度">
+<meta itemprop="description" content="字符串相似度 Levenshtein Distance，又称编辑距离，指的是两个字符串之间，由一个转换成另一个所需的最少编辑操作次数。许可的编辑操作包括将一个字符替">
+
+
+<meta itemprop="datePublished" content="2019-06-09T15:17:14&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-09T15:17:14&#43;08:00" />
+<meta itemprop="wordCount" content="694">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="字符串相似度"/>
+<meta name="twitter:description" content="字符串相似度 Levenshtein Distance，又称编辑距离，指的是两个字符串之间，由一个转换成另一个所需的最少编辑操作次数。许可的编辑操作包括将一个字符替"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">晴天</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">历史</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="https://gohugo.io">
+        <li class="mobile-menu-item">关于hugo</li>
+      </a>
+  </ul>
+</nav>
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">晴天</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        
+        <a class="menu-item-link" href="/">首页</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/post/">历史</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/tags/">标签</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/categories/">分类</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="https://gohugo.io" target="_blank">
+          关于hugo
+          <i class="iconfont icon-new-window"></i>
+        </a>
+        
+      </li>
+  </ul>
+</nav>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca4837698f527dfc5b1df9cea50c23e3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">字符串相似度</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2019-06-09 </span>
+        
+        <span class="more-meta"> 约 694 字 </span>
+        <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span class="more-meta" id="busuanzi_container_page_pv">
+         本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        </span>
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h4 id="字符串相似度">字符串相似度</h4>
+
+<p>Levenshtein Distance，又称编辑距离，指的是两个字符串之间，由一个转换成另一个所需的最少编辑操作次数。许可的编辑操作包括将一个字符替换成另一个字符，插入一个字符，删除一个字符。
+&gt;编辑距离的算法是首先由俄国科学家Levenshtein提出的，故又叫Levenshtein Distance。</p>
+
+<pre><code>/**
+     * 比较两个字符串的相识度
+     * 核心算法：用一个二维数组记录每个字符串是否相同，如果相同记为0，不相同记为1，每行每列相同个数累加
+     * 则数组最后一个数为不相同的总数，从而判断这两个字符的相识度
+     *
+     * @param str
+     * @param target
+     * @return
+     */
+    private static int compare(String str, String target) {
+        int d[][];              // 矩阵
+        int n = str.length();
+        int m = target.length();
+        int i;                  // 遍历str的
+        int j;                  // 遍历target的
+        char ch1;               // str的
+        char ch2;               // target的
+        int temp;               // 记录相同字符,在某个矩阵位置值的增量,不是0就是1
+        if (n == 0) {
+            return m;
+        }
+        if (m == 0) {
+            return n;
+        }
+        d = new int[n + 1][m + 1];
+        // 初始化第一列
+        for (i = 0; i &lt;= n; i++) {
+            d[i][0] = i;
+        }
+        // 初始化第一行
+        for (j = 0; j &lt;= m; j++) {
+            d[0][j] = j;
+        }
+        for (i = 1; i &lt;= n; i++) {
+            // 遍历str
+            ch1 = str.charAt(i - 1);
+            // 去匹配target
+            for (j = 1; j &lt;= m; j++) {
+                ch2 = target.charAt(j - 1);
+                if (ch1 == ch2 || ch1 == ch2 + 32 || ch1 + 32 == ch2) {
+                    temp = 0;
+                } else {
+                    temp = 1;
+                }
+                // 左边+1,上边+1, 左上角+temp取最小
+                d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + temp);
+            }
+        }
+        return d[n][m];
+    }
+ 
+ 
+    /**
+     * 获取最小的值
+     */
+    private static int min(int one, int two, int three) {
+        return (one = one &lt; two ? one : two) &lt; three ? one : three;
+    }
+ 
+    /**
+     * 获取两字符串的相似度
+     */
+    public static float getSimilarityRatio(String str, String target) {
+        
+    //去除空白字符、换行、标点符号 
+     String regex = &quot;[\\pP\\p{Punct}\\s]&quot;;
+     return 1 - (float) compare(str.replaceAll(regex, &quot;&quot;), target.replaceAll(regex, &quot;&quot;)) 
+     / Math.max(str.length(), target.length());
+     }
+     
+     public static void main(String[] args) {
+    String str = &quot;论据容易理解,把它们分成小块,并以相似的格式和句子结构呈现每一个论据&quot;;
+    String target = &quot;根据领域关系可以合并领域相同或相似的句子，得到句群及其领域&quot;;
+    System.out.println(&quot;similarityRatio=&quot; + getSimilarityRatio(str, target));
+
+    }
+
+</code></pre>
+
+    </div>
+
+    
+    
+
+    
+    
+
+    <footer class="post-footer">
+      
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/sonar/">
+            <span class="next-text nav-default">Sonar配置与使用</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+    
+
+  
+
+  
+
+  <div id="comments-gitment"></div>
+  <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
+    <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
+  <script type="text/javascript">
+  const gitment = new Gitment({
+    id: 'similarityofString.md',
+    title: '字符串相似度',
+    link: decodeURI(location.href),
+    desc: '字符串相似度 Levenshtein Distance，又称编辑距离，指的是两个字符串之间，由一个转换成另一个所需的最少编辑操作次数。许可的编辑操作包括将一个字符替',
+    owner: 'pugongyingbo',
+    repo: 'https:\/\/github.com\/pugongyingbo\/pugongyingbo.com',
+    oauth: {
+      client_id: '75c6cdb87916846429c6',
+      client_secret: '1d357d8fef00e2e061cde20737e215d6c551db86'
+    }
+  })
+  gitment.render('comments-gitment')
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="pugongyingbo@163.com" rel="me" class="iconfont icon-email" 
+        title="email" target="_blank">
+      </a>
+      <a href="https://github.com/pugongyingbo" rel="me" class="iconfont icon-github" 
+        title="github" target="_blank">
+      </a>
+  <a href="http://www.pugongyingbo.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" 
+    title="rss" target="_blank">
+  </a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ <span class="division">|</span>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span class="division">|</span>
+<span id="busuanzi_container_site_uv" style="display: inline;">
+    欢迎第<span id="busuanzi_value_site_uv"></span>位小伙伴
+  </span>
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zzb</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script><script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?ca4837698f527dfc5b1df9cea50c23e3";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+</body>
+</html>

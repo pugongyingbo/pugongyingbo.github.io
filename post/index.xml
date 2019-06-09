@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 08 Jun 2019 19:49:56 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 09 Jun 2019 15:17:14 +0800</lastBuildDate>
     
 	<atom:link href="http://www.pugongyingbo.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>字符串相似度</title>
+      <link>http://www.pugongyingbo.com/post/similarityofstring/</link>
+      <pubDate>Sun, 09 Jun 2019 15:17:14 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/similarityofstring/</guid>
+      <description>字符串相似度 Levenshtein Distance，又称编辑距离，指的是两个字符串之间，由一个转换成另一个所需的最少编辑操作次数。许可的编辑操作包括将一个字符替</description>
+    </item>
     
     <item>
       <title>Sonar配置与使用</title>
@@ -180,15 +189,6 @@
       
       <guid>http://www.pugongyingbo.com/post/bridgepattern/</guid>
       <description>目的 将抽象从其实现中分离出来，以使两者可以独立变化。 “Decouple an abstraction from its implementation so that the two can vary independently” 解释 现实世界例子 考虑</description>
-    </item>
-    
-    <item>
-      <title>适配器模式</title>
-      <link>http://www.pugongyingbo.com/post/adapterpattern/</link>
-      <pubDate>Mon, 23 Apr 2018 22:42:49 +0800</pubDate>
-      
-      <guid>http://www.pugongyingbo.com/post/adapterpattern/</guid>
-      <description>解释 现实世界例子 想象你有一些图片在内存卡中，你需要传输它们到电脑。为了传输它们你需要一些兼容电脑接口的适配器，你才能连接电脑。在这个例子中，</description>
     </item>
     
   </channel>
