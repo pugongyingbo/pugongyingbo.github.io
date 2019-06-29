@@ -6,10 +6,19 @@
     <description>Recent content in Java on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 12 Aug 2018 23:00:15 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 29 Jun 2019 16:31:29 +0800</lastBuildDate>
     
 	<atom:link href="http://www.pugongyingbo.com/tags/java/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ratelimiter</title>
+      <link>http://www.pugongyingbo.com/post/ratelimit/</link>
+      <pubDate>Sat, 29 Jun 2019 16:31:29 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/ratelimit/</guid>
+      <description>google guava 包里的限流工具 // RateLimiter提供了两个工厂方法，最终会调用下面两个函数，生成RateLimiter的两个子类。 @VisibleForTesting static RateLimiter create(RateLimiter.SleepingStopwatch stopwatch, double permitsPerSecond) {</description>
+    </item>
     
     <item>
       <title>Synchronized</title>
