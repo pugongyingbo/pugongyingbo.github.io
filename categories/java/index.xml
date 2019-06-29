@@ -6,10 +6,19 @@
     <description>Recent content in Java on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 12 Aug 2018 23:00:15 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 29 Jun 2019 16:59:06 +0800</lastBuildDate>
     
 	<atom:link href="http://www.pugongyingbo.com/categories/java/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LocalDateTime</title>
+      <link>http://www.pugongyingbo.com/post/localdatetime/</link>
+      <pubDate>Sat, 29 Jun 2019 16:59:06 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/localdatetime/</guid>
+      <description>Java 8 里新的日期时间处理类 import org.apache.commons.lang3.time.StopWatch; import java.text.SimpleDateFormat; import java.time.LocalDateTime; import java.time.ZoneId; import java.time.ZoneOffset; import java.time.format.DateTimeFormatter; import java.util.Date; public class LocalDateTest { public static void main(String[] args){ // test1(); System.out.println(getYesterdayByFormat(&amp;quot;yyyy-MM-dd HH:mm:ss&amp;quot;)); System.out.println(getTomorrowByFormat(&amp;quot;yyyy-MM-dd HH:mm:ss&amp;quot;)); } /** * 输出：2019-06-21T12:12:12 */ public static void</description>
+    </item>
     
     <item>
       <title>Synchronized</title>
