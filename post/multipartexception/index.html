@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>解决SpringBoot上传文件异常 - Hello Code</title>
+  <link rel="alternate" hreflang="zh-cn" href="http://www.pugongyingbo.com/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+
+<meta name="author" content="pugongying" />
+  <meta name="description" content="SpringBoot项目上传文件后报错 异常信息： exception is org.springframework.web.multipart.MultipartException: Failed to parse multipart servlet request; nested exception is org.apache.commons.fileupload.FileUploadBase$IOFileUploadException: Processing of multipart/form-data request failed. /tmp/tomcat.6749631969221816745.3131/work/Tomcat/localhost/dts/upload_3ba7ace3_a73f_463d_b13b_01fec9b0ae9a_00000522.tmp (No such file or directory)] with root cause java.io.FileNotFoundException: /tmp/tomcat.6749631969221816745.3131/work/Tomcat/localhost/dts/upload_3ba7ace3_a73f_463d_b13b_01fec9b0ae9a_00000522.tmp (No such file or directory) at java.io.FileOutputStream.open0(Native Method) 产生原因 找不到To" />
+
+  <meta name="keywords" content="Hugo, theme, jane" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.38.2" />
+
+
+<link rel="canonical" href="http://www.pugongyingbo.com/post/multipartexception/" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+
+<meta property="og:title" content="解决SpringBoot上传文件异常" />
+<meta property="og:description" content="SpringBoot项目上传文件后报错 异常信息： exception is org.springframework.web.multipart.MultipartException: Failed to parse multipart servlet request; nested exception is org.apache.commons.fileupload.FileUploadBase$IOFileUploadException: Processing of multipart/form-data request failed. /tmp/tomcat.6749631969221816745.3131/work/Tomcat/localhost/dts/upload_3ba7ace3_a73f_463d_b13b_01fec9b0ae9a_00000522.tmp (No such file or directory)] with root cause java.io.FileNotFoundException: /tmp/tomcat.6749631969221816745.3131/work/Tomcat/localhost/dts/upload_3ba7ace3_a73f_463d_b13b_01fec9b0ae9a_00000522.tmp (No such file or directory) at java.io.FileOutputStream.open0(Native Method) 产生原因 找不到To" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.pugongyingbo.com/post/multipartexception/" />
+
+
+
+<meta property="article:published_time" content="2020-03-24T22:11:02&#43;08:00"/>
+
+<meta property="article:modified_time" content="2020-03-24T22:11:02&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="解决SpringBoot上传文件异常">
+<meta itemprop="description" content="SpringBoot项目上传文件后报错 异常信息： exception is org.springframework.web.multipart.MultipartException: Failed to parse multipart servlet request; nested exception is org.apache.commons.fileupload.FileUploadBase$IOFileUploadException: Processing of multipart/form-data request failed. /tmp/tomcat.6749631969221816745.3131/work/Tomcat/localhost/dts/upload_3ba7ace3_a73f_463d_b13b_01fec9b0ae9a_00000522.tmp (No such file or directory)] with root cause java.io.FileNotFoundException: /tmp/tomcat.6749631969221816745.3131/work/Tomcat/localhost/dts/upload_3ba7ace3_a73f_463d_b13b_01fec9b0ae9a_00000522.tmp (No such file or directory) at java.io.FileOutputStream.open0(Native Method) 产生原因 找不到To">
+
+
+<meta itemprop="datePublished" content="2020-03-24T22:11:02&#43;08:00" />
+<meta itemprop="dateModified" content="2020-03-24T22:11:02&#43;08:00" />
+<meta itemprop="wordCount" content="850">
+
+
+
+<meta itemprop="keywords" content="SpringBoot," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="解决SpringBoot上传文件异常"/>
+<meta name="twitter:description" content="SpringBoot项目上传文件后报错 异常信息： exception is org.springframework.web.multipart.MultipartException: Failed to parse multipart servlet request; nested exception is org.apache.commons.fileupload.FileUploadBase$IOFileUploadException: Processing of multipart/form-data request failed. /tmp/tomcat.6749631969221816745.3131/work/Tomcat/localhost/dts/upload_3ba7ace3_a73f_463d_b13b_01fec9b0ae9a_00000522.tmp (No such file or directory)] with root cause java.io.FileNotFoundException: /tmp/tomcat.6749631969221816745.3131/work/Tomcat/localhost/dts/upload_3ba7ace3_a73f_463d_b13b_01fec9b0ae9a_00000522.tmp (No such file or directory) at java.io.FileOutputStream.open0(Native Method) 产生原因 找不到To"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">晴天</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">历史</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="https://gohugo.io">
+        <li class="mobile-menu-item">关于hugo</li>
+      </a>
+  </ul>
+</nav>
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">晴天</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        
+        <a class="menu-item-link" href="/">首页</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/post/">历史</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/tags/">标签</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/categories/">分类</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="https://gohugo.io" target="_blank">
+          关于hugo
+          <i class="iconfont icon-new-window"></i>
+        </a>
+        
+      </li>
+  </ul>
+</nav>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ca4837698f527dfc5b1df9cea50c23e3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">解决SpringBoot上传文件异常</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-24 </span>
+        <div class="post-category">
+            
+              <a href="/categories/springboot/"> SpringBoot </a>
+            
+          </div>
+        <span class="more-meta"> 约 850 字 </span>
+        <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span class="more-meta" id="busuanzi_container_page_pv">
+         本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        </span>
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h4 id="springboot项目上传文件后报错">SpringBoot项目上传文件后报错</h4>
+
+<blockquote>
+<p>异常信息：</p>
+</blockquote>
+
+<pre><code>exception is org.springframework.web.multipart.MultipartException: Failed to parse multipart servlet request; nested exception is org.apache.commons.fileupload.FileUploadBase$IOFileUploadException: Processing of multipart/form-data request failed. /tmp/tomcat.6749631969221816745.3131/work/Tomcat/localhost/dts/upload_3ba7ace3_a73f_463d_b13b_01fec9b0ae9a_00000522.tmp (No such file or directory)] with root cause
+java.io.FileNotFoundException: /tmp/tomcat.6749631969221816745.3131/work/Tomcat/localhost/dts/upload_3ba7ace3_a73f_463d_b13b_01fec9b0ae9a_00000522.tmp (No such file or directory)
+        at java.io.FileOutputStream.open0(Native Method)
+
+</code></pre>
+
+<h4 id="产生原因">产生原因</h4>
+
+<p>找不到Tomcat的临时文件</p>
+
+<ul>
+<li>为什么上传的文件要缓存到本地</li>
+<li>为什么临时目录会不存在</li>
+<li>什么地方实现文件缓存</li>
+</ul>
+
+<p>org.apache.tomcat.util.http.fileupload.FileUploadBase#parseRequest，抛出异常的类，代码如下：</p>
+
+<pre><code>public List&lt;FileItem&gt; parseRequest(RequestContext ctx)
+        throws FileUploadException {
+    List&lt;FileItem&gt; items = new ArrayList&lt;&gt;();
+    boolean successful = false;
+    try {
+        FileItemIterator iter = getItemIterator(ctx);
+        // 文件工厂类，里面保存了临时目录的地址
+        FileItemFactory fac = getFileItemFactory();
+        if (fac == null) {
+            throw new NullPointerException(&quot;No FileItemFactory has been set.&quot;);
+        }
+        while (iter.hasNext()) {
+            final FileItemStream item = iter.next();
+            // Don't use getName() here to prevent an InvalidFileNameException.
+            final String fileName = ((FileItemIteratorImpl.FileItemStreamImpl) item).name;
+            // 创建了以上报错信息中的临时文件
+            FileItem fileItem = fac.createItem(item.getFieldName(), item.getContentType(),
+                                               item.isFormField(), fileName);
+            items.add(fileItem);
+            try {
+                // 流的拷贝，将输入流数据写入输出流
+                Streams.copy(item.openStream(), fileItem.getOutputStream(), true);
+            } catch (FileUploadIOException e) {
+                throw (FileUploadException) e.getCause();
+            } catch (IOException e) {
+                throw new IOFileUploadException(String.format(&quot;Processing of %s request failed. %s&quot;,
+                                                       MULTIPART_FORM_DATA, e.getMessage()), e);
+            }
+            final FileItemHeaders fih = item.getHeaders();
+            fileItem.setHeaders(fih);
+        }
+        successful = true;
+        return items;
+    } catch (FileUploadIOException e) {
+        throw (FileUploadException) e.getCause();
+    } catch (IOException e) {
+        throw new FileUploadException(e.getMessage(), e);
+    } finally {
+        if (!successful) {
+            for (FileItem fileItem : items) {
+                try {
+                    fileItem.delete();
+                } catch (Exception ignored) {
+                    // ignored TODO perhaps add to tracker delete failure list somehow?
+                }
+            }
+        }
+    }
+}
+
+</code></pre>
+
+<p>以下为创建临时文件</p>
+
+<pre><code>/**
+ * Creates and returns a {@link java.io.File File} representing a uniquely
+ * named temporary file in the configured repository path. The lifetime of
+ * the file is tied to the lifetime of the &lt;code&gt;FileItem&lt;/code&gt; instance;
+ * the file will be deleted when the instance is garbage collected.
+ * 文件将被删除在垃圾回收时
+ *
+ * @return The {@link java.io.File File} to be used for temporary storage.
+ */
+protected File getTempFile() {
+    if (tempFile == null) {
+        File tempDir = repository;
+        if (tempDir == null) {
+            //如果没定义则用系统默认的
+            tempDir = new File(System.getProperty(&quot;java.io.tmpdir&quot;));
+        }
+
+        String tempFileName = format(&quot;upload_%s_%s.tmp&quot;, UID, getUniqueId());
+
+        tempFile = new File(tempDir, tempFileName);
+    }
+    return tempFile;
+}
+</code></pre>
+
+<p>其中用到的生成随机文件名字的两个方法</p>
+
+<pre><code>private static final String UID =
+        UUID.randomUUID().toString().replace('-', '_');
+
+
+private static String getUniqueId() {
+    final int limit = 100000000;
+    int current = COUNTER.getAndIncrement();
+    String id = Integer.toString(current);
+
+    // If you manage to get more than 100 million of ids, you'll
+    // start getting ids longer than 8 characters.
+    if (current &lt; limit) {
+        id = (&quot;00000000&quot; + id).substring(id.length());
+    }
+    return id;
+}
+</code></pre>
+
+<p>首先看下FileItemFactory的实例化位置，在org.apache.catalina.connector.Request#parseParts中，代码如下</p>
+
+<pre><code>// Create a new file upload handler
+DiskFileItemFactory factory = new DiskFileItemFactory();
+try {
+    factory.setRepository(location.getCanonicalFile());
+} catch (IOException ioe) {
+    parameters.setParseFailedReason(FailReason.IO_ERROR);
+    partsParseException = ioe;
+    return;
+}
+
+
+//其中location代码
+// TEMPDIR = &quot;javax.servlet.context.tempdir&quot;;
+location = ((File) context.getServletContext().getAttribute(ServletContext.TEMPDIR));
+</code></pre>
+
+<h4 id="解决问题">解决问题</h4>
+
+<ul>
+<li>方法1</li>
+</ul>
+
+<p>应用重启</p>
+
+<ul>
+<li>方法2</li>
+</ul>
+
+<p>增加服务配置，自定义baseDir</p>
+
+<pre><code>server.tomcat.basedir=/tmp/tomcat
+</code></pre>
+
+<ul>
+<li>方法3
+注入bean，手动配置临时目录
+```
+@Bean
+MultipartConfigElement multipartConfigElement() {
+MultipartConfigFactory factory = new MultipartConfigFactory();
+factory.setLocation(&ldquo;/tmp/tomcat&rdquo;);
+return factory.createMultipartConfig();
+}</li>
+</ul>
+
+<pre><code> 
+* 方法4
+
+配置不删除tmp目录下的tomcat
+</code></pre>
+
+<p>vim /usr/lib/tmpfiles.d/tmp.conf</p>
+
+<h1 id="添加一行">添加一行</h1>
+
+<p>x /tmp/tomcat.*
+```</p>
+
+<blockquote>
+<p>微信公众号：码上烟火</p>
+</blockquote>
+
+    </div>
+
+    
+    
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/springboot/">SpringBoot</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/localdatetime/">
+            <span class="next-text nav-default">LocalDate、LocalTime、LocalDateTime、DateFormatter</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+    
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="pugongyingbo@163.com" rel="me" class="iconfont icon-email" 
+        title="email" target="_blank">
+      </a>
+      <a href="https://github.com/pugongyingbo" rel="me" class="iconfont icon-github" 
+        title="github" target="_blank">
+      </a>
+  <a href="http://www.pugongyingbo.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" 
+    title="rss" target="_blank">
+  </a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ <span class="division">|</span>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span class="division">|</span>
+<span id="busuanzi_container_site_uv" style="display: inline;">
+    欢迎第<span id="busuanzi_value_site_uv"></span>位小伙伴
+  </span>
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zzb</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script><script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?ca4837698f527dfc5b1df9cea50c23e3";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+</body>
+</html>
