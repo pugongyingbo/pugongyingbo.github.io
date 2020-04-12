@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dubbo on Hello Code</title>
+    <link>http://www.pugongyingbo.com/tags/dubbo/</link>
+    <description>Recent content in Dubbo on Hello Code</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 12 Apr 2020 18:48:16 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.pugongyingbo.com/tags/dubbo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dubbo实现分布式追踪ID</title>
+      <link>http://www.pugongyingbo.com/post/dubbotrace/</link>
+      <pubDate>Sun, 12 Apr 2020 18:48:16 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/dubbotrace/</guid>
+      <description>dubbo 日志添加追踪ID 在现行微服务的趋势下，一次调用的过程中涉及多个服务节点，产生的日志分布在不同的服务器上，如果需要查看一次调用的全链路日志，</description>
+    </item>
+    
+  </channel>
+</rss>

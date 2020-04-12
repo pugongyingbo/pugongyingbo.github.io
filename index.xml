@@ -6,10 +6,21 @@
     <description>Recent content on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 24 Mar 2020 22:11:02 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 12 Apr 2020 18:48:16 +0800</lastBuildDate>
     
         <atom:link href="http://www.pugongyingbo.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Dubbo实现分布式追踪ID</title>
+      <link>http://www.pugongyingbo.com/post/dubbotrace/</link>
+      <pubDate>Sun, 12 Apr 2020 18:48:16 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/dubbotrace/</guid>
+      
+        <description>dubbo 日志添加追踪ID 在现行微服务的趋势下，一次调用的过程中涉及多个服务节点，产生的日志分布在不同的服务器上，如果需要查看一次调用的全链路日志，</description>
+      
+    </item>
     
     <item>
       <title>解决SpringBoot上传文件异常</title>
@@ -217,17 +228,6 @@
       <guid>http://www.pugongyingbo.com/post/springboot/</guid>
       
         <description>学习都是从简单的Hello World 到打印数据库的数据，入门很简单，但是也有不少坑，需要亲自动手才能遇见。 首先分层 java包 com.example.controller - Controller</description>
-      
-    </item>
-    
-    <item>
-      <title>观察者模式</title>
-      <link>http://www.pugongyingbo.com/post/observer/</link>
-      <pubDate>Fri, 27 Apr 2018 23:41:37 +0800</pubDate>
-      
-      <guid>http://www.pugongyingbo.com/post/observer/</guid>
-      
-        <description>解释 观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。这个主题对象在状态发生变化时，会通知所有观察者对象，使它们</description>
       
     </item>
     

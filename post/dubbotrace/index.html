@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Dubbo实现分布式追踪ID - Hello Code</title>
+  <link rel="alternate" hreflang="zh-cn" href="http://www.pugongyingbo.com/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+
+<meta name="author" content="pugongyingbo" />
+  <meta name="description" content="dubbo 日志添加追踪ID 在现行微服务的趋势下，一次调用的过程中涉及多个服务节点，产生的日志分布在不同的服务器上，如果需要查看一次调用的全链路日志，" />
+<meta name="keywords" content="dubbo" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.38.2" />
+
+
+<link rel="canonical" href="http://www.pugongyingbo.com/post/dubbotrace/" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+
+<meta property="og:title" content="Dubbo实现分布式追踪ID" />
+<meta property="og:description" content="dubbo 日志添加追踪ID 在现行微服务的趋势下，一次调用的过程中涉及多个服务节点，产生的日志分布在不同的服务器上，如果需要查看一次调用的全链路日志，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.pugongyingbo.com/post/dubbotrace/" />
+
+
+
+<meta property="article:published_time" content="2020-04-12T18:48:16&#43;08:00"/>
+
+<meta property="article:modified_time" content="2020-04-12T18:48:16&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Dubbo实现分布式追踪ID">
+<meta itemprop="description" content="dubbo 日志添加追踪ID 在现行微服务的趋势下，一次调用的过程中涉及多个服务节点，产生的日志分布在不同的服务器上，如果需要查看一次调用的全链路日志，">
+
+
+<meta itemprop="datePublished" content="2020-04-12T18:48:16&#43;08:00" />
+<meta itemprop="dateModified" content="2020-04-12T18:48:16&#43;08:00" />
+<meta itemprop="wordCount" content="2408">
+
+
+
+<meta itemprop="keywords" content="dubbo," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Dubbo实现分布式追踪ID"/>
+<meta name="twitter:description" content="dubbo 日志添加追踪ID 在现行微服务的趋势下，一次调用的过程中涉及多个服务节点，产生的日志分布在不同的服务器上，如果需要查看一次调用的全链路日志，"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">晴天</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">历史</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="https://gohugo.io">
+        <li class="mobile-menu-item">关于hugo</li>
+      </a>
+  </ul>
+</nav>
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">晴天</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        
+        <a class="menu-item-link" href="/">首页</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/post/">历史</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/tags/">标签</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="/categories/">分类</a>
+        
+      </li><li class="menu-item">
+        
+        <a class="menu-item-link" href="https://gohugo.io" target="_blank">
+          关于hugo
+          <i class="iconfont icon-new-window"></i>
+        </a>
+        
+      </li>
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">Dubbo实现分布式追踪ID</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2020-04-12 </span>
+        <div class="post-category">
+            
+              <a href="/categories/dubbo/"> dubbo </a>
+            
+          </div>
+        <span class="more-meta"> 约 2408 字 </span>
+        <span class="more-meta"> 预计阅读 5 分钟 </span>
+        <span class="more-meta" id="busuanzi_container_page_pv">
+         本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        </span>
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h3 id="dubbo-日志添加追踪id">dubbo 日志添加追踪ID</h3>
+
+<p>在现行微服务的趋势下，一次调用的过程中涉及多个服务节点，产生的日志分布在不同的服务器上，如果需要查看一次调用的全链路日志，则一般的做法是通过在系统边界中产生一个 traceId，向调用链的后续服务传递 traceId，后续服务继续使用 traceId 打印日志，并再向其他后续服务传递 traceId，此过程简称，traceId透传。
+在使用HTTP协议作为服务协议的系统里，可以统一使用一个封装好的http client做traceId透传。但是dubbo实现traceId透传就稍微复杂些了。一般情况下，会自定义Filter来实现traceId透传。</p>
+
+<h4 id="什么是spi">什么是SPI</h4>
+
+<p>spi全称英文是service provider Interface，翻译成中文也就是服务提供接口，在jdk 1.6开始,就已经提供了SPI.它的使用比较简单。即在项目的类路径下提供一个META/services/xx文件，配置一个文件，文件名为接口的全路径的名称，内容为具体的实现类全路径名。jdk将会使用ServiceLoader.load（）方法去解析和加载接口和其中的实现类,按需执行不同的方法。</p>
+
+<p>举个简单的例子：在jdbc中，jdk提供了driver(数据库)接口，但是不同的厂商实现起来的方式不同，比如mysql、oracle、sqlLite等厂商底层的实现逻辑都是不同的,因此在对数据库驱动driver实现方式上,可以采用SPI机制。比如在mysql-contactor.jar包中会在META/services路径下,这里相当于扩展了java.sql.Driver接口,jdk会在META/services路径下扫描该文件,然后加载mysql的diver实现类com.mysql.cj.jdbc.Driver，就相当于扩展了Driver的接口能力，按需加载mysql的实现类。oracle的连接jar包会有oracle的配置文件，这样不同的数据库根据自身的不同逻辑按需扩展了Driver的能力，这就是SPI的最大好处。</p>
+
+<h4 id="dubbo的spi">dubbo的SPI</h4>
+
+<p>dubbo在原有的spi基础上主要有以下的改变,①配置文件采用键值对配置的方式，使用起来更加灵活和简单 ② 增强了原本SPI的功能，使得SPI具备ioc和aop的功能，这在原本的java中spi是不支持的。dubbo的spi是通过ExtensionLoader来解析的，通过ExtensionLoader来加载指定的实现类，配置文件的路径在META-INF/dubbo路径下，我们通过一个例子来了解dubbo的SPI运行机制：</p>
+
+<p>dubbo的负载均衡机制其中就采用了spi机制,选择哪个负载均衡策略是通过@SPI注解来实现的：</p>
+
+<p>dubbo默认负载策略使用是random</p>
+
+<pre><code>@SPI(&quot;random&quot;)
+public interface LoadBalance {
+    @Adaptive({&quot;loadbalance&quot;})
+    &lt;T&gt; Invoker&lt;T&gt; select(List&lt;Invoker&lt;T&gt;&gt; var1, URL var2, Invocation var3) throws RpcException;
+}
+
+</code></pre>
+
+<p>利用ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(name)来获取具体的LoadBalance的实现类,其中name是对应配置文件(见下文)中的键；</p>
+
+<pre><code>random=com.alibaba.dubbo.rpc.cluster.loadbalance.RandomLoadBalance
+roundrobin=com.alibaba.dubbo.rpc.cluster.loadbalance.RoundRobinLoadBalance
+leastactive=com.alibaba.dubbo.rpc.cluster.loadbalance.LeastActiveLoadBalance
+consistenthash=com.alibaba.dubbo.rpc.cluster.loadbalance.ConsistentHashLoadBalance
+</code></pre>
+
+<h4 id="spi和-adaptive注解的作用是什么">@SPI和@Adaptive注解的作用是什么？</h4>
+
+<p>Dubbo通过注解@Adaptive作为标记实现了一个适配器类，dubbo将会为这个类动态生成代理对象；ExtensionLoader中获取默认实现类或者通过实现类名称(由@SPI注解指定的名称)来获取实现类</p>
+
+<p>为什么会出现@Adaptive这个注解呢？主要原因是因为dubbo的加载扩展了是从配置文件加载的，是很动态的，但是实现类却要固定写死或者灵活实现，所以就得区分开。用@Adaptive就是表示由框架自己生成,不需要人为实现.在dubbo加载SPI时会动态创建SPI Adaptive实现ExtensionLoader。</p>
+
+<ul>
+<li>ExtensionLoader 类里声明了以下几个文件夹都可以使用</li>
+</ul>
+
+<pre><code>    private static final String SERVICES_DIRECTORY = &quot;META-INF/services/&quot;;
+    private static final String DUBBO_DIRECTORY = &quot;META-INF/dubbo/&quot;;
+    private static final String DUBBO_INTERNAL_DIRECTORY = &quot;META-INF/dubbo/internal/&quot;;
+</code></pre>
+
+<ul>
+<li>获取扩展</li>
+</ul>
+
+<pre><code> public T getExtension(String name) {
+        if (name != null &amp;&amp; name.length() != 0) {
+            if (&quot;true&quot;.equals(name)) {
+                return this.getDefaultExtension();
+            } else {
+                Holder&lt;Object&gt; holder = (Holder)this.cachedInstances.get(name);
+                if (holder == null) {
+                    this.cachedInstances.putIfAbsent(name, new Holder());
+                    holder = (Holder)this.cachedInstances.get(name);
+                }
+                //双重检查
+                Object instance = holder.get();
+                if (instance == null) {
+                    synchronized(holder) {
+                        instance = holder.get();
+                        if (instance == null) {
+                            instance = this.createExtension(name);
+                            holder.set(instance);
+                        }
+                    }
+                }
+
+                return instance;
+            }
+        } else {
+            throw new IllegalArgumentException(&quot;Extension name == null&quot;);
+        }
+    }
+</code></pre>
+
+<ul>
+<li>获取扩展类，双重检查</li>
+</ul>
+
+<pre><code>  private Map&lt;String, Class&lt;?&gt;&gt; getExtensionClasses() {
+        Map&lt;String, Class&lt;?&gt;&gt; classes = (Map)this.cachedClasses.get();
+        if (classes == null) {
+            synchronized(this.cachedClasses) {
+                classes = (Map)this.cachedClasses.get();
+                if (classes == null) {
+                    classes = this.loadExtensionClasses();
+                    this.cachedClasses.set(classes);
+                }
+            }
+        }
+
+        return classes;
+    }
+
+</code></pre>
+
+<ul>
+<li>加载扩展类</li>
+</ul>
+
+<pre><code>private Map&lt;String, Class&lt;?&gt;&gt; loadExtensionClasses() {
+        SPI defaultAnnotation = (SPI)this.type.getAnnotation(SPI.class);
+        if (defaultAnnotation != null) {
+            String value = defaultAnnotation.value();
+            if ((value = value.trim()).length() &gt; 0) {
+                String[] names = NAME_SEPARATOR.split(value);
+                if (names.length &gt; 1) {
+                    throw new IllegalStateException(&quot;more than 1 default extension name on extension &quot; + this.type.getName() + &quot;: &quot; + Arrays.toString(names));
+                }
+
+                if (names.length == 1) {
+                    this.cachedDefaultName = names[0];
+                }
+            }
+        }
+
+        Map&lt;String, Class&lt;?&gt;&gt; extensionClasses = new HashMap();
+        this.loadDirectory(extensionClasses, &quot;META-INF/dubbo/internal/&quot;);
+        this.loadDirectory(extensionClasses, &quot;META-INF/dubbo/&quot;);
+        this.loadDirectory(extensionClasses, &quot;META-INF/services/&quot;);
+        return extensionClasses;
+    }
+</code></pre>
+
+<h3 id="做个demo实现追踪id">做个demo实现追踪ID</h3>
+
+<p>demo只有一个提供者一个消费者，注册中心是单台zookeeper</p>
+
+<blockquote>
+<p>代码已上传到GitHub：<a href="https://github.com/pugongyingbo/dubbotest">https://github.com/pugongyingbo/dubbotest</a></p>
+</blockquote>
+
+<h3 id="提供者demo">提供者demo</h3>
+
+<p>扩展路径： resources/META-INF/dubbo/com.alibaba.dubbo.rpc.Filter</p>
+
+<pre><code>ProviderFilter=com.zzb.dubbotest.config.ProviderFilter
+</code></pre>
+
+<h4 id="配置文件">配置文件：</h4>
+
+<pre><code>server:
+  port: 8001
+spring:
+  application:
+    name: provider
+dubbo:
+  application:
+    name: provider
+  protocol:
+    name: dubbo
+    port: 20880
+  registry:
+    address: zookeeper://127.0.0.1:2181
+  scan:
+    base-packages: com.zzb.dubbotest
+
+logging:
+  config: classpath:logback-spring.xml
+</code></pre>
+
+<h4 id="修改logback日志格式">修改logback日志格式</h4>
+
+<pre><code>&lt;!-- 日志输出格式 --&gt;
+        &lt;layout class=&quot;ch.qos.logback.classic.PatternLayout&quot;&gt;
+            &lt;Pattern&gt;%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{TRACKING_LOG_SESSION_TOKEN_ID}] [%thread] %-5level %logger{36} [%file:%line] - %msg%n&lt;/Pattern&gt;
+        &lt;/layout&gt;
+</code></pre>
+
+<h4 id="定义filter">定义filter</h4>
+
+<p>使用注解 @Activate(group = { Constants.PROVIDER })，并标注提供者</p>
+
+<pre><code>@Slf4j
+@Activate(group = { Constants.PROVIDER })
+public class ProviderFilter implements Filter {
+
+    @Override
+    public Result invoke(Invoker&lt;?&gt; invoker, Invocation invocation) throws RpcException {
+
+        String var = RpcContext.getContext().getAttachment(&quot;TRACKING_LOG_SESSION_TOKEN_ID&quot;);
+        MDC.put(&quot;TRACKING_LOG_SESSION_TOKEN_ID&quot;, var);
+        log.info(&quot;-----&gt;provider trance id:{}&quot;,var);
+        Result result = invoker.invoke(invocation);
+        MDC.remove(&quot;TRACKING_LOG_SESSION_TOKEN_ID&quot;);
+        return result;
+    }
+}
+</code></pre>
+
+<h3 id="消费者demo">消费者demo</h3>
+
+<h4 id="增加扩展">增加扩展</h4>
+
+<pre><code>ConsumerFilter=com.zzb.dubbotest.config.ConsumerFilter
+
+</code></pre>
+
+<h4 id="配置文件-1">配置文件</h4>
+
+<pre><code>server:
+  port: 8002
+spring:
+  application:
+    name: consumer
+logging:
+  config: classpath:logback-spring.xml
+
+dubbo:
+  application:
+    name: consumer
+  protocol:
+    name: dubbo
+  registry:
+    address: zookeeper://127.0.0.1:2181
+  consumer:
+    filter: ConsumerFilter
+</code></pre>
+
+<h4 id="定义全局filter">定义全局filter</h4>
+
+<pre><code>public class MyFilter implements Filter {
+
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        MDC.put(&quot;TRACKING_LOG_SESSION_TOKEN_ID&quot;, UUID.randomUUID().toString().toUpperCase());
+        try {
+            filterChain.doFilter(servletRequest, servletResponse);
+        } finally {
+            MDC.remove(&quot;TRACKING_LOG_SESSION_TOKEN_ID&quot;);
+        }
+
+    }
+
+}
+</code></pre>
+
+<h4 id="注册bean">注册bean</h4>
+
+<pre><code>@Configuration
+public class FilterConfig {
+
+    @Bean
+    public FilterRegistrationBean filterRegist() {
+        FilterRegistrationBean frBean = new FilterRegistrationBean();
+        frBean.setFilter(new MyFilter());
+        frBean.addUrlPatterns(&quot;/*&quot;);
+        return frBean;
+    }
+}
+</code></pre>
+
+<h4 id="请求controller">请求controller</h4>
+
+<pre><code>@RestController
+public class HelloController {
+
+    @Autowired
+    private HelloService helloService;
+
+    @GetMapping(&quot;/hello&quot;)
+    public String hello(){
+      return helloService.hello();
+    }
+}
+</code></pre>
+
+<h4 id="service中定义filter">service中定义filter</h4>
+
+<pre><code>@Component
+public class HelloService {
+
+    @Reference(filter = {&quot;ConsumerFilter.class&quot;})
+    private TestService testService;
+
+    public String hello(){
+     return testService.hello();
+    }
+}
+</code></pre>
+
+<h4 id="调用请求并查看打印日志">调用请求并查看打印日志</h4>
+
+<p>请求 <a href="http://localhost:8002/hello，得到以下日志">http://localhost:8002/hello，得到以下日志</a></p>
+
+<ul>
+<li>consumer日志：</li>
+</ul>
+
+<pre><code>2020-04-10 16:09:01.654 [] [http-nio-8002-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] [DirectJDKLog.java:173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-04-10 16:09:01.655 [] [http-nio-8002-exec-2] INFO  o.s.web.servlet.DispatcherServlet [FrameworkServlet.java:525] - Initializing Servlet 'dispatcherServlet'
+2020-04-10 16:09:01.688 [] [http-nio-8002-exec-2] INFO  o.s.web.servlet.DispatcherServlet [FrameworkServlet.java:547] - Completed initialization in 33 ms
+2020-04-10 16:09:04.329 [05F3E32F-0710-4AA6-8315-D046B484E059] [http-nio-8002-exec-2] INFO  c.z.dubbotest.config.ConsumerFilter [ConsumerFilter.java:16] - ----cunsumer trace id:05F3E32F-0710-4AA6-8315-D046B484E059
+</code></pre>
+
+<ul>
+<li>provider日志：</li>
+</ul>
+
+<pre><code>2020-04-10 16:08:20.187 [] [main] INFO  o.a.coyote.http11.Http11NioProtocol [DirectJDKLog.java:173] - Starting ProtocolHandler [&quot;http-nio-8001&quot;]
+2020-04-10 16:08:20.208 [] [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer [TomcatWebServer.java:204] - Tomcat started on port(s): 8001 (http) with context path ''
+2020-04-10 16:08:20.212 [] [main] INFO  com.zzb.dubbotest.ProviderMain [StartupInfoLogger.java:61] - Started ProviderMain in 4.366 seconds (JVM running for 6.242)
+2020-04-10 16:09:05.037 [05F3E32F-0710-4AA6-8315-D046B484E059] [DubboServerHandler-10.0.5.53:20880-thread-2] INFO  c.z.dubbotest.config.ProviderFilter [ProviderFilter.java:22] - -----&gt;provider trance id:05F3E32F-0710-4AA6-8315-D046B484E059
+</code></pre>
+
+<p>注意到启动时并没有traceID，只有调用时才有追踪ID。</p>
+
+<blockquote>
+<p>微信公众号：码上烟火</p>
+</blockquote>
+
+    </div>
+
+    
+    
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/dubbo/">dubbo</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/multipartexception/">
+            <span class="next-text nav-default">解决SpringBoot上传文件异常</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+    
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="pugongyingbo@163.com" rel="me" class="iconfont icon-email" 
+        title="email" target="_blank">
+      </a>
+      <a href="https://github.com/pugongyingbo" rel="me" class="iconfont icon-github" 
+        title="github" target="_blank">
+      </a>
+  <a href="http://www.pugongyingbo.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" 
+    title="rss" target="_blank">
+  </a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ <span class="division">|</span>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span class="division">|</span>
+<span id="busuanzi_container_site_uv" style="display: inline;">
+    欢迎第<span id="busuanzi_value_site_uv"></span>位小伙伴
+  </span>
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zzb</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script><script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?ca4837698f527dfc5b1df9cea50c23e3";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+</body>
+</html>
