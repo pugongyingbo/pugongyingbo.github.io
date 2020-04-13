@@ -6,10 +6,21 @@
     <description>Recent content on Hello Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 12 Apr 2020 18:48:16 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 13 Apr 2020 16:36:49 +0800</lastBuildDate>
     
         <atom:link href="http://www.pugongyingbo.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>二叉树遍历</title>
+      <link>http://www.pugongyingbo.com/post/binarytree/</link>
+      <pubDate>Mon, 13 Apr 2020 16:36:49 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/binarytree/</guid>
+      
+        <description>二叉树结构 public class TreeNode { int val; TreeNode left; TreeNode right; TreeNode(int x) { val = x; } } 前序遍历 把二叉树的根节点放进栈。 如果栈不为空，从栈中取一个节点，把该节点放入容器的尾部；如果该</description>
+      
+    </item>
     
     <item>
       <title>Dubbo实现分布式追踪ID</title>
@@ -217,17 +228,6 @@
       <guid>http://www.pugongyingbo.com/post/java_pattern/</guid>
       
         <description>创建型模式 单例模式(singleton) 工厂模式(factory) 抽象工厂模式(abstract factory) 建造者模式(builder) 原型模式(pr</description>
-      
-    </item>
-    
-    <item>
-      <title>SpringBoot的第一个web</title>
-      <link>http://www.pugongyingbo.com/post/springboot/</link>
-      <pubDate>Tue, 01 May 2018 22:28:06 +0800</pubDate>
-      
-      <guid>http://www.pugongyingbo.com/post/springboot/</guid>
-      
-        <description>学习都是从简单的Hello World 到打印数据库的数据，入门很简单，但是也有不少坑，需要亲自动手才能遇见。 首先分层 java包 com.example.controller - Controller</description>
       
     </item>
     

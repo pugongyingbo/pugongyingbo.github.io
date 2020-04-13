@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Algorithm on Hello Code</title>
+    <link>http://www.pugongyingbo.com/tags/algorithm/</link>
+    <description>Recent content in Algorithm on Hello Code</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 13 Apr 2020 16:36:49 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.pugongyingbo.com/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>二叉树遍历</title>
+      <link>http://www.pugongyingbo.com/post/binarytree/</link>
+      <pubDate>Mon, 13 Apr 2020 16:36:49 +0800</pubDate>
+      
+      <guid>http://www.pugongyingbo.com/post/binarytree/</guid>
+      <description>二叉树结构 public class TreeNode { int val; TreeNode left; TreeNode right; TreeNode(int x) { val = x; } } 前序遍历 把二叉树的根节点放进栈。 如果栈不为空，从栈中取一个节点，把该节点放入容器的尾部；如果该</description>
+    </item>
+    
+  </channel>
+</rss>
