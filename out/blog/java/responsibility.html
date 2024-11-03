@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"  class=" language_zh ">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/search/style.css" type="text/css"/>
+        
+        <meta name="blog-generator" content="teedoc-plugin-blog">
+        
+        <link rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+        
+    
+    
+    <title>责任链模式 - 码上烟火</title>
+    
+    <script type="text/javascript">js_vars = {}</script>
+    <script type="text/javascript">metadata = {"tags": ["Java设计模式"], "date": "2018-04-26", "update": [], "ts": 1524672000, "author": "", "brief": "", "cover": "", "description": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/blog/">
+                
+                    <img class="site_logo" src="/static/image/logo.png" alt="hello world">
+                
+                
+                    <h2>码上烟火</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class="active"><a  href="/blog/">博客</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="">
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>责任链模式</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                                <li>Java设计模式</li>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2018-04-26">
+                                    2018-04-26
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/my_name/my_name.github.io/blob/main/blog/java/responsibility.md" target="_blank">
+                                    编辑本页
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <span id="blog_start"></span><h4 id="%E8%A7%A3%E9%87%8A">解释</h4>
+<blockquote>
+<p>使多个对象都有机会处理请求，从而避免请求的发送者和接收着之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止。</p>
+</blockquote>
+<h4 id="%E4%BB%A3%E7%A0%81%E4%BE%8B%E5%AD%90">代码例子</h4>
+<p>ATM取款机是一个很好的例子。用户输入指定的数额，然后机器分配货币按照定义好的数额例如50,20,10块的。如果用户输入一个数字不是10的倍数，它会抛出异常。我们用责任链模式来实现解决方案。</p>
+<h4 id="%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%8E%A5%E5%8F%A3%E5%92%8C%E7%B1%BB">基本的接口和类</h4>
+<ul>
+<li>Currency.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.chainofresponsibility;
+
+public class Currency {
+
+    private int amount;
+
+    public Currency(int amt){
+        this.amount=amt;
+    }
+
+    public int getAmount(){
+        return this.amount;
+    }
+}
+</code></pre>
+<p>基本接口应该有一个方法来定义下一个处理在责任链中，并且这个处理会传递请求。ATM的分配接口如下：</p>
+<ul>
+<li>DispenseChain.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.chainofresponsibility;
+
+public interface DispenseChain {
+
+    void setNextChain(DispenseChain nextChain);
+
+    void dispense(Currency cur);
+}
+</code></pre>
+<h4 id="%E9%93%BE%E7%9A%84%E5%AE%9E%E7%8E%B0">链的实现</h4>
+<p>我们需要创建不同的处理类，这些类将会实现分配链接口，并且提供分配方法的实现。我们开发我们的系统用三种类型的货币-50 、20 、10，我们将会创建三个具体的实现。</p>
+<ul>
+<li>Dollar50Dispenser.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.chainofresponsibility;
+
+public class Dollar50Dispenser implements DispenseChain {
+
+    private DispenseChain chain;
+
+    @Override
+    public void setNextChain(DispenseChain nextChain) {
+        this.chain=nextChain;
+    }
+
+    @Override
+    public void dispense(Currency cur) {
+        if(cur.getAmount() &gt;= 50){
+            int num = cur.getAmount()/50;
+            int remainder = cur.getAmount() % 50;
+            System.out.println(&quot;Dispensing &quot;+num+&quot; 50$ note&quot;);
+            if(remainder !=0) this.chain.dispense(new Currency(remainder));
+        }else{
+            this.chain.dispense(cur);
+        }
+    }
+
+}
+</code></pre>
+<ul>
+<li>Dollar20Dispenser.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.chainofresponsibility;
+
+public class Dollar20Dispenser implements DispenseChain{
+
+    private DispenseChain chain;
+
+    @Override
+    public void setNextChain(DispenseChain nextChain) {
+        this.chain=nextChain;
+    }
+
+    @Override
+    public void dispense(Currency cur) {
+        if(cur.getAmount() &gt;= 20){
+            int num = cur.getAmount()/20;
+            int remainder = cur.getAmount() % 20;
+            System.out.println(&quot;Dispensing &quot;+num+&quot; 20$ note&quot;);
+            if(remainder !=0) this.chain.dispense(new Currency(remainder));
+        }else{
+            this.chain.dispense(cur);
+        }
+    }
+
+}
+</code></pre>
+<ul>
+<li>Dollar10Dispenser.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.chainofresponsibility;
+
+public class Dollar10Dispenser implements DispenseChain {
+
+    private DispenseChain chain;
+
+    @Override
+    public void setNextChain(DispenseChain nextChain) {
+        this.chain=nextChain;
+    }
+
+    @Override
+    public void dispense(Currency cur) {
+        if(cur.getAmount() &gt;= 10){
+            int num = cur.getAmount()/10;
+            int remainder = cur.getAmount() % 10;
+            System.out.println(&quot;Dispensing &quot;+num+&quot; 10$ note&quot;);
+            if(remainder !=0) this.chain.dispense(new Currency(remainder));
+        }else{
+            this.chain.dispense(cur);
+        }
+    }
+
+}
+</code></pre>
+<h4 id="%E5%88%9B%E5%BB%BA%E9%93%BE">创建链</h4>
+<p>这是非常重要的一步，我们应该仔细的创建链，否则一个处理可能不会得到任何请求。比如，如果我们让第一个处理链是10块和20 块的分配方法，那么该请求将不会被转发到第二个处理，并且链也将变得无用。</p>
+<ul>
+<li>ATMDispenseChain.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.chainofresponsibility;
+
+import java.util.Scanner;
+
+public class ATMDispenseChain {
+
+    private DispenseChain c1;
+
+    public ATMDispenseChain() {
+        // initialize the chain
+        this.c1 = new Dollar50Dispenser();
+        DispenseChain c2 = new Dollar20Dispenser();
+        DispenseChain c3 = new Dollar10Dispenser();
+
+        // set the chain of responsibility
+        c1.setNextChain(c2);
+        c2.setNextChain(c3);
+    }
+
+    public static void main(String[] args) {
+        ATMDispenseChain atmDispenser = new ATMDispenseChain();
+        while (true) {
+            int amount = 0;
+            System.out.println(&quot;Enter amount to dispense&quot;);
+            Scanner input = new Scanner(System.in);
+            amount = input.nextInt();
+            if (amount % 10 != 0) {
+                System.out.println(&quot;Amount should be in multiple of 10s.&quot;);
+                return;
+            }
+            // process the request
+            atmDispenser.c1.dispense(new Currency(amount));
+        }
+
+    }
+
+}
+</code></pre>
+<ul>
+<li>输出</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">Enter amount to dispense
+530
+Dispensing 10 50$ note
+Dispensing 1 20$ note
+Dispensing 1 10$ note
+Enter amount to dispense
+100
+Dispensing 2 50$ note
+Enter amount to dispense
+120
+Dispensing 2 50$ note
+Dispensing 1 20$ note
+Enter amount to dispense
+15
+Amount should be in multiple of 10s.
+</code></pre>
+<h4 id="%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9">注意的点</h4>
+<ul>
+<li>客户端不知道链的哪一部分将处理请求，并且它将把请求发送给链中的第一个对象。</li>
+<li>链中的每个对象都有自己的实现类来处理请求，可以是全部或部分，也可以将它发送给链中的下一个对象。</li>
+<li>链中的每个对象都应该引用链中的下一个对象类转发请求，它由Java组合实现。</li>
+<li>仔细的创建链非常重要，否则可能吹出现请求永远不会转发到特定处理器的情况，或链中没有任何对象能够处理该请求。</li>
+<li>责任链模式可以很好的实现解耦，但如果大多数代码在所有实现类中都很常见，那么它会带来很多实现类和维护问题。</li>
+</ul>
+<h4 id="%E5%AE%9E%E9%99%85%E4%BE%8B%E5%AD%90">实际例子</h4>
+<ul>
+<li>java.util.logging.Logger#log()</li>
+<li>javax.servlet.Filter#doFilter()</li>
+<li>[Apache Commons Chain] (<a href="https://commons.apache.org/proper/commons-chain/index.html"  target="_blank">https://commons.apache.org/proper/commons-chain/index.html</a>)</li>
+</ul>
+<blockquote>
+<p>翻译自 <a href="https://www.journaldev.com/1617/chain-of-responsibility-design-pattern-in-java"  target="_blank">https://www.journaldev.com/1617/chain-of-responsibility-design-pattern-in-java</a></p>
+</blockquote>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="/pugongyingbo@gmail.com">邮箱</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/static/js/theme_default/main.js"></script>
+    
+        <script src="/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/static/js/search/search_main.js"></script>
+    
+        <script src="/static/js/plugin_blog/main.js"></script>
+    
+        <script src="/static/js/custom.js"></script>
+    
+        <script type="text/javascript" src="/static/js/live.js"></script>
+    
+</body>
+
+</html>

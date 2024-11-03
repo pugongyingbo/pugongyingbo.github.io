@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"  class=" language_zh ">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="策略模式">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/search/style.css" type="text/css"/>
+        
+        <meta name="blog-generator" content="teedoc-plugin-blog">
+        
+        <link rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+        
+    
+    
+    <title>策略模式 - 码上烟火</title>
+    
+    <script type="text/javascript">js_vars = {}</script>
+    <script type="text/javascript">metadata = {"tags": ["Java设计模式"], "date": "2018-05-08", "update": [], "ts": 1525708800, "author": "", "brief": "", "cover": "", "description": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/blog/">
+                
+                    <img class="site_logo" src="/static/image/logo.png" alt="hello world">
+                
+                
+                    <h2>码上烟火</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class="active"><a  href="/blog/">博客</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="">
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>策略模式</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                                <li>Java设计模式</li>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2018-05-08">
+                                    2018-05-08
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/my_name/my_name.github.io/blob/main/blog/java/strategyPattern.md" target="_blank">
+                                    编辑本页
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <span id="blog_start"></span><h4 id="%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F">策略模式</h4>
+<blockquote>
+<p>我们定义了多种算法，并且让客户端应用传递被用来作为参数的算法。</p>
+</blockquote>
+<ul>
+<li>PaymentStrategy.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.strategy;
+
+public interface PaymentStrategy {
+
+    public void pay(int amount);
+}
+</code></pre>
+<ul>
+<li>CreditCardStrategy.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.strategy;
+
+public class CreditCardStrategy implements PaymentStrategy {
+
+    private String name;
+    private String cardNumber;
+    private String cvv;
+    private String dateOfExpiry;
+
+    public CreditCardStrategy(String nm, String ccNum, String cvv, String expiryDate){
+        this.name=nm;
+        this.cardNumber=ccNum;
+        this.cvv=cvv;
+        this.dateOfExpiry=expiryDate;
+    }
+    @Override
+    public void pay(int amount) {
+        System.out.println(amount +&quot; paid with credit/debit card&quot;);
+    }
+
+}
+</code></pre>
+<ul>
+<li>PaypalStrategy.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.strategy;
+
+public class PaypalStrategy implements PaymentStrategy {
+
+    private String emailId;
+    private String password;
+
+    public PaypalStrategy(String email, String pwd){
+        this.emailId=email;
+        this.password=pwd;
+    }
+
+    @Override
+    public void pay(int amount) {
+        System.out.println(amount + &quot; paid using Paypal.&quot;);
+    }
+
+}
+</code></pre>
+<ul>
+<li>Item.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.strategy;
+
+public class Item {
+
+    private String upcCode;
+    private int price;
+
+    public Item(String upc, int cost){
+        this.upcCode=upc;
+        this.price=cost;
+    }
+
+    public String getUpcCode() {
+        return upcCode;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+}
+</code></pre>
+<ul>
+<li>ShoppingCart.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.strategy;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ShoppingCart {
+
+    //List of items
+    List&lt;Item&gt; items;
+
+    public ShoppingCart(){
+        this.items=new ArrayList&lt;Item&gt;();
+    }
+
+    public void addItem(Item item){
+        this.items.add(item);
+    }
+    public void removeItem(Item item){
+        this.items.remove(item);
+    }
+
+    public int calculateTotal(){
+        int sum = 0;
+        for(Item item : items){
+            sum += item.getPrice();
+        }
+        return sum;
+    }
+
+    public void pay(PaymentStrategy paymentMethod){
+        int amount = calculateTotal();
+        paymentMethod.pay(amount);
+    }
+}
+</code></pre>
+<p>注意，购物车的付款方式需要支付算法作为参数，并不会将其作为实例变量存储在任何位置。</p>
+<ul>
+<li>ShoppingCartTest.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.strategy;
+
+public class ShoppingCartTest {
+
+    public static void main(String[] args) {
+        ShoppingCart cart = new ShoppingCart();
+
+        Item item1 = new Item(&quot;1234&quot;,10);
+        Item item2 = new Item(&quot;5678&quot;,40);
+
+        cart.addItem(item1);
+        cart.addItem(item2);
+
+        //pay by paypal
+        cart.pay(new PaypalStrategy(&quot;myemail@example.com&quot;, &quot;mypwd&quot;));
+
+        //pay by credit card
+        cart.pay(new CreditCardStrategy(&quot;Pankaj Kumar&quot;, &quot;1234567890123456&quot;, &quot;786&quot;, &quot;12/15&quot;));
+    }
+}
+
+</code></pre>
+<ul>
+<li>输出</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">50 paid using Paypal.
+50 paid with credit/debit card
+</code></pre>
+<ul>
+<li>我们可以使用组合来为策略创建实例变量，但我们应该避免这种情况，因为我们夕阳将特定策略应用于特定任务。在将比较器作为参数的Collections.sort()和Array.sort()方法中也是如此。</li>
+<li>策略模式与状态模式非常相似。不同之处在于contex包含state作为实例变量，并且可以有多个任务，其实现可以依赖于状态，而策略模式将策略作为参数传递给方法，并且context对象没有任何变量来存储它。</li>
+<li>当我们有针对特定任务的多种算法是，策略模式非常有用，我们希望我们的应用程序能够灵活地运行时为特定任务选择任何算法。</li>
+</ul>
+<h4 id="%E5%8F%82%E8%80%83">参考</h4>
+<ul>
+<li><a href="https://www.journaldev.com/1754/strategy-design-pattern-in-java-example-tutorial"  target="_blank">https://www.journaldev.com/1754/strategy-design-pattern-in-java-example-tutorial</a></li>
+</ul>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="/pugongyingbo@gmail.com">邮箱</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/static/js/theme_default/main.js"></script>
+    
+        <script src="/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/static/js/search/search_main.js"></script>
+    
+        <script src="/static/js/plugin_blog/main.js"></script>
+    
+        <script src="/static/js/custom.js"></script>
+    
+        <script type="text/javascript" src="/static/js/live.js"></script>
+    
+</body>
+
+</html>

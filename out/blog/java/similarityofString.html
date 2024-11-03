@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"  class=" language_zh ">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="字符串相似度">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/search/style.css" type="text/css"/>
+        
+        <meta name="blog-generator" content="teedoc-plugin-blog">
+        
+        <link rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+        
+    
+    
+    <title>字符串相似度 - 码上烟火</title>
+    
+    <script type="text/javascript">js_vars = {}</script>
+    <script type="text/javascript">metadata = {"tags": ["Java"], "date": "2019-06-09", "update": [], "ts": 1560009600, "author": "", "brief": "", "cover": "", "description": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/blog/">
+                
+                    <img class="site_logo" src="/static/image/logo.png" alt="hello world">
+                
+                
+                    <h2>码上烟火</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class="active"><a  href="/blog/">博客</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="">
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>字符串相似度</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                                <li>Java</li>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2019-06-09">
+                                    2019-06-09
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/my_name/my_name.github.io/blob/main/blog/java/similarityofString.md" target="_blank">
+                                    编辑本页
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <span id="blog_start"></span><h4 id="%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%BC%BC%E5%BA%A6">字符串相似度</h4>
+<p>Levenshtein Distance，又称编辑距离，指的是两个字符串之间，由一个转换成另一个所需的最少编辑操作次数。许可的编辑操作包括将一个字符替换成另一个字符，插入一个字符，删除一个字符。</p>
+<blockquote>
+<p>编辑距离的算法是首先由俄国科学家Levenshtein提出的，故又叫Levenshtein Distance。</p>
+</blockquote>
+
+<pre class="language-none"><code class="language-none">/**
+     * 比较两个字符串的相识度
+     * 核心算法：用一个二维数组记录每个字符串是否相同，如果相同记为0，不相同记为1，每行每列相同个数累加
+     * 则数组最后一个数为不相同的总数，从而判断这两个字符的相识度
+     *
+     * @param str
+     * @param target
+     * @return
+     */
+    private static int compare(String str, String target) {
+        int d[][];              // 矩阵
+        int n = str.length();
+        int m = target.length();
+        int i;                  // 遍历str的
+        int j;                  // 遍历target的
+        char ch1;               // str的
+        char ch2;               // target的
+        int temp;               // 记录相同字符,在某个矩阵位置值的增量,不是0就是1
+        if (n == 0) {
+            return m;
+        }
+        if (m == 0) {
+            return n;
+        }
+        d = new int[n + 1][m + 1];
+        // 初始化第一列
+        for (i = 0; i &lt;= n; i++) {
+            d[i][0] = i;
+        }
+        // 初始化第一行
+        for (j = 0; j &lt;= m; j++) {
+            d[0][j] = j;
+        }
+        for (i = 1; i &lt;= n; i++) {
+            // 遍历str
+            ch1 = str.charAt(i - 1);
+            // 去匹配target
+            for (j = 1; j &lt;= m; j++) {
+                ch2 = target.charAt(j - 1);
+                if (ch1 == ch2 || ch1 == ch2 + 32 || ch1 + 32 == ch2) {
+                    temp = 0;
+                } else {
+                    temp = 1;
+                }
+                // 左边+1,上边+1, 左上角+temp取最小
+                d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + temp);
+            }
+        }
+        return d[n][m];
+    }
+
+
+    /**
+     * 获取最小的值
+     */
+    private static int min(int one, int two, int three) {
+        return (one = one &lt; two ? one : two) &lt; three ? one : three;
+    }
+
+    /**
+     * 获取两字符串的相似度
+     */
+    public static float getSimilarityRatio(String str, String target) {
+
+    //去除空白字符、换行、标点符号 
+     String regex = &quot;[\\pP\\p{Punct}\\s]&quot;;
+     return 1 - (float) compare(str.replaceAll(regex, &quot;&quot;), target.replaceAll(regex, &quot;&quot;)) 
+     / Math.max(str.length(), target.length());
+     }
+
+     public static void main(String[] args) {
+    String str = &quot;论据容易理解,把它们分成小块,并以相似的格式和句子结构呈现每一个论据&quot;;
+    String target = &quot;根据领域关系可以合并领域相同或相似的句子，得到句群及其领域&quot;;
+    System.out.println(&quot;similarityRatio=&quot; + getSimilarityRatio(str, target));
+
+    }
+
+</code></pre>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="/pugongyingbo@gmail.com">邮箱</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/static/js/theme_default/main.js"></script>
+    
+        <script src="/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/static/js/search/search_main.js"></script>
+    
+        <script src="/static/js/plugin_blog/main.js"></script>
+    
+        <script src="/static/js/custom.js"></script>
+    
+        <script type="text/javascript" src="/static/js/live.js"></script>
+    
+</body>
+
+</html>

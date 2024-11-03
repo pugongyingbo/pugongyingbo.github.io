@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"  class=" language_zh ">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/search/style.css" type="text/css"/>
+        
+        <meta name="blog-generator" content="teedoc-plugin-blog">
+        
+        <link rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+        
+    
+    
+    <title>原型设计模式 - 码上烟火</title>
+    
+    <script type="text/javascript">js_vars = {}</script>
+    <script type="text/javascript">metadata = {"tags": ["Java设计模式"], "date": "2018-05-10", "update": [], "ts": 1525881600, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/blog/">
+                
+                    <img class="site_logo" src="/static/image/logo.png" alt="hello world">
+                
+                
+                    <h2>码上烟火</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class="active"><a  href="/blog/">博客</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="">
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>原型设计模式</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                                <li>Java设计模式</li>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2018-05-10">
+                                    2018-05-10
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/my_name/my_name.github.io/blob/main/blog/java/prototype.md" target="_blank">
+                                    编辑本页
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <span id="blog_start"></span><h4 id="%E8%A7%A3%E9%87%8A">解释</h4>
+<blockquote>
+<p>用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。</p>
+</blockquote>
+<p>举一个例子来理解原型设计模式会很容易。假设我们有一个车从数据库加载数据的对象，现在我们需要多次修改程序中的这些数据，因此使用new关键字创建object并从数据库再次加载所有数据并不是一个好主意。更好的方法是将现有对象克隆到新对象中，然后执行数据操作。<br />
+ 原型设计模式要求你正在复制的对象提供复制功能。这不应该用其他任何类来完成。但是，是否使用对象属性的浅或深克隆取决于需求及其设计决策。</p>
+<ul>
+<li>Employees.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">import java.util.ArrayList;
+import java.util.List;
+
+public class Employees implements Cloneable{
+
+    private List&lt;String&gt; empList;
+
+    public Employees(){
+        empList = new ArrayList&lt;String&gt;();
+    }
+
+    public Employees(List&lt;String&gt; list){
+        this.empList=list;
+    }
+public void loadData(){
+        //read all employees from database and put into the list
+        empList.add(&quot;Pankaj&quot;);
+        empList.add(&quot;Raj&quot;);
+        empList.add(&quot;David&quot;);
+        empList.add(&quot;Lisa&quot;);
+    }
+
+    public List&lt;String&gt; getEmpList() {
+        return empList;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+            List&lt;String&gt; temp = new ArrayList&lt;String&gt;();
+            for(String s : this.getEmpList()){
+                temp.add(s);
+            }
+            return new Employees(temp);
+    }
+
+}
+</code></pre>
+<p>注意到clone()方法被重写来提供一个员工列表的深克隆。</p>
+<ul>
+<li>PrototypePatternTest.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">import com.journaldev.design.prototype.Employees;
+
+public class PrototypePatternTest {
+
+    public static void main(String[] args) throws CloneNotSupportedException {
+        Employees emps = new Employees();
+        emps.loadData();
+
+        //Use the clone method to get the Employee object
+        Employees empsNew = (Employees) emps.clone();
+        Employees empsNew1 = (Employees) emps.clone();
+        List&lt;String&gt; list = empsNew.getEmpList();
+        list.add(&quot;John&quot;);
+        List&lt;String&gt; list1 = empsNew1.getEmpList();
+        list1.remove(&quot;Pankaj&quot;);
+
+        System.out.println(&quot;emps List: &quot;+emps.getEmpList());
+        System.out.println(&quot;empsNew List: &quot;+list);
+        System.out.println(&quot;empsNew1 List: &quot;+list1);
+    }
+
+}
+</code></pre>
+<ul>
+<li>输出</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">emps List: [Pankaj, Raj, David, Lisa]
+empsNew List: [Pankaj, Raj, David, Lisa, John]
+empsNew1 List: [Raj, David, Lisa]
+</code></pre>
+<p>如果没有提供对象克隆，我们将不得不每次都进行数据库调用以获取员工列表，然后做操作，这将是资源和时间的消耗。</p>
+<h4 id="%E6%B7%B1%E5%85%8B%E9%9A%86%E5%92%8C%E6%B5%85%E5%85%8B%E9%9A%86">深克隆和浅克隆</h4>
+<p>object中的克隆方法是浅克隆，JDK规定了克隆需要满足的一些条件，对某个对象进行克隆，对象的成员变量如果包括引用类型或者数组，那么克隆的时候其实不会把这些对象也带着复制到克隆出来的对象里面的，只是复制一个引用，这个引用指向被克隆对象的成员对象，但是基本数据类型是会跟着被带到克隆对象里面去的，而深度可能是把对象所有属性都渎职一份新的到目标对象里面去。</p>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="/pugongyingbo@gmail.com">邮箱</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/static/js/theme_default/main.js"></script>
+    
+        <script src="/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/static/js/search/search_main.js"></script>
+    
+        <script src="/static/js/plugin_blog/main.js"></script>
+    
+        <script src="/static/js/custom.js"></script>
+    
+        <script type="text/javascript" src="/static/js/live.js"></script>
+    
+</body>
+
+</html>

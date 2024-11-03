@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"  class=" language_zh ">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="单例模式">
+    
+    
+    <meta name="description" content="None">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/search/style.css" type="text/css"/>
+        
+        <meta name="blog-generator" content="teedoc-plugin-blog">
+        
+        <link rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+        
+    
+    
+    <title>单例模式的几种写法 - 码上烟火</title>
+    
+    <script type="text/javascript">js_vars = {}</script>
+    <script type="text/javascript">metadata = {"tags": ["Java设计模式"], "date": "2018-04-16", "update": [], "ts": 1523808000, "author": "zzb", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/blog/">
+                
+                    <img class="site_logo" src="/static/image/logo.png" alt="hello world">
+                
+                
+                    <h2>码上烟火</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class="active"><a  href="/blog/">博客</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="">
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>单例模式的几种写法</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                                <li>Java设计模式</li>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                zzb
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2018-04-16">
+                                    2018-04-16
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/my_name/my_name.github.io/blob/main/blog/java/singleton.md" target="_blank">
+                                    编辑本页
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <span id="blog_start"></span><h2 id="%E5%8D%95%E4%BE%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E5%86%99%E6%B3%95">单例的几种写法</h2>
+<blockquote>
+<ul>
+<li>饿汉式</li>
+<li>懒汉式</li>
+<li>双重检查</li>
+<li>使用volitile关键字</li>
+<li>枚举</li>
+</ul>
+</blockquote>
+<h3 id="%E6%87%92%E6%B1%89%E4%B8%8E%E9%A5%BF%E6%B1%89">懒汉与饿汉</h3>
+<blockquote>
+<ul>
+<li>要想让一个类只能构建一个对象，自然不能让他随便去做new操作，因此Singleton的构造方法是私有的。</li>
+<li>instance是Singleton类的静态成员，也是我们的单利对象。它的初始值可以写成null，也可以写成new Singleton()。</li>
+<li>getInstance是获取单例对象的方法。</li>
+</ul>
+</blockquote>
+<ul>
+<li>如果单例初始值是null，还未构建，则构建单例对象并返回。这个写法属于单例模式当中的懒汉模式。</li>
+<li>如果单例对象一开始就被new Singleton()主动构建，则不再需要判空操作，这种属于饿汉模式。饿汉主动找食物吃，懒汉躺在地上等人喂。</li>
+</ul>
+<h4 id="1.%E9%A5%BF%E6%B1%89%E5%BC%8F-%EF%BC%88%E9%9D%99%E6%80%81%E5%B8%B8%E9%87%8F%EF%BC%89">1.饿汉式 （静态常量）</h4>
+
+<pre class="language-none"><code class="language-none">public class Singleton {
+
+    private final static Singleton INSTANCE = new Singleton();
+
+    private Singleton(){}
+
+    public static Singleton getInstance(){
+        return INSTANCE;
+    }
+}
+</code></pre>
+<p>缺点：在类装载的时候就完成实例化，没有达到Lazy Loading的效果。如果从始至终从未使用过这个实例，则会造成内存的浪费。</p>
+<h3 id="2.%E9%A5%BF%E6%B1%89%EF%BC%88%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%9D%97%EF%BC%89">2.饿汉（静态代码块）</h3>
+
+<pre class="language-none"><code class="language-none">public class Singleton {
+
+    private static Singleton instance;
+
+    static {
+        instance = new Singleton();
+    }
+
+    private Singleton() {}
+
+    public Singleton getInstance() {
+        return instance;
+    }
+}
+</code></pre>
+<p>缺点：在类装载的时候就完成实例化，没有达到Lazy Loading的效果。如果从始至终从未使用过这个实例，则会造成内存的浪费。</p>
+<h3 id="3.%E6%87%92%E6%B1%89%E5%BC%8F%EF%BC%88%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%EF%BC%89">3.懒汉式（线程不安全）</h3>
+
+<pre class="language-none"><code class="language-none">public class Singleton {
+
+    private static Singleton singleton;
+
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        if (singleton == null) {
+            singleton = new Singleton();
+        }
+        return singleton;
+    }
+}
+</code></pre>
+<p>这种写法起到了Lazy Loading的效果，但是只能在单线程下使用。如果在多线程下，一个线程进入了if (singleton == null)判断语句块，还未来得及往下执行，另一个线程也通过了这个判断语句，这时便会产生多个实例。所以在多线程环境下不可使用这种方式。</p>
+<h3 id="4.%E6%87%92%E6%B1%89%E5%BC%8F%EF%BC%88%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8-%E5%90%8C%E6%AD%A5%E6%96%B9%E6%B3%95-%E6%95%88%E7%8E%87%E4%BD%8E%EF%BC%89">4.懒汉式（线程安全 同步方法 效率低）</h3>
+
+<pre class="language-none"><code class="language-none">public class Singleton {
+
+    private static Singleton singleton;
+
+    private Singleton() {}
+
+    public static synchronized Singleton getInstance() {
+        if (singleton == null) {
+            singleton = new Singleton();
+        }
+        return singleton;
+    }
+}
+</code></pre>
+<p>缺点：效率太低了，每个线程在想获得类的实例时候，执行getInstance()方法都要进行同步。而其实这个方法只执行一次实例化代码就够了，后面的想获得该类实例，直接return就行了。</p>
+<h3 id="5.%E6%87%92%E6%B1%89%E5%BC%8F%EF%BC%88%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8-%E5%90%8C%E6%AD%A5%E4%BB%A3%E7%A0%81%E5%9D%97%EF%BC%89">5.懒汉式（线程安全 同步代码块）</h3>
+
+<pre class="language-none"><code class="language-none">public class Singleton {
+
+    private static Singleton singleton;
+
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        if (singleton == null) {
+            synchronized (Singleton.class) {
+                singleton = new Singleton();
+            }
+        }
+        return singleton;
+    }
+}
+</code></pre>
+<p>由于第四种实现方式同步效率太低，所以摒弃同步方法，改为同步产生实例化的的代码块。但是这种同步并不能起到线程同步的作用。跟第3种实现方式遇到的情形一致，假如一个线程进入了if (singleton == null)判断语句块，还未来得及往下执行，另一个线程也通过了这个判断语句，这时便会产生多个实例。</p>
+<h3 id="6.%E5%8F%8C%E9%87%8D%E6%A3%80%E6%9F%A5">6.双重检查</h3>
+
+<pre class="language-none"><code class="language-none">public class Singleton {
+
+    private static volatile Singleton singleton;
+
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        if (singleton == null) {
+            synchronized (Singleton.class) {
+                if (singleton == null) {
+                    singleton = new Singleton();
+                }
+            }
+        }
+        return singleton;
+    }
+}
+</code></pre>
+<ul>
+<li>为了防止new Instance被执行多次，因此在new操作之前加上synchronized同步锁，锁住整个类。</li>
+<li>进入synchronized临界区后，还要再做一次判空，因为当两个线程同时访问的时候，线程a构建完对象，线程b也已经通过了最初的判空验证，不做第二次判空的话，线程b也已经通过了最初的判空验证，不做第二次判空的haul，线程b还是会再次构建instance对象。</li>
+</ul>
+<blockquote>
+<h3 id="%E4%BD%BF%E7%94%A8volatile%E5%85%B3%E9%94%AE%E5%AD%97">使用volatile关键字</h3>
+</blockquote>
+<p>volatile修饰符阻止了变量访问前后的指令重拍，保证了指令执行顺序。进过volatile的修饰，当线程a执行instance = new Singleton的时候，JVM的执行顺序，<br />
+  1、分配对象的内存空间<br />
+  2、初始化对象<br />
+  3、设置instance指向刚分配的内存地址<br />
+ 如此在线程b看来，instance对象的引用要么指向null，要么指向一个初始化完毕的instance，而不会出现某个中间态，保证了安全。</p>
+<h3 id="7.%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB">7.静态内部类</h3>
+
+<pre class="language-none"><code class="language-none">public class Singleton {
+
+    private Singleton() {}
+
+    private static class SingletonInstance {
+        private static final Singleton INSTANCE = new Singleton();
+    }
+
+    public static Singleton getInstance() {
+        return SingletonInstance.INSTANCE;
+    }
+}
+</code></pre>
+<p>这种方式跟饿汉式方式采用的机制类似，但又有不同。两者都是采用了类装载的机制来保证初始化实例时只有一个线程。不同的地方在饿汉式方式是只要Singleton类被装载就会实例化，没有Lazy-Loading的作用，而静态内部类方式在Singleton类被装载时并不会立即实例化，而是在需要实例化时，调用getInstance方法，才会装载SingletonInstance类，从而完成Singleton的实例化。</p>
+<p>类的静态属性只会在第一次加载类的时候初始化，所以在这里，JVM帮助我们保证了线程的安全性，在类进行初始化时，别的线程是无法进入的。</p>
+<p>优点：避免了线程不安全，延迟加载，效率高。</p>
+<blockquote>
+<p>从外部类无法访问静态内部类，只有调用getInstance方法的时候，才能得到单例对象。</p>
+</blockquote>
+<p>INSTANCE对象初始化的时机并不是在单例类Singleton被加载的时候，而是在调用getInstance方法，使得静态内部类LazyHolder被加载的时候。利用classloader的加载机制来实现懒加载，并保证构建单例的线程安全。</p>
+<h3 id="8.%E4%BD%BF%E7%94%A8%E6%9E%9A%E4%B8%BE">8.使用枚举</h3>
+<p>有了enum语法糖，JVM会阻止反射获取枚举类的私有构造函数。</p>
+
+<pre class="language-none"><code class="language-none">public enum SingletonEnum(){
+    INSTANCE;
+}
+</code></pre>
+<p>利用反射打破单例<br />
+1、获得构造器<br />
+2、把构造器设置为可访问<br />
+3、使用getInstance方法构造对象</p>
+
+<pre class="language-none"><code class="language-none">//获得构造器
+Constructor con = Singleton.class.getDeclaredConstructor()
+//设置可访问
+con.setAccsessible(true);
+//构造不同对象
+Singleton s1 = (Singleton)con.newInstance();
+Singleton s2 = (Singleton)con.newInstance();
+//验证
+System.out.println(s1.equals(s2));//false
+</code></pre>
+<hr />
+<ul>
+<li>总结</li>
+</ul>
+<table>
+<thead>
+<tr>
+  <th style="text-align:center"></th>
+  <th style="text-align:center">单例实现模式</th>
+  <th style="text-align:center">是否线程安全</th>
+  <th style="text-align:center">是否懒加载</th>
+  <th>是否防止反射构建</th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style="text-align:center">双重检查</td>
+  <td style="text-align:center">是</td>
+  <td style="text-align:center">是</td>
+  <td style="text-align:center">否</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td style="text-align:center">静态内部类</td>
+  <td style="text-align:center">是</td>
+  <td style="text-align:center">是</td>
+  <td style="text-align:center">否</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td style="text-align:center">枚举</td>
+  <td style="text-align:center">是</td>
+  <td style="text-align:center">否</td>
+  <td style="text-align:center">是</td>
+  <td></td>
+  <td></td>
+</tr>
+</tbody>
+</table>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="/pugongyingbo@gmail.com">邮箱</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/static/js/theme_default/main.js"></script>
+    
+        <script src="/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/static/js/search/search_main.js"></script>
+    
+        <script src="/static/js/plugin_blog/main.js"></script>
+    
+        <script src="/static/js/custom.js"></script>
+    
+        <script type="text/javascript" src="/static/js/live.js"></script>
+    
+</body>
+
+</html>

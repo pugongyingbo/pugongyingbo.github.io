@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"  class=" language_zh ">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="Java设计模式">
+    
+    
+    <meta name="description" content="None">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/search/style.css" type="text/css"/>
+        
+        <meta name="blog-generator" content="teedoc-plugin-blog">
+        
+        <link rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+        
+    
+    
+    <title>抽象工厂模式 - 码上烟火</title>
+    
+    <script type="text/javascript">js_vars = {}</script>
+    <script type="text/javascript">metadata = {"tags": ["Java设计模式"], "date": "2018-05-07", "update": [], "ts": 1525622400, "author": "zzb", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/blog/">
+                
+                    <img class="site_logo" src="/static/image/logo.png" alt="hello world">
+                
+                
+                    <h2>码上烟火</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class="active"><a  href="/blog/">博客</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="">
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>抽象工厂模式</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                                <li>Java设计模式</li>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                zzb
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2018-05-07">
+                                    2018-05-07
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/my_name/my_name.github.io/blob/main/blog/java/abstractFactory.md" target="_blank">
+                                    编辑本页
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <span id="blog_start"></span><h4 id="%E8%A7%A3%E9%87%8A">解释</h4>
+<blockquote>
+<p>提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。</p>
+</blockquote>
+<p>在抽象工厂中，我们摆脱了厂if-else代码块，并为每个子类设置了工厂类。然后抽象工厂类将根据输入的工厂类返回子类。一开始他似乎令人困惑，但一旦你看到实现，它很容易掌握并理解工厂和抽象工厂模式之间的微小差异。</p>
+<h4 id="%E8%B6%85%E7%B1%BB%E5%92%8C%E5%AD%90%E7%B1%BB">超类和子类</h4>
+<ul>
+<li>Computer.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.model;
+
+public abstract class Computer {
+
+    public abstract String getRAM();
+    public abstract String getHDD();
+    public abstract String getCPU();
+
+    @Override
+    public String toString(){
+        return &quot;RAM= &quot;+this.getRAM()+&quot;, HDD=&quot;+this.getHDD()+&quot;, CPU=&quot;+this.getCPU();
+    }
+}
+</code></pre>
+<ul>
+<li>PC.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.model;
+
+public class PC extends Computer {
+
+    private String ram;
+    private String hdd;
+    private String cpu;
+
+    public PC(String ram, String hdd, String cpu){
+        this.ram=ram;
+        this.hdd=hdd;
+        this.cpu=cpu;
+    }
+    @Override
+    public String getRAM() {
+        return this.ram;
+    }
+
+    @Override
+    public String getHDD() {
+        return this.hdd;
+    }
+
+    @Override
+    public String getCPU() {
+        return this.cpu;
+    }
+
+}
+</code></pre>
+<ul>
+<li>Server.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.model;
+
+public class Server extends Computer {
+
+    private String ram;
+    private String hdd;
+    private String cpu;
+
+    public Server(String ram, String hdd, String cpu){
+        this.ram=ram;
+        this.hdd=hdd;
+        this.cpu=cpu;
+    }
+    @Override
+    public String getRAM() {
+        return this.ram;
+    }
+
+    @Override
+    public String getHDD() {
+        return this.hdd;
+    }
+
+    @Override
+    public String getCPU() {
+        return this.cpu;
+    }
+}
+</code></pre>
+<h4 id="%E6%AF%8F%E4%B8%AA%E5%AD%90%E7%B1%BB%E7%9A%84%E5%B7%A5%E5%8E%82%E7%B1%BB">每个子类的工厂类</h4>
+<p>首先我们需要创建一个抽象工厂接口或抽象类。</p>
+<ul>
+<li>ComputerAbstractFactory.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.abstractfactory;
+
+import com.journaldev.design.model.Computer;
+
+public interface ComputerAbstractFactory {
+
+    public Computer createComputer();
+}
+</code></pre>
+<p>现在我们的工厂类将实现这个接口并返回它们各自的子类。</p>
+<ul>
+<li>PCFactory.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.abstractfactory;
+
+import com.journaldev.design.model.Computer;
+import com.journaldev.design.model.PC;
+
+public class PCFactory implements ComputerAbstractFactory {
+
+    private String ram;
+    private String hdd;
+    private String cpu;
+
+    public PCFactory(String ram, String hdd, String cpu){
+        this.ram=ram;
+        this.hdd=hdd;
+        this.cpu=cpu;
+    }
+    @Override
+    public Computer createComputer() {
+        return new PC(ram,hdd,cpu);
+    }
+}
+</code></pre>
+<ul>
+<li>ServerFactory.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.abstractfactory;
+
+import com.journaldev.design.model.Computer;
+import com.journaldev.design.model.Server;
+
+public class ServerFactory implements ComputerAbstractFactory {
+
+    private String ram;
+    private String hdd;
+    private String cpu;
+
+    public ServerFactory(String ram, String hdd, String cpu){
+        this.ram=ram;
+        this.hdd=hdd;
+        this.cpu=cpu;
+    }
+
+    @Override
+    public Computer createComputer() {
+        return new Server(ram,hdd,cpu);
+    }
+}
+</code></pre>
+<p>现在我们将创建一个消费者类，它将为客户端类创建子类提供入口点。</p>
+<ul>
+<li>ComputerFactory.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.abstractfactory;
+
+import com.journaldev.design.model.Computer;
+
+public class ComputerFactory {
+
+    public static Computer getComputer(ComputerAbstractFactory factory){
+        return factory.createComputer();
+    }
+}
+</code></pre>
+<ul>
+<li>TestDesignPatterns.java</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package com.journaldev.design.test;
+
+import com.journaldev.design.abstractfactory.PCFactory;
+import com.journaldev.design.abstractfactory.ServerFactory;
+import com.journaldev.design.factory.ComputerFactory;
+import com.journaldev.design.model.Computer;
+
+public class TestDesignPatterns {
+
+    public static void main(String[] args) {
+        testAbstractFactory();
+    }
+
+    private static void testAbstractFactory() {
+        Computer pc = com.journaldev.design.abstractfactory.ComputerFactory.getComputer(new PCFactory(&quot;2 GB&quot;,&quot;500 GB&quot;,&quot;2.4 GHz&quot;));
+        Computer server = com.journaldev.design.abstractfactory.ComputerFactory.getComputer(new ServerFactory(&quot;16 GB&quot;,&quot;1 TB&quot;,&quot;2.9 GHz&quot;));
+        System.out.println(&quot;AbstractFactory PC Config::&quot;+pc);
+        System.out.println(&quot;AbstractFactory Server Config::&quot;+server);
+    }
+}
+</code></pre>
+<ul>
+<li>输出</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">AbstractFactory PC Config::RAM= 2 GB, HDD=500 GB, CPU=2.4 GHz
+AbstractFactory Server Config::RAM= 16 GB, HDD=1 TB, CPU=2.9 GHz
+</code></pre>
+<h4 id="%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%A5%BD%E5%A4%84">抽象工厂设计模式的好处</h4>
+<ul>
+<li>抽象工厂提供了接口而不是实现接口</li>
+<li>抽象工厂是工厂中的工厂，并且可以被很轻松的扩展以容纳更多的产品。</li>
+<li>抽象工厂模式是健壮的，避免了工厂模式的条件逻辑。</li>
+</ul>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="/pugongyingbo@gmail.com">邮箱</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/static/js/theme_default/main.js"></script>
+    
+        <script src="/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/static/js/search/search_main.js"></script>
+    
+        <script src="/static/js/plugin_blog/main.js"></script>
+    
+        <script src="/static/js/custom.js"></script>
+    
+        <script type="text/javascript" src="/static/js/live.js"></script>
+    
+</body>
+
+</html>

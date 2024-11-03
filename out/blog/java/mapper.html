@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"  class=" language_zh ">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="mybatis">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/search/style.css" type="text/css"/>
+        
+        <meta name="blog-generator" content="teedoc-plugin-blog">
+        
+        <link rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+        
+    
+    
+    <title>mybatis源码：Mapper实现-动态代理 - 码上烟火</title>
+    
+    <script type="text/javascript">js_vars = {}</script>
+    <script type="text/javascript">metadata = {"tags": ["mybatis"], "date": "2018-05-22", "update": [], "ts": 1526918400, "author": "", "brief": "", "cover": "", "description": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/blog/">
+                
+                    <img class="site_logo" src="/static/image/logo.png" alt="hello world">
+                
+                
+                    <h2>码上烟火</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class="active"><a  href="/blog/">博客</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="">
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>mybatis源码：Mapper实现-动态代理</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                                <li>mybatis</li>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2018-05-22">
+                                    2018-05-22
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/my_name/my_name.github.io/blob/main/blog/java/mapper.md" target="_blank">
+                                    编辑本页
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <span id="blog_start"></span><h4 id="%E8%A7%A3%E9%87%8A">解释</h4>
+<ul>
+<li>在Mybatis提供的编程接口中，开发人员只需要定义好Mapper接口(如：UserDao)，开发人员无需去实现。Mybatis会利用JDK的动态代理实现 Mapper接口。</li>
+<li>在Mybatis中，每个Mapper接口都会对应一个MapperProxyFactory对象实例，这个对应关系在Configuration.mapperRegistry.knownMappers中。</li>
+<li>当getMapper()方法被调用时，Mybatis会找到相对应的MapperProxyFactory对象实例，利用这个工厂来创建一个jdk动态代理对象，是这个Mapper接口的实现类,当Mapper定义的方法被调用时，会调用MapperProxy来处理。</li>
+<li>MapperProxy会根据方法找到对应的MapperMethod对象来实现这次调用。</li>
+</ul>
+<p>MapperMethod对应会读取方法中的注解，从Configuration中找到相对应的MappedStatement对象，再执行。</p>
+<h4 id="%E6%BA%90%E7%A0%81">源码</h4>
+<ul>
+<li>DefaultSqlSession.getMapper()方法最终会调用MapperRegistry.getMapper()</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">  public &lt;T&gt; T getMapper(Class&lt;T&gt; type, SqlSession sqlSession) {
+        //这个MapperProxyFactory是调用addMapper方法时加到knownMappers中的，
+        MapperProxyFactory&lt;T&gt; mapperProxyFactory = (MapperProxyFactory)this.knownMappers.get(type);
+        if (mapperProxyFactory == null) {
+        //生成一个MapperProxy对象 
+            throw new BindingException(&quot;Type &quot; + type + &quot; is not known to the MapperRegistry.&quot;);
+        } else {
+            try {
+            //生成一个MapperProxy对象 
+                return mapperProxyFactory.newInstance(sqlSession);
+            } catch (Exception var5) {
+                throw new BindingException(&quot;Error getting mapper instance. Cause: &quot; + var5, var5);
+            }
+        }
+    }
+</code></pre>
+<ul>
+<li>MapperProxyFactory的newInstance()</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">  protected T newInstance(MapperProxy&lt;T&gt; mapperProxy) {
+      //mapperInterface，说明Mapper接口被代理了，这样子返回的对象就是Mapper接口的子类，方法被调用时会被mapperProxy拦截,也就是执行mapperProxy.invoke()方法  
+        return Proxy.newProxyInstance(this.mapperInterface.getClassLoader(), new Class[]{this.mapperInterface}, mapperProxy);
+    }
+
+    public T newInstance(SqlSession sqlSession) {
+    //创建一个Mapperxy对象，这个方法实现了JDK动态代理中的InvocationHandler接口
+        MapperProxy&lt;T&gt; mapperProxy = new MapperProxy(sqlSession, this.mapperInterface, this.methodCache);
+        return this.newInstance(mapperProxy);
+    }
+</code></pre>
+<ul>
+<li>MapperProxy</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">public class MapperProxy&lt;T&gt; implements InvocationHandler, Serializable {
+    private static final long serialVersionUID = -6424540398559729838L;
+    private final SqlSession sqlSession;
+    private final Class&lt;T&gt; mapperInterface;
+
+    //Mapper接口中的每个方法都会生成一个MapperMethod对象, methodCache维护着他们的对应关系  
+  //这个methodCache是在MapperProxyFactory中持有的，MapperProxyFactory又是在Configuration中持有的  
+  //所以每个Mapper接口类对应的MapperProxyFactory和methodCache在整个应用中是共享的，一般只会有一个实例 
+    private final Map&lt;Method, MapperMethod&gt; methodCache;
+
+    public MapperProxy(SqlSession sqlSession, Class&lt;T&gt; mapperInterface, Map&lt;Method, MapperMethod&gt; methodCache) {
+        this.sqlSession = sqlSession;
+        this.mapperInterface = mapperInterface;
+        this.methodCache = methodCache;
+    }
+    //这里会拦截Mapper接口(UserDao)的所有方法
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        try {
+        //如果是Object中定义的方法，直接执行。如toString(),hashCode()等。
+            if (Object.class.equals(method.getDeclaringClass())) {
+                return method.invoke(this, args);
+            }
+
+            if (this.isDefaultMethod(method)) {
+                return this.invokeDefaultMethod(proxy, method, args);
+            }
+        } catch (Throwable var5) {
+            throw ExceptionUtil.unwrapThrowable(var5);
+        }
+        //其他Mapper接口定义的方法交由mapperMethod来执行。
+        MapperMethod mapperMethod = this.cachedMapperMethod(method);
+        return mapperMethod.execute(this.sqlSession, args);
+    }
+
+    private MapperMethod cachedMapperMethod(Method method) {
+        MapperMethod mapperMethod = (MapperMethod)this.methodCache.get(method);
+        if (mapperMethod == null) {
+            mapperMethod = new MapperMethod(this.mapperInterface, method, this.sqlSession.getConfiguration());
+            this.methodCache.put(method, mapperMethod);
+        }
+
+        return mapperMethod;
+    }
+
+    @UsesJava7
+    private Object invokeDefaultMethod(Object proxy, Method method, Object[] args) throws Throwable {
+        Constructor&lt;Lookup&gt; constructor = Lookup.class.getDeclaredConstructor(Class.class, Integer.TYPE);
+        if (!constructor.isAccessible()) {
+            constructor.setAccessible(true);
+        }
+
+        Class&lt;?&gt; declaringClass = method.getDeclaringClass();
+        return ((Lookup)constructor.newInstance(declaringClass, 15)).unreflectSpecial(method, declaringClass).bindTo(proxy).invokeWithArguments(args);
+    }
+
+    private boolean isDefaultMethod(Method method) {
+        return (method.getModifiers() &amp; 1033) == 1 &amp;&amp; method.getDeclaringClass().isInterface();
+    }
+}
+</code></pre>
+<ul>
+<li>MapperMethod的excute()</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">//所有Mapper接口中方法被调用里，都会执行这个方法.这里实际上是调用SqlSession中的相关方法,
+    public Object execute(SqlSession sqlSession, Object[] args) {
+        Object param;
+        Object result;
+         //判断这个方法为注解里的哪个Sql类型
+        switch(this.command.getType()) {
+        case INSERT:
+            param = this.method.convertArgsToSqlCommandParam(args);
+            result = this.rowCountResult(sqlSession.insert(this.command.getName(), param));
+            break;
+        case UPDATE:
+            param = this.method.convertArgsToSqlCommandParam(args);
+            result = this.rowCountResult(sqlSession.update(this.command.getName(), param));
+            break;
+        case DELETE:
+            param = this.method.convertArgsToSqlCommandParam(args);
+            result = this.rowCountResult(sqlSession.delete(this.command.getName(), param));
+            break;
+        case SELECT:
+            if (this.method.returnsVoid() &amp;&amp; this.method.hasResultHandler()) {
+               //没有返回值，并且有ResultHandler的情况 this.executeWithResultHandler(sqlSession, args);
+                result = null;
+            } else if (this.method.returnsMany()) {
+            //返回一个List  
+                result = this.executeForMany(sqlSession, args);
+            } else if (this.method.returnsMap()) {
+            //返回一个Map 
+                result = this.executeForMap(sqlSession, args);
+            } else if (this.method.returnsCursor()) {
+                result = this.executeForCursor(sqlSession, args);
+            } else {
+              //返回一个对象 
+                param = this.method.convertArgsToSqlCommandParam(args);
+                result = sqlSession.selectOne(this.command.getName(), param);
+            }
+            break;
+        case FLUSH:
+            result = sqlSession.flushStatements();
+            break;
+        default:
+            throw new BindingException(&quot;Unknown execution method for: &quot; + this.command.getName());
+        }
+
+        if (result == null &amp;&amp; this.method.getReturnType().isPrimitive() &amp;&amp; !this.method.returnsVoid()) {
+        //结果为空，是否为原始类型，有返回值
+            throw new BindingException(&quot;Mapper method '&quot; + this.command.getName() + &quot; attempted to return null from a method with a primitive return type (&quot; + this.method.getReturnType() + &quot;).&quot;);
+        } else {
+            return result;
+        }
+    }
+
+</code></pre>
+<ul>
+<li>参考 <a href="https://blog.csdn.net/ashan_li/article/details/50404350"  target="_blank">https://blog.csdn.net/ashan_li/article/details/50404350</a></li>
+</ul>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="/pugongyingbo@gmail.com">邮箱</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/static/js/theme_default/main.js"></script>
+    
+        <script src="/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/static/js/search/search_main.js"></script>
+    
+        <script src="/static/js/plugin_blog/main.js"></script>
+    
+        <script src="/static/js/custom.js"></script>
+    
+        <script type="text/javascript" src="/static/js/live.js"></script>
+    
+</body>
+
+</html>

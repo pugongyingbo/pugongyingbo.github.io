@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"  class=" language_zh ">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="上传文件">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/search/style.css" type="text/css"/>
+        
+        <meta name="blog-generator" content="teedoc-plugin-blog">
+        
+        <link rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+        
+    
+    
+    <title>解决SpringBoot上传文件异常 - 码上烟火</title>
+    
+    <script type="text/javascript">js_vars = {}</script>
+    <script type="text/javascript">metadata = {"tags": ["SpringBoot"], "date": "2020-03-24", "update": [], "ts": 1584979200, "author": "pugongying", "brief": "", "cover": "", "description": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/blog/">
+                
+                    <img class="site_logo" src="/static/image/logo.png" alt="hello world">
+                
+                
+                    <h2>码上烟火</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class="active"><a  href="/blog/">博客</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="">
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>解决SpringBoot上传文件异常</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                                <li>SpringBoot</li>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                pugongying
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2020-03-24">
+                                    2020-03-24
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/my_name/my_name.github.io/blob/main/blog/java/MultipartException.md" target="_blank">
+                                    编辑本页
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <span id="blog_start"></span><h4 id="SpringBoot%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%90%8E%E6%8A%A5%E9%94%99">SpringBoot项目上传文件后报错</h4>
+<blockquote>
+<p>异常信息：</p>
+</blockquote>
+
+<pre class="language-none"><code class="language-none">exception is org.springframework.web.multipart.MultipartException: Failed to parse multipart servlet request; nested exception is org.apache.commons.fileupload.FileUploadBase$IOFileUploadException: Processing of multipart/form-data request failed. /tmp/tomcat.6749631969221816745.3131/work/Tomcat/localhost/dts/upload_3ba7ace3_a73f_463d_b13b_01fec9b0ae9a_00000522.tmp (No such file or directory)] with root cause
+java.io.FileNotFoundException: /tmp/tomcat.6749631969221816745.3131/work/Tomcat/localhost/dts/upload_3ba7ace3_a73f_463d_b13b_01fec9b0ae9a_00000522.tmp (No such file or directory)
+        at java.io.FileOutputStream.open0(Native Method)
+
+</code></pre>
+<h4 id="%E4%BA%A7%E7%94%9F%E5%8E%9F%E5%9B%A0">产生原因</h4>
+<p>找不到Tomcat的临时文件</p>
+<ul>
+<li>为什么上传的文件要缓存到本地？方便流读取</li>
+<li>为什么临时目录会不存在？SpringBoot启动时会生成一个临时文件，但是系统会定期删除临时文件</li>
+</ul>
+<p>org.apache.tomcat.util.http.fileupload.FileUploadBase#parseRequest，抛出异常的类，代码如下：</p>
+
+<pre class="language-none"><code class="language-none">public List&lt;FileItem&gt; parseRequest(RequestContext ctx)
+        throws FileUploadException {
+    List&lt;FileItem&gt; items = new ArrayList&lt;&gt;();
+    boolean successful = false;
+    try {
+        FileItemIterator iter = getItemIterator(ctx);
+        // 文件工厂类，里面保存了临时目录的地址
+        FileItemFactory fac = getFileItemFactory();
+        if (fac == null) {
+            throw new NullPointerException(&quot;No FileItemFactory has been set.&quot;);
+        }
+        while (iter.hasNext()) {
+            final FileItemStream item = iter.next();
+            // Don't use getName() here to prevent an InvalidFileNameException.
+            final String fileName = ((FileItemIteratorImpl.FileItemStreamImpl) item).name;
+            // 创建了以上报错信息中的临时文件
+            FileItem fileItem = fac.createItem(item.getFieldName(), item.getContentType(),
+                                               item.isFormField(), fileName);
+            items.add(fileItem);
+            try {
+                // 流的拷贝，将输入流数据写入输出流
+                Streams.copy(item.openStream(), fileItem.getOutputStream(), true);
+            } catch (FileUploadIOException e) {
+                throw (FileUploadException) e.getCause();
+            } catch (IOException e) {
+                throw new IOFileUploadException(String.format(&quot;Processing of %s request failed. %s&quot;,
+                                                       MULTIPART_FORM_DATA, e.getMessage()), e);
+            }
+            final FileItemHeaders fih = item.getHeaders();
+            fileItem.setHeaders(fih);
+        }
+        successful = true;
+        return items;
+    } catch (FileUploadIOException e) {
+        throw (FileUploadException) e.getCause();
+    } catch (IOException e) {
+        throw new FileUploadException(e.getMessage(), e);
+    } finally {
+        if (!successful) {
+            for (FileItem fileItem : items) {
+                try {
+                    fileItem.delete();
+                } catch (Exception ignored) {
+                    // ignored TODO perhaps add to tracker delete failure list somehow?
+                }
+            }
+        }
+    }
+}
+
+</code></pre>
+<p>以下为创建临时文件</p>
+
+<pre class="language-none"><code class="language-none">/**
+ * Creates and returns a {@link java.io.File File} representing a uniquely
+ * named temporary file in the configured repository path. The lifetime of
+ * the file is tied to the lifetime of the &lt;code&gt;FileItem&lt;/code&gt; instance;
+ * the file will be deleted when the instance is garbage collected.
+ * 文件将被删除在垃圾回收时
+ *
+ * @return The {@link java.io.File File} to be used for temporary storage.
+ */
+protected File getTempFile() {
+    if (tempFile == null) {
+        File tempDir = repository;
+        if (tempDir == null) {
+            //如果没定义则用系统默认的
+            tempDir = new File(System.getProperty(&quot;java.io.tmpdir&quot;));
+        }
+
+        String tempFileName = format(&quot;upload_%s_%s.tmp&quot;, UID, getUniqueId());
+
+        tempFile = new File(tempDir, tempFileName);
+    }
+    return tempFile;
+}
+</code></pre>
+<p>其中用到的生成随机文件名字的两个方法</p>
+
+<pre class="language-none"><code class="language-none">private static final String UID =
+        UUID.randomUUID().toString().replace('-', '_');
+
+
+private static String getUniqueId() {
+    final int limit = 100000000;
+    int current = COUNTER.getAndIncrement();
+    String id = Integer.toString(current);
+
+    // If you manage to get more than 100 million of ids, you'll
+    // start getting ids longer than 8 characters.
+    if (current &lt; limit) {
+        id = (&quot;00000000&quot; + id).substring(id.length());
+    }
+    return id;
+}
+</code></pre>
+<p>首先看下FileItemFactory的实例化位置，在org.apache.catalina.connector.Request#parseParts中，代码如下</p>
+
+<pre class="language-none"><code class="language-none">// Create a new file upload handler
+DiskFileItemFactory factory = new DiskFileItemFactory();
+try {
+    factory.setRepository(location.getCanonicalFile());
+} catch (IOException ioe) {
+    parameters.setParseFailedReason(FailReason.IO_ERROR);
+    partsParseException = ioe;
+    return;
+}
+
+
+//其中location代码
+// TEMPDIR = &quot;javax.servlet.context.tempdir&quot;;
+location = ((File) context.getServletContext().getAttribute(ServletContext.TEMPDIR));
+</code></pre>
+<h4 id="%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98">解决问题</h4>
+<ul>
+<li>方法1</li>
+</ul>
+<p>应用重启</p>
+<ul>
+<li>方法2</li>
+</ul>
+<p>增加服务配置，自定义baseDir</p>
+
+<pre class="language-none"><code class="language-none">server.tomcat.basedir=/tmp/tomcat
+</code></pre>
+<ul>
+<li>方法3</li>
+</ul>
+<p>注入bean，手动配置临时目录</p>
+
+<pre class="language-none"><code class="language-none">@Bean
+MultipartConfigElement multipartConfigElement() {
+    MultipartConfigFactory factory = new MultipartConfigFactory();
+    factory.setLocation(&quot;/tmp/tomcat&quot;);
+    return factory.createMultipartConfig();
+}
+
+</code></pre>
+<ul>
+<li>方法4</li>
+</ul>
+<p>配置不删除tmp目录下的tomcat</p>
+
+<pre class="language-none"><code class="language-none">vim /usr/lib/tmpfiles.d/tmp.conf
+
+# 添加一行
+x /tmp/tomcat.*
+</code></pre>
+<blockquote>
+<p>微信公众号：码上烟火</p>
+</blockquote>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="/pugongyingbo@gmail.com">邮箱</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/static/js/theme_default/main.js"></script>
+    
+        <script src="/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/static/js/search/search_main.js"></script>
+    
+        <script src="/static/js/plugin_blog/main.js"></script>
+    
+        <script src="/static/js/custom.js"></script>
+    
+        <script type="text/javascript" src="/static/js/live.js"></script>
+    
+</body>
+
+</html>

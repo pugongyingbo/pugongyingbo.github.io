@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"  class=" language_zh ">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="SpringBoot">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/search/style.css" type="text/css"/>
+        
+        <meta name="blog-generator" content="teedoc-plugin-blog">
+        
+        <link rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+        
+    
+    
+    <title>SpringBoot的第一个web - 码上烟火</title>
+    
+    <script type="text/javascript">js_vars = {}</script>
+    <script type="text/javascript">metadata = {"tags": ["SpringBoot"], "date": "2018-05-01", "update": [], "ts": 1525104000, "author": "", "brief": "", "cover": "", "description": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/blog/">
+                
+                    <img class="site_logo" src="/static/image/logo.png" alt="hello world">
+                
+                
+                    <h2>码上烟火</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class="active"><a  href="/blog/">博客</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="">
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>SpringBoot的第一个web</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                                <li>SpringBoot</li>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2018-05-01">
+                                    2018-05-01
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/my_name/my_name.github.io/blob/main/blog/java/SpringBoot.md" target="_blank">
+                                    编辑本页
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <span id="blog_start"></span><blockquote>
+<p>学习都是从简单的Hello World 到打印数据库的数据，入门很简单，但是也有不少坑，需要亲自动手才能遇见。</p>
+</blockquote>
+<h4 id="%E9%A6%96%E5%85%88%E5%88%86%E5%B1%82">首先分层</h4>
+<ul>
+<li><p>java包</p>
+<ul>
+<li>com.example.controller - Controller层</li>
+<li>com.example.dao - Dao层</li>
+<li>com.example.entity(domain) - 实体类</li>
+<li>com.example.service - 业务逻辑层</li>
+<li>Application -应用启动类</li>
+</ul>
+</li>
+<li><p>resources包</p>
+<ul>
+<li>mapper - *Mapper.xml</li>
+<li>mabatis - mabatis.xml</li>
+<li>static -静态文件</li>
+<li>application.properties - 应用配置文件</li>
+</ul>
+</li>
+</ul>
+<h4 id="pom.xml%E4%BE%9D%E8%B5%96">pom.xml依赖</h4>
+<ul>
+<li>SpringBoot 父依赖</li>
+<li>SpringBoot web 依赖</li>
+<li>SpringBoot Test依赖</li>
+<li>SpringBoot Mybatis依赖</li>
+<li>MySQL驱动依赖</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;com.example&lt;/groupId&gt;
+    &lt;artifactId&gt;demo&lt;/artifactId&gt;
+    &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+
+    &lt;name&gt;demo&lt;/name&gt;
+    &lt;description&gt;Demo project for Spring Boot&lt;/description&gt;
+
+    &lt;parent&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+        &lt;version&gt;2.0.1.RELEASE&lt;/version&gt;
+        &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+    &lt;/parent&gt;
+
+    &lt;properties&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;
+        &lt;java.version&gt;1.8&lt;/java.version&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencies&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+            &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+            &lt;version&gt;1.3.2&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;scope&gt;runtime&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+            &lt;version&gt;RELEASE&lt;/version&gt;
+            &lt;scope&gt;compile&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;
+
+</code></pre>
+<h4 id="%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9">配置文件内容</h4>
+
+<pre class="language-none"><code class="language-none">
+##配置文件位置
+mybatis.config-location=classpath:mybatis/mybatis-config.xml
+## mapper xml 文件地址
+mybatis.mapper-locations=classpath:mapper/*Mapper.xml
+mybatis.typeAliasesPackage = 实体类包路径
+mybatis.typeHandlersPackage = type handlers 
+## 检查 mybatis 配置是否存在，一般命名为mybatis-config.xml
+mybatis.check-config-location = 
+##执行模式。默认是 SIMPLE
+mybatis.executorType = 
+
+##端口号
+server.port=8080
+
+##数据库url
+spring.datasource.url=jdbc:mysql://localhost:3306/test?characterEncoding=utf8
+##数据库用户名
+spring.datasource.username=root
+##数据库密码
+spring.datasource.password=root
+##数据库驱动
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+
+
+</code></pre>
+<h4 id="%E6%B3%A8%E8%A7%A3">注解</h4>
+<ul>
+<li>启动类除了默认的 @SpringBootApplication 增加 @MapperScan(&quot;com.example.dao&quot;)</li>
+<li>dao接口使用 @Mapper</li>
+<li>controller 使用 @RestController</li>
+</ul>
+<h4 id="%E7%A2%B0%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98">碰到的问题</h4>
+<h5 id="SpringBoot%E4%B8%8D%E8%83%BD%E8%AF%86%E5%88%AB%40RestController%E5%92%8C%40RequestMapping%E6%B3%A8%E8%A7%A3">SpringBoot不能识别@RestController和@RequestMapping注解</h5>
+<ul>
+<li>需要导入类</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+//或者
+import org.springframework.web.bind.annotation.*
+</code></pre>
+<h5 id="%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99">启动报错</h5>
+
+<pre class="language-none"><code class="language-none">Description:
+
+Failed to auto-configure a DataSource: 'spring.datasource.url' is not specified and no embedded datasource could be auto-configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+    If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+    If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+</code></pre>
+<blockquote>
+<p>解决方法:</p>
+</blockquote>
+
+<pre class="language-none"><code class="language-none"> 需要在启动类的@EnableAutoConfiguration或@SpringBootApplication中添加exclude ={DataSourceAutoConfiguration.class}，排除此类的autoconfig。启动以后就可以正常运行。
+
+</code></pre>
+<p>这是因为添加了数据库组件，所以autoconfig会去读取数据源配置，而我新建的项目还没有配置数据源，所以会导致异常出现。</p>
+<p>即：@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})</p>
+<h5 id="%E8%AE%BF%E9%97%AE%E8%B7%AF%E5%BE%84%E6%8A%A5%E9%94%99%E4%BF%A1%E6%81%AF">访问路径报错信息</h5>
+
+<pre class="language-none"><code class="language-none">Whitelabel Error Page
+This application has no explicit mapping for /error, so you are seeing this as a fallback.
+
+Fri Apr 07 13:02:50 CST 2017
+There was an unexpected error (type=Internal Server Error, status=500).
+No message available
+</code></pre>
+<ul>
+<li>原因：访问路径不对，Springboot项目的main方法所在的Application启动类必须在groupID对应的包下，放在最外侧。比如你的项目groupId名叫com.example,但是DemoApplication启动类却放在com.example.demo包下，就会找不到路径。</li>
+<li>还有一种原因：</li>
+</ul>
+<p>在springboot的配置文件:application.yml或application.properties中关于视图解析器的配置问题:<br />
+    * 当pom文件下的spring-boot-starter-paren版本高时使用:<br />
+spring.mvc.view.prefix/spring.mvc.view.suffix<br />
+    * 当pom文件下的spring-boot-starter-paren版本低时使用:<br />
+spring.view.prefix/spring.view.suffix</p>
+<h5 id="%E4%BD%BF%E7%94%A8IDEA%E5%B7%A5%E5%85%B7%E6%97%B6%E4%BD%BF%E7%94%A8%40Resource%E5%92%8C%40Autowired%E8%87%AA%E5%8A%A8%E6%B3%A8%E8%A7%A3bean%E6%97%B6%E4%BC%9A%E6%98%BE%E7%A4%BA%E7%BA%A2%E8%89%B2%EF%BC%8C%E4%BD%86%E6%98%AF%E9%A1%B9%E7%9B%AE%E8%83%BD%E8%BF%90%E8%A1%8C">使用IDEA工具时使用@Resource和@Autowired自动注解bean时会显示红色，但是项目能运行</h5>
+<ul>
+<li>参考文章 <a href="https://stackoverflow.com/questions/39890849/what-exactly-is-field-injection-and-how-to-avoid-it"  target="_blank">https://stackoverflow.com/questions/39890849/what-exactly-is-field-injection-and-how-to-avoid-it</a></li>
+</ul>
+<p>解决方法：<br />
+File – Settings – Inspections。在Spring Core – Autowring for Bean Class 中将Severity的级别由之前的error改成warning。</p>
+<h5 id="IDEA%E6%96%B0%E5%A2%9Emabaties%E7%9A%84xml%E9%85%8D%E7%BD%AE">IDEA新增mabaties的xml配置</h5>
+<p>点击file--otherSetting--Default Setting，搜索template。然后点 绿色＋添加模板， name无所谓，extension我写xml。然后添加上内容，最后，把划了横线的那个按钮（enable live Template）点上，即是使用模板的意思。</p>
+<h4 id="%E5%8F%82%E8%80%83">参考</h4>
+<ul>
+<li><a href="https://www.bysocket.com/?p=1610"  target="_blank">https://www.bysocket.com/?p=1610</a></li>
+<li><a href="https://www.jianshu.com/p/8b545a537fd0"  target="_blank">https://www.jianshu.com/p/8b545a537fd0</a></li>
+</ul>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="/pugongyingbo@gmail.com">邮箱</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/static/js/theme_default/main.js"></script>
+    
+        <script src="/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/static/js/search/search_main.js"></script>
+    
+        <script src="/static/js/plugin_blog/main.js"></script>
+    
+        <script src="/static/js/custom.js"></script>
+    
+        <script type="text/javascript" src="/static/js/live.js"></script>
+    
+</body>
+
+</html>

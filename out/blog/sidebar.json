@@ -1,0 +1,26 @@
+{
+    "items":[
+        {
+            "label": "面试",
+            "file": "/面试项目准备.md"
+        },
+        {
+            "label": "git",
+            "file": "/gitemoji.md"
+        },
+        {
+            "label": "Java",
+            "items":[
+                {
+                    "label": "Java",
+                    "items":[
+                        {
+                            "label": "sonar",
+                            "file": "/java/sonar.md"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

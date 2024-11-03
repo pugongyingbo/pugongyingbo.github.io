@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"  class=" language_zh ">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="mybatis源码">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/search/style.css" type="text/css"/>
+        
+        <meta name="blog-generator" content="teedoc-plugin-blog">
+        
+        <link rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+        
+    
+    
+    <title>mybatis源码:plugin源码分析 - 码上烟火</title>
+    
+    <script type="text/javascript">js_vars = {}</script>
+    <script type="text/javascript">metadata = {"tags": ["mybatis"], "date": "2018-05-21", "update": [], "ts": 1526832000, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/blog/">
+                
+                    <img class="site_logo" src="/static/image/logo.png" alt="hello world">
+                
+                
+                    <h2>码上烟火</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class="active"><a  href="/blog/">博客</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="">
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>mybatis源码:plugin源码分析</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                                <li>mybatis</li>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2018-05-21">
+                                    2018-05-21
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/my_name/my_name.github.io/blob/main/blog/java/pluginOfmybatis.md" target="_blank">
+                                    编辑本页
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <span id="blog_start"></span><h4 id="%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E8%A7%A3%E9%87%8A">官方文档解释</h4>
+<p>MyBatis 允许你在已映射语句执行过程中的某一点进行拦截调用。默认情况下，MyBatis 允许使用插件来拦截的方法调用包括：</p>
+<ul>
+<li>Executor (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)</li>
+<li>ParameterHandler (getParameterObject, setParameters)</li>
+<li>ResultSetHandler (handleResultSets, handleOutputParameters)</li>
+<li>StatementHandler (prepare, parameterize, batch, update, query)</li>
+</ul>
+<p>这些类中方法的细节可以通过查看每个方法的签名来发现，或者直接查看 MyBatis 发行包中的源代码。 如果你想做的不仅仅是监控方法的调用，那么你最好相当了解要重写的方法的行为。 因为如果在试图修改或重写已有方法的行为的时候，你很可能在破坏 MyBatis 的核心模块。 这些都是更低层的类和方法，所以使用插件的时候要特别当心。</p>
+<p>通过 MyBatis 提供的强大机制，使用插件是非常简单的，只需实现 Interceptor 接口，并指定想要拦截的方法签名即可。</p>
+<h4 id="plugins%E6%BA%90%E7%A0%81%E5%AE%9E%E7%8E%B0">plugins源码实现</h4>
+<p>具体使用了JDK动态代理</p>
+<ul>
+<li>Intercept接口</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">package org.apache.ibatis.plugin;
+
+import java.util.Properties;
+
+public interface Interceptor {
+     //jdk动态代理中的InvocationHandler.invoke()方法执行里，这个方法会被调用
+    Object intercept(Invocation var1) throws Throwable;
+    //生成一个代理对象
+    Object plugin(Object var1);
+    //设置属性  
+    void setProperties(Properties var1);
+}
+
+</code></pre>
+<ul>
+<li>Plugin实现Intercept接口</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">public class Plugin implements InvocationHandler {
+    //被代理的原始对象
+    private final Object target;
+    //拦截器
+    private final Interceptor interceptor;
+    //拦截器对原始对象的哪些方法有效
+    private final Map&lt;Class&lt;?&gt;, Set&lt;Method&gt;&gt; signatureMap;
+
+    private Plugin(Object target, Interceptor interceptor, Map&lt;Class&lt;?&gt;, Set&lt;Method&gt;&gt; signatureMap) {
+        this.target = target;
+        this.interceptor = interceptor;
+        this.signatureMap = signatureMap;
+    }
+
+    public static Object wrap(Object target, Interceptor interceptor) {
+        //对拦截器中取出方法签名，是通过注解来声明需要拦截的方法签名的。
+        Map&lt;Class&lt;?&gt;, Set&lt;Method&gt;&gt; signatureMap = getSignatureMap(interceptor);
+        Class&lt;?&gt; type = target.getClass();
+        //获取被代理或拦截的对象的所有接口
+        Class&lt;?&gt;[] interfaces = getAllInterfaces(type, signatureMap);
+        //如果有实现接口，将使用JDK动态代理，如果没有实现任何接口，JDK将无法代理。
+        return interfaces.length &gt; 0 ? Proxy.newProxyInstance(type.getClassLoader(), interfaces, new Plugin(target, interceptor, signatureMap)) : target;
+    }
+
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        try {
+            Set&lt;Method&gt; methods = (Set)this.signatureMap.get(method.getDeclaringClass());
+            //如果不空需要拦截，如果为空直接执行
+            return methods != null &amp;&amp; methods.contains(method) ? this.interceptor.intercept(new Invocation(this.target, method, args)) : method.invoke(this.target, args);
+        } catch (Exception var5) {
+            throw ExceptionUtil.unwrapThrowable(var5);
+        }
+    }
+    //从注解中读取方法签名
+    private static Map&lt;Class&lt;?&gt;, Set&lt;Method&gt;&gt; getSignatureMap(Interceptor interceptor) {
+        Intercepts interceptsAnnotation = (Intercepts)interceptor.getClass().getAnnotation(Intercepts.class);
+        if (interceptsAnnotation == null) {
+            throw new PluginException(&quot;No @Intercepts annotation was found in interceptor &quot; + interceptor.getClass().getName());
+        } else {
+            Signature[] sigs = interceptsAnnotation.value();
+            Map&lt;Class&lt;?&gt;, Set&lt;Method&gt;&gt; signatureMap = new HashMap();
+            Signature[] var4 = sigs;
+            int var5 = sigs.length;
+            //未使用foreach语句，是为什么
+            for(int var6 = 0; var6 &lt; var5; ++var6) {
+                //这两步比老版本多出来的，是为了强转类型么？
+                Signature sig = var4[var6];
+                Set&lt;Method&gt; methods = (Set)signatureMap.get(sig.type());
+                if (methods == null) {
+                    methods = new HashSet();
+                    signatureMap.put(sig.type(), methods);
+                }
+
+                try {
+                    Method method = sig.type().getMethod(sig.method(), sig.args());
+                    ((Set)methods).add(method);
+                } catch (NoSuchMethodException var10) {
+                    throw new PluginException(&quot;Could not find method on &quot; + sig.type() + &quot; named &quot; + sig.method() + &quot;. Cause: &quot; + var10, var10);
+                }
+            }
+
+            return signatureMap;
+        }
+    }
+
+    private static Class&lt;?&gt;[] getAllInterfaces(Class&lt;?&gt; type, Map&lt;Class&lt;?&gt;, Set&lt;Method&gt;&gt; signatureMap) {
+        HashSet interfaces;
+        for(interfaces = new HashSet(); type != null; type = type.getSuperclass()) {
+            Class[] var3 = type.getInterfaces();
+            int var4 = var3.length;
+
+            for(int var5 = 0; var5 &lt; var4; ++var5) {
+                Class&lt;?&gt; c = var3[var5];
+                if (signatureMap.containsKey(c)) {
+                    interfaces.add(c);
+                }
+            }
+        }
+
+        return (Class[])interfaces.toArray(new Class[interfaces.size()]);
+    }
+}
+</code></pre>
+<ul>
+<li>InterceptorChain</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">public class InterceptorChain {
+    //在mybatis-config.xml配置的拦截器
+    private final List&lt;Interceptor&gt; interceptors = new ArrayList();
+
+    public InterceptorChain() {
+    }
+    //用所有的拦截器生成对象
+    public Object pluginAll(Object target) {
+        Interceptor interceptor;
+        //调用了interceptor.plugin()方法来生成代理对象，从for-each改成iterator为什么？
+        for(Iterator var2 = this.interceptors.iterator(); var2.hasNext(); target = interceptor.plugin(target)) {
+            interceptor = (Interceptor)var2.next();
+        }
+
+        return target;
+    }
+
+    public void addInterceptor(Interceptor interceptor) {
+        this.interceptors.add(interceptor);
+    }
+
+    public List&lt;Interceptor&gt; getInterceptors() {
+        return Collections.unmodifiableList(this.interceptors);
+    }
+}
+
+</code></pre>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="/pugongyingbo@gmail.com">邮箱</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/static/js/theme_default/main.js"></script>
+    
+        <script src="/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/static/js/search/search_main.js"></script>
+    
+        <script src="/static/js/plugin_blog/main.js"></script>
+    
+        <script src="/static/js/custom.js"></script>
+    
+        <script type="text/javascript" src="/static/js/live.js"></script>
+    
+</body>
+
+</html>

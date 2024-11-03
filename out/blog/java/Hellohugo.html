@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"  class=" language_zh ">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="hugo">
+    
+    
+    <meta name="description" content="None">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/search/style.css" type="text/css"/>
+        
+        <meta name="blog-generator" content="teedoc-plugin-blog">
+        
+        <link rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+        
+    
+    
+    <title>使用hugo创建博客 - 码上烟火</title>
+    
+    <script type="text/javascript">js_vars = {}</script>
+    <script type="text/javascript">metadata = {"tags": ["hugo"], "date": "2017-03-06", "update": [], "ts": 1488729600, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/blog/">
+                
+                    <img class="site_logo" src="/static/image/logo.png" alt="hello world">
+                
+                
+                    <h2>码上烟火</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class="active"><a  href="/blog/">博客</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="">
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>使用hugo创建博客</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                                <li>hugo</li>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2017-03-06">
+                                    2017-03-06
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/my_name/my_name.github.io/blob/main/blog/java/Hellohugo.md" target="_blank">
+                                    编辑本页
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <span id="blog_start"></span><h4 id="Hello-Hugo-in-windows">Hello Hugo in windows</h4>
+<blockquote>
+<p>在网上找的教程都是其他系统的，没有Windows的，准备自己试一次，其实很简单</p>
+</blockquote>
+<ul>
+<li><p>Hugo官方主页：<a href="https://gohugo.io/"  target="_blank">https://gohugo.io/</a></p>
+</li>
+<li><p>从GitHub下载匹配自己系统的版本</p>
+</li>
+<li><p>解压缩，然后例如放在C:/Hugo/bin下，把.exe名字改成hugo.exe</p>
+</li>
+<li><p>添加到系统变量中（我的是windows）</p>
+</li>
+</ul>
+<p>这个时候应该可以在你的cmd命令行里执行hugo了，如果出来一堆命令之类的说明安装成功。新建个文件夹Site,我们在这new site myblog，会新建一个文件夹叫myblog，然后clone喜欢的模板</p>
+<code>
+
+<pre class="language-none"><code class="language-none">$ mkdir themes
+$ cd themes
+$ git clone https://github.com/spf13/hyde.git 
+
+</code></pre>
+<code/>
+<ul>
+<li>对配置文件config.toml进行修改</li>
+</ul>
+<code>
+
+<pre class="language-none"><code class="language-none">baseurl = &quot;http://example.com/&quot;
+languageCode = &quot;en-us&quot;
+title = &quot;My Blog&quot;
+theme = &quot;hyde&quot;
+[params]
+	description = &quot;这里是个人博客&quot;
+</code></pre>
+<code/>
+<ul>
+<li>这个时候可以新建你的文章了（在post下)</li>
+</ul>
+<code>
+
+<pre class="language-none"><code class="language-none">$ hugo new post/test.md 
+</code></pre>
+<code/>
+<ul>
+<li><p>在目录下运行 hugo server 打开浏览器输入localhost：1313，就可以看见你的博客了</p>
+</li>
+<li><p>然后可以将其挂在giuhub page上</p>
+</li>
+</ul>
+<h2 id="%E5%85%B3%E4%BA%8E%E9%83%A8%E7%BD%B2">关于部署</h2>
+<ul>
+<li><p>假设你需要部署在 GitHub Pages上，首先在GitHub上创建一个Repository，命名为：(必须是你的用户名)×××.github.io</p>
+</li>
+<li><p>在站点根目录执行 Hugo 命令生成最终页面：</p>
+</li>
+</ul>
+<code>
+
+<pre class="language-none"><code class="language-none">$ hugo --theme=hyde --baseUrl=&quot;http://coderzh.github.io/&quot;
+</code></pre>
+<code/>
+<p>*　如果一切顺利，所有静态页面都会生成到 public 目录，将pubilc目录里所有文件 push</p>
+<code>
+
+<pre class="language-none"><code class="language-none">$ cd public
+$ git init
+$ git remote add origin https://github.com/coderzh/coderzh.github.io.git
+$ git add -A
+$ git commit -m &quot;first commit&quot;
+$ git push -u origin master
+</code></pre>
+<code/>
+<h4 id="%E5%8F%82%E8%80%83%E7%9A%84%E6%96%87%E6%A1%A3">参考的文档</h4>
+<ul>
+<li><p>官方主页</p>
+</li>
+<li><p>Hugo中文文档: <a href="http://www.gohugo.org/"  target="_blank">http://www.gohugo.org/</a>；</p>
+</li>
+<li><p>参考: <a href="http://blog.coderzh.com/2015/08/29/hugo/"  target="_blank">http://blog.coderzh.com/2015/08/29/hugo/</a>；</p>
+</li>
+<li><p>参考：<a href="http://tonybai.com/2015/09/23/intro-of-gohugo/"  target="_blank">http://tonybai.com/2015/09/23/intro-of-gohugo/</a>；</p>
+</li>
+</ul>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="/pugongyingbo@gmail.com">邮箱</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/static/js/theme_default/main.js"></script>
+    
+        <script src="/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/static/js/search/search_main.js"></script>
+    
+        <script src="/static/js/plugin_blog/main.js"></script>
+    
+        <script src="/static/js/custom.js"></script>
+    
+        <script type="text/javascript" src="/static/js/live.js"></script>
+    
+</body>
+
+</html>

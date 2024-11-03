@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"  class=" language_zh ">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="类加载器">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/search/style.css" type="text/css"/>
+        
+        <meta name="blog-generator" content="teedoc-plugin-blog">
+        
+        <link rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+        
+    
+    
+    <title>类加载器ClassLoader - 码上烟火</title>
+    
+    <script type="text/javascript">js_vars = {}</script>
+    <script type="text/javascript">metadata = {"tags": ["Java"], "date": "2018-04-22", "update": [], "ts": 1524376912, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/blog/">
+                
+                    <img class="site_logo" src="/static/image/logo.png" alt="hello world">
+                
+                
+                    <h2>码上烟火</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class="active"><a  href="/blog/">博客</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="">
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>类加载器ClassLoader</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                                <li>Java</li>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2018-04-22">
+                                    2018-04-22
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/my_name/my_name.github.io/blob/main/blog/java/classLoader.md" target="_blank">
+                                    编辑本页
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <span id="blog_start"></span><h3 id="%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8">类加载器</h3>
+<h4 id="%E7%B1%BB%E5%8A%A0%E8%BD%BD%E7%9A%84%E4%B8%83%E4%B8%AA%E9%98%B6%E6%AE%B5">类加载的七个阶段</h4>
+<p>加载-验证-准备-解析-初始化-使用-卸载</p>
+<h4 id="%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6">类加载器的工作机制</h4>
+<ul>
+<li><p>装载：查找和导入Class文件</p>
+</li>
+<li><p>链接：执行校验、准备、解析，其中解析是可以选择的。</p>
+<ul>
+<li><p>校验：检查载入class文件数据的准确性</p>
+<ul>
+<li>文件格式验证</li>
+<li>元数据验证</li>
+<li>字节码验证</li>
+<li>符号引用验证</li>
+</ul>
+</li>
+<li><p>准备：给类的静态变量分配存储空间。private static int var = 100, 准备阶段完成后，value为0 ，而不是100，在初始化阶段才把100赋值给value。如果是private static final int value = 100 ，编译时javac会为value生成ConstantValue属性，在准备阶段虚拟机就会根据ConstantValue的设置将value赋值为100。</p>
+</li>
+<li><p>解析：将符号引用转换成直接引用</p>
+<ul>
+<li>符号引用以一组符号来描述所引用的目标，符号可以是任何形式的字面量，只要使用是能无歧义地定位到目标即可</li>
+<li>直接引用可以是直接指向目标的指针、相对偏移量或是一个能间接定位到目标的句柄。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>初始化：对类的引用转换成直接引用</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+  <th style="text-align:center">方法</th>
+  <th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style="text-align:center">getParent()</td>
+  <td style="text-align:center">获取类装载器的父 装载器。除根装载器外，所有的类装载器都有且只有一个父装载器。ExtClassLoader的父装载器是根装载器，因为根装载器非Java语言编写，所以无法获得，将返回null。</td>
+</tr>
+<tr>
+  <td style="text-align:center">loadClass(String name)</td>
+  <td style="text-align:center">name参数指定类加载器需要装载类的名字，必须使用权限定类名。该方法有一个重载方法laodClass(String name,boolean resolve),resolve参数告诉类加载器是都需要解析该类。在初始哈市类之前，应考虑进行类解析的工作，但不是所有的类都需要解析，如果JVM只需要知道该类是否存在或找出该类的超累，那么久不需要解析。</td>
+</tr>
+<tr>
+  <td style="text-align:center">defineClass(String name,byte[] b,int off,int len)</td>
+  <td style="text-align:center">将类文件的字节数组转换成JVM内部java.lang.Class对象，字节数组可以从本地文件系统、远程网络获取。name为字节数组对应的全限定类名。</td>
+</tr>
+<tr>
+  <td style="text-align:center">findSystemClass(String name)</td>
+  <td style="text-align:center">从本地文件系统载入class文件。如果本地文件系统不粗载该class文件，将抛出ClassNotFoundException异常。该方法是JVM默认是用的装载机制。</td>
+</tr>
+<tr>
+  <td style="text-align:center">findLoadClass(String name)</td>
+  <td style="text-align:center">调用该方法来查看ClassLoader是否已经载入某个类，如果已装入，那么返回java.lang.Class对象；否则返回null。如果强行装载已存在的类，那么将会抛出链接错误。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="JVM%E6%8F%90%E4%BE%9B%E4%BA%863%E7%A7%8D%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%EF%BC%9A">JVM提供了3种类加载器：</h4>
+<p>1、启动类加载器（Bootstrap ClassLoader）：负责加载 JAVAHOME\lib 目录中的，或通过-Xbootclasspath参数指定路径中的，且被虚拟机认可（按文件名识别，如rt.jar）的类。<br />
+2、扩展类加载器（Extension ClassLoader）：负责加载 JAVAHOME\lib\ext 目录中的，或通过java.ext.dirs系统变量指定路径中的类库。<br />
+3、应用程序类加载器（Application ClassLoader）：负责加载用户路径（classpath）上的类库。</p>
+<ul>
+<li>根装载器是ExtClassLoader的父装载器，ExtClassLoader是AppClassLoader的父装载器。JVM装载类时使用“全盘负责委托机制”，全盘负责是指当一个ClassLoader装载一个类时，除非显示地使用另一个ClassLoader载入，委托机制是指先委托父装载器寻找目标类，只有在找不到的情况下才从自己的类路径中查找并装载目标类。</li>
+</ul>
+<h4 id="%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B">双亲委派模型</h4>
+<p>如果一个类加载器收到了类加载的请求，它首先不会自己去尝试加载这个类，而是把这个请求委派给父类加载器去完成，每一个层次的类加载器都是如此，因此所有的加载器请求最终都应该传送到顶层的启动类加载器中，只有父加载器反馈自己无法完成这个加载请求时，子加载器才会尝试自己去加载。</p>
+<ul>
+<li><p>有5种情况必须对类进行初始化，这5种场景中的行为称为对一个类进行主动引用。除此之外多有引用类的方法都不会触发初始化，称为被动引用。</p>
+<ul>
+<li>遇到new、getstatic、putstatic或invokestatic这4条字节码指令时，如果类没有进行过初始化，则先需要触发其初始化。生成这4条指令的最常见的Java代码场景是：使用new关键字实例化对象的时候、读取或设置一个类的静态字段（被final修饰、已在编译期把结果放入常量池的静态字段除外）的时候，以及调用一个类的静态方法的时候。</li>
+<li>使用java.lang.reflect包的方法对类进行反调用的时候，如果类没有进行过初始化，则需要先触发器初始化。</li>
+<li>当初始化一个类的时候，如果发现其父类还没有进行过初始化，则需要先触发器父类的初始化。</li>
+<li>当虚拟机启动时，用户需要指定一个要执行的主类（包含main方法的那个类），虚拟机会先初始化这个主类。</li>
+<li>当使用JDK1.7的动态语言支持时，如果一个java.lang.invoke.MethdHandle实例最后的解析结果REF_getstatic、REF_putstatic、REF_invokestatic的方法句柄，并且这个方法句柄所对应的类没有进行过初始化，则需要先触发其初始化。</li>
+</ul>
+</li>
+<li><p>被动引用的例子，不会触发初始化</p>
+<ul>
+<li>通过子类引用父类的静态字段，不会导致子类初始化。输出结果是parent init! 100</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">public class Parent {
+    static int a = 100;
+    static {
+        System.out.println(&quot;parent init!&quot;);
+    }
+}
+class child extends  Parent{
+    static {
+        System.out.println(&quot;child init!&quot;);
+    }
+}
+
+    public class Init {
+    public static void main(String[] args) {
+        System.out.println(child.a);
+    }
+}
+
+</code></pre>
+<ul>
+<li>通过数组定义来引用类，不会触发此类的初始化.无输出</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">public class Init {
+    public static void main(String[] args) {
+        Parent[] parents = new Parent[10];
+     }
+}
+
+
+</code></pre>
+<ul>
+<li>常量在编译阶段会存入调用类的常量池中，本质上并没有直接引用到定义常量的类，因此不会触发定义常量的类的初始化。输出：100。说明没有触发Const的初始化，在编译阶段，Const类中常量A的值100存储到init类的常量池中，这两个类在编译成class文件之后就没有联系了。</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">    public class Conts {
+    static final int A = 100;
+    static {
+        System.out.println(&quot;Const init!&quot;);
+    }
+}
+
+    public class Init {
+    public static void main(String[] args) {
+        System.out.println(Conts.A);
+     }
+}
+
+</code></pre>
+<ul>
+<li>通过类名获取class对象，不会触发类的初始化。输出：cat is load</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">public class Cat {
+    private String name;
+    private int age;
+    static {
+        System.out.println(&quot;Cat is load&quot;);
+    }
+}
+
+public class Dog {
+    private String name;
+    private int age;
+    static {
+        System.out.println(&quot;Dog is load&quot;);
+    }
+}
+
+public class Init {
+    public static void main(String[] args) throws ClassNotFoundException {
+        Class dog = Dog.class;
+        Class clazz = Class.forName(&quot;ClassLoader.Cat&quot;);
+
+     }
+}
+
+</code></pre>
+<ul>
+<li>通过Class.forName()加载指定类时，如果指定参数initialize为false时，也不会触发类初始化，其实这个参数是告诉虚拟机，是否要对类进行初始化。无输出。</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">public class Init {
+    public static void main(String[] args) throws ClassNotFoundException {
+        Class clazz = Class.forName(&quot;ClassLoader.Cat&quot;,false,Cat.class.getClassLoader());
+     }
+}
+</code></pre>
+<ul>
+<li>通过ClassLoader默认的loadClass方法，也不会触发初始化动作。无输出。</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">    public static void main(String[] args) throws ClassNotFoundException {
+        new ClassLoader(){}.loadClass(&quot;ClassLoader.Cat&quot;);
+     }
+}
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>java.lang.NoSuchMethodError基本上是由JVM的全盘负责委托机制引起的，例如，在类路径下放置了多个不同版本的类包，如commons-lang2.x.jar和commons-lang4.x.jar都位于类路径下，代码中用到了commons-lang4.x类的方法，而这个方法在commons-lang2.x中并不存在，JVM加载器碰巧又从commons-lang2.x.jar中加载类，运行时就会抛出这个错。</p>
+</blockquote>
+<ul>
+<li>参考</li>
+<li><a href="https://mp.weixin.qq.com/s/-Q255hbgbMIVymxceH_odw"  target="_blank">java类加载的那些事</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/java/j-lo-classloader/#download"  target="_blank">深入探讨类加载器</a></li>
+</ul>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="/pugongyingbo@gmail.com">邮箱</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/static/js/theme_default/main.js"></script>
+    
+        <script src="/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/static/js/search/search_main.js"></script>
+    
+        <script src="/static/js/plugin_blog/main.js"></script>
+    
+        <script src="/static/js/custom.js"></script>
+    
+        <script type="text/javascript" src="/static/js/live.js"></script>
+    
+</body>
+
+</html>

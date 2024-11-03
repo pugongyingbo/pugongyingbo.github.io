@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"  class=" language_zh ">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="LocalDate, LocalTime, LocalDateTime, DateFormatter">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/search/style.css" type="text/css"/>
+        
+        <meta name="blog-generator" content="teedoc-plugin-blog">
+        
+        <link rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+        
+    
+    
+    <title>LocalDate、LocalTime、LocalDateTime、DateFormatter - 码上烟火</title>
+    
+    <script type="text/javascript">js_vars = {}</script>
+    <script type="text/javascript">metadata = {"tags": ["Java"], "date": "2019-06-29", "update": [], "ts": 1561737600, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/blog/">
+                
+                    <img class="site_logo" src="/static/image/logo.png" alt="hello world">
+                
+                
+                    <h2>码上烟火</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class="active"><a  href="/blog/">博客</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="">
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>LocalDate、LocalTime、LocalDateTime、DateFormatter</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                                <li>Java</li>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2019-06-29">
+                                    2019-06-29
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/my_name/my_name.github.io/blob/main/blog/java/localdatetime.md" target="_blank">
+                                    编辑本页
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <span id="blog_start"></span><h3 id="Java-8-%E9%87%8C%E6%96%B0%E7%9A%84%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E5%A4%84%E7%90%86%E7%B1%BB">Java 8 里新的日期时间处理类</h3>
+<h4 id="LocalDate%2CLocalTime%2CLocalDateTime%2CInstant%E9%80%9A%E7%94%A8%E6%96%B9%E6%B3%95">LocalDate,LocalTime,LocalDateTime,Instant通用方法</h4>
+<table>
+<thead>
+<tr>
+  <th>方法</th>
+  <th>是否静态方法</th>
+  <th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>from</td>
+  <td>是</td>
+  <td>依照传入的Temporal对象创建实例</td>
+</tr>
+<tr>
+  <td>now</td>
+  <td>是</td>
+  <td>依照系统时钟创建Temporal对象</td>
+</tr>
+<tr>
+  <td>of</td>
+  <td>是</td>
+  <td>由Temporal对象的某个部分创建该对象的实例</td>
+</tr>
+<tr>
+  <td>parse</td>
+  <td>是</td>
+  <td>由字符串创建Temporal对象的实例</td>
+</tr>
+<tr>
+  <td>atOffset</td>
+  <td>是</td>
+  <td>将Temporal对象和某个时区偏移结合</td>
+</tr>
+<tr>
+  <td>atZone</td>
+  <td>否</td>
+  <td>将Temporal对象和某个时区结合</td>
+</tr>
+<tr>
+  <td>format</td>
+  <td>否</td>
+  <td>使用指定的格式器将Temporal对象转换为字符串</td>
+</tr>
+<tr>
+  <td>get</td>
+  <td>否</td>
+  <td>读取Temporal对象的某一部分的值</td>
+</tr>
+<tr>
+  <td>minus</td>
+  <td>否</td>
+  <td>创建Temporal对象的一个副本，通过将当前Temporal的值减去一定时长创建该副本</td>
+</tr>
+<tr>
+  <td>plus</td>
+  <td>否</td>
+  <td>创建temporal对象的一个副本，将当前temporal对象的值加上一定的时长创建该副本</td>
+</tr>
+<tr>
+  <td>with</td>
+  <td>否</td>
+  <td>以该temporal对象为模板，对某些状态进行修改创建该对象的副本</td>
+</tr>
+</tbody>
+</table>
+
+<pre class="language-none"><code class="language-none">    /**
+     * year:2019
+     * month:MAY
+     * dayofmonth:5
+     * day:30
+     * dayofWeek:THURSDAY
+     * len:31
+     * isLeap:false
+     * today:2019-06-30
+     * date1:2019-06-30
+     */
+    public static void localDateTest(){
+        LocalDate date = LocalDate.of(2019,5,30);
+        int year = date.getYear();
+        Month month = date.getMonth();
+        int month1= date.getMonthValue();
+        int day = date.getDayOfMonth();
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        int len = date.lengthOfMonth();
+        boolean isLeap = date.isLeapYear();
+        LocalDate today = LocalDate.now();
+        LocalDate date1 = LocalDate.parse(&quot;2019-06-30&quot;);
+
+        System.out.println(&quot;year:&quot;+year);
+        System.out.println(&quot;month:&quot;+month);
+        System.out.println(&quot;dayofmonth:&quot;+month1);
+        System.out.println(&quot;day:&quot;+day);
+        System.out.println(&quot;dayofWeek:&quot;+dayOfWeek);
+        System.out.println(&quot;len:&quot;+len);
+        System.out.println(&quot;isLeap:&quot;+isLeap);
+        System.out.println(&quot;today:&quot;+today);
+        System.out.println(&quot;date1:&quot;+date1);
+    }
+
+    /**
+     *
+     hour:12
+     minute:11
+     second:10
+     time1:12:11:10
+     datetime:2019-05-30T12:11:10
+     datetime1:2019-05-30T12:11:10
+     datetime2:2019-05-30T12:11:10
+     datetime3:2019-05-30T12:11:10
+     date1:2019-05-30
+     time2:12:11:10
+     */
+    public static void testLocalTime(){
+        LocalTime time = LocalTime.of(12,11,10);
+        int hour = time.getHour();
+        int minut = time.getMinute();
+        int second = time.getSecond();
+
+        LocalDate date = LocalDate.parse(&quot;2019-05-30&quot;);
+        LocalTime time1 = LocalTime.parse(&quot;12:11:10&quot;);
+        //合并日期时间
+        LocalDateTime dateTime = LocalDateTime.of(date,time);
+        LocalDateTime dateTime1 = date.atTime(12,11,10);
+        LocalDateTime dateTime2 = date.atTime(time1);
+        LocalDateTime dateTime3 = time1.atDate(date);
+        //提取LocalDate LocalTime
+        LocalDate date1 = dateTime.toLocalDate();
+        LocalTime time2 = dateTime.toLocalTime();
+
+        System.out.println(&quot;hour:&quot;+hour);
+        System.out.println(&quot;minute:&quot;+minut);
+        System.out.println(&quot;second:&quot;+second);
+        System.out.println(&quot;time1:&quot;+time1);
+        System.out.println(&quot;datetime:&quot;+dateTime);
+        System.out.println(&quot;datetime1:&quot;+dateTime1);
+        System.out.println(&quot;datetime2:&quot;+dateTime2);
+        System.out.println(&quot;datetime3:&quot;+dateTime3);
+        System.out.println(&quot;date1:&quot;+date1);
+        System.out.println(&quot;time2:&quot;+time2);
+
+    }
+
+    /**
+     * duration:PT10M
+     * duration1:PT10M
+     * period:P1M
+     */
+    public static void testDuration(){
+        LocalTime time1 = LocalTime.parse(&quot;12:11:10&quot;);
+        LocalTime time2 = LocalTime.parse(&quot;12:21:10&quot;);
+        LocalDate date = LocalDate.parse(&quot;2019-05-30&quot;);
+        LocalDate date1 = LocalDate.parse(&quot;2019-06-30&quot;);
+
+        LocalDateTime dateTime1 = LocalDateTime.of(date,time1);
+        LocalDateTime dateTime2 = LocalDateTime.of(date,time2);
+        Duration duration = Duration.between(time1,time2);
+        Duration duration1 = Duration.between(dateTime1,dateTime2);
+
+        Duration threeMinuts = Duration.ofMinutes(3);
+        Period tendays = Period.ofDays(10);
+        Period threeWeeks = Period.ofWeeks(3);
+        Period twoyearSixmonthOneday = Period.of(2,6,1);
+
+
+
+        Period period = Period.between(date,date1);
+        System.out.println(&quot;duration:&quot;+duration);
+        System.out.println(&quot;duration1:&quot;+duration1);
+        System.out.println(&quot;period:&quot;+period);
+    }
+</code></pre>
+<h4 id="DateTimeFormatter">DateTimeFormatter</h4>
+
+<pre class="language-none"><code class="language-none">
+import org.apache.commons.lang3.time.StopWatch;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
+public class LocalDateTest {
+
+    /**
+     *  2019-06-21T12:12:12
+     */
+    public static void test(){
+        String dateStr = &quot;2019-06-21 12:12:12&quot;;
+        String pattern = &quot;yyyy-MM-dd HH:mm:ss&quot;;
+        LocalDateTime dateTime = LocalDateTime.parse(dateStr, DateTimeFormatter.ofPattern(pattern));
+        System.out.println(dateTime);
+    }
+
+    /**
+     * 2019-06-21 16:14:39
+     *
+     * 20190621164500
+     * 351
+     * 20190621164500
+     * 50
+     *
+     *
+     */
+    public static void test1(){
+        StopWatch watch = new StopWatch();
+        watch.start();
+        LocalDateTime now = LocalDateTime.now();
+        String pattern = &quot;yyyyMMddHHmmss&quot;;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        String format = formatter.format(now);
+        System.out.println(format);
+        watch.stop();
+        System.out.println(watch.getTime());
+        watch.reset();
+
+
+        watch.start();
+        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyyMMddHHmmss&quot;);
+        Date nowtime = new Date();
+        System.out.println(sdf.format(nowtime));
+        watch.stop();
+
+        System.out.println(watch.getTime());
+
+    }
+
+    /** 时间戳
+     * 1561105950639
+     */
+    public static void testDateToTimeMillis() {
+        LocalDateTime dateTime = LocalDateTime.now();
+        long epochMilli = dateTime.toInstant(ZoneOffset.of(&quot;+8&quot;)).toEpochMilli();
+        System.out.println(epochMilli);
+    }
+
+    public static String getYesterdayByFormat(String timeFormat){
+        return LocalDateTime.now().minusDays(1).format(DateTimeFormatter.ofPattern(timeFormat));
+    }
+
+    public static String getTomorrowByFormat(String timeFormat){
+        return LocalDateTime.now().plusDays(1).format(DateTimeFormatter.ofPattern(timeFormat));
+    }
+}
+
+</code></pre>
+<h4 id="TemporalAdjuster">TemporalAdjuster</h4>
+<blockquote>
+<p>除了TemporalAdjusters提供的这些方法，也可以自己通过实现TemporalAdjuster接口创建自己需要的实现类。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+  <th>方法名</th>
+  <th>描述 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>dayOFWeekInMonth</td>
+  <td>同一个月中每一周的第几天</td>
+</tr>
+<tr>
+  <td>firstDayOfMonth</td>
+  <td>当月第一天</td>
+</tr>
+<tr>
+  <td>firstDayOfMonth</td>
+  <td>下月的第一天</td>
+</tr>
+<tr>
+  <td>firstDayOfYear</td>
+  <td>今年的第一天</td>
+</tr>
+<tr>
+  <td>firstDayOfNextYear</td>
+  <td>明年的第一天</td>
+</tr>
+<tr>
+  <td>firstInMonth</td>
+  <td>同一个月中第一个符合星期几要求的值</td>
+</tr>
+<tr>
+  <td>lastDayOfMonth</td>
+  <td>当月最后一天</td>
+</tr>
+<tr>
+  <td>lastDayOfMonth</td>
+  <td>下月的最后一天</td>
+</tr>
+<tr>
+  <td>lastDayOfYear</td>
+  <td>今年的最后一天</td>
+</tr>
+<tr>
+  <td>lastDayOfNextYear</td>
+  <td>明年的最后一天</td>
+</tr>
+<tr>
+  <td>lastInMonth</td>
+  <td>同一个月中最后一个符合星期几要求的值</td>
+</tr>
+</tbody>
+</table>
+
+<pre class="language-none"><code class="language-none">  LocalDate date1 = LocalDate.parse(&quot;2019-06-30&quot;);
+        LocalDate date2 = date1.with(TemporalAdjusters.firstDayOfMonth());
+        System.out.println(&quot;date2:&quot;+date2);
+        //date2:2019-06-01
+</code></pre>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="/pugongyingbo@gmail.com">邮箱</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/static/js/theme_default/main.js"></script>
+    
+        <script src="/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/static/js/search/search_main.js"></script>
+    
+        <script src="/static/js/plugin_blog/main.js"></script>
+    
+        <script src="/static/js/custom.js"></script>
+    
+        <script type="text/javascript" src="/static/js/live.js"></script>
+    
+</body>
+
+</html>

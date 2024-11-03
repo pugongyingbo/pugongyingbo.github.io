@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"  class=" language_zh ">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="sonar">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/search/style.css" type="text/css"/>
+        
+        <meta name="blog-generator" content="teedoc-plugin-blog">
+        
+        <link rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+        
+    
+    
+    <title>Sonar配置与使用 - 码上烟火</title>
+    
+    <script type="text/javascript">js_vars = {}</script>
+    <script type="text/javascript">metadata = {"tags": ["sonar"], "date": "2019-06-08", "update": [], "ts": 1559923200, "author": "pugongying", "brief": "", "cover": "", "description": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/blog/">
+                
+                    <img class="site_logo" src="/static/image/logo.png" alt="hello world">
+                
+                
+                    <h2>码上烟火</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class="active"><a  href="/blog/">博客</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="">
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>Sonar配置与使用</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                                <li>sonar</li>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                pugongying
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2019-06-08">
+                                    2019-06-08
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/my_name/my_name.github.io/blob/main/blog/java/sonar.md" target="_blank">
+                                    编辑本页
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <span id="blog_start"></span><h3 id="Sonar%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8">Sonar配置与使用</h3>
+<ol>
+<li>下载并解压sonarqube</li>
+<li>编辑sonar.properties</li>
+</ol>
+
+<pre class="language-none"><code class="language-none">vim conf/sonar.properties
+</code></pre>
+
+<pre class="language-none"><code class="language-none">sonar.jdbc.url=jdbc:mysql://127.0.0.1:3306/sonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true&amp;useConfigs=maxPerformance&amp;useSSL=false
+sonar.jdbc.username=sonar
+sonar.jdbc.password=sonar
+sonar.sorceEncoding=UTF-8
+sonar.login=admin
+sonar.password=admin
+
+sonar.web.host=http://127.0.0.1
+sonar.web.port=9000
+sonar.web.context=sonarqube
+</code></pre>
+<ul>
+<li>创建一个名为sonar的用户组和一个用户名为sonar密码为sonar的用户</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">groupadd sonar
+
+useradd sonar -g sonar -p sonar
+</code></pre>
+<ul>
+<li>为该用户分配文件夹权限</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">chown -R sonar:sonar /opt/sonarqube/sonarqube-7.7
+</code></pre>
+<ol start="3">
+<li>启动sonarquebe</li>
+</ol>
+
+<pre class="language-none"><code class="language-none">cd /sonarqube/sonarqube-7.7/bin/linux-86-64/
+
+sh sonar.sh start
+</code></pre>
+<ol start="4">
+<li>访问localhost:9000，点击login，输入初始账户密码admin/admin即可。</li>
+</ol>
+<h4 id="%E9%85%8D%E7%BD%AEsonar-scanner">配置sonar-scanner</h4>
+<ol>
+<li>对应系统下载安装包</li>
+<li>修改配置文件 conf下</li>
+<li>配置环境变量</li>
+<li>Linux在bin启动sonar-scanner.sh,<br />
+windows在项目配置的sonar.properties目录下输入cmd,再执行sonar-scanner命令</li>
+<li>执行完毕即可访问sonarqube</li>
+</ol>
+<h4 id="%E9%9B%86%E6%88%90Jenkins%E6%8F%92%E4%BB%B6">集成Jenkins插件</h4>
+<ol>
+<li>在插件中心安装sonarqube插件</li>
+<li>系统管理&gt;系统设置与全局工具设置，配上sonar-scanner的目录与sonarqube的地址</li>
+<li>在Jinkens任务项目下配置中：</li>
+</ol>
+<p>新增一个构建步骤，选择Execute SonarQube Scanner，选择你的jdk版本，若没有，请在全局工具配置中配置好jdk位置。再选择好sonarqube scanner的版本。</p>
+<blockquote>
+<p>Task to run 输入框中输入 scan，即分析代码；</p>
+</blockquote>
+<p>Path to project properties：可选择的输入框，可以指定一个 sonar-project.properties 文件，如果不指定则使用项目默认的 properties 文件；<br />
+Analysis properties：输入一些配置参数传递给 SonarQube，这里的参数优先级高于 sonar-project.properties 文件里面的参数，所以可以在这里来配置所有的参数以替代 sonar-project.properties 文件<br />
+注：SonarQube Scanner配置可以直接在项目根目录中创建一个文件sonar-project.properties，然后使用Path to project properties中指定属性文件，或者直接在Analysis Properties中配置<br />
+Additional arguments：可以输入一些附加的参数，示例中的-X指进入 SonarQube Scanner 的 Debug 模式，输出更多的日志信息</p>
+
+<pre class="language-none"><code class="language-none">#项目key (随意输入，必填项)
+sonar.projectKey=my-job
+
+#项目名称和版本（必填项）
+sonar.projectName=my-job
+sonar.projectVersion=1.0
+
+#源码位置（必填项，相对于jenkins的workspace路径，例如，我此时的绝对路径为~/.jenkins/workspace/Test/test-webapp/src/main/java）
+sonar.sources=test-webapp/src/main/java
+
+#编译后的class位置（必填项，旧版本此项可不填，建议还是填入，相对路径同上）
+
+sonar.java.binaries=test-webapp/target/classes
+
+</code></pre>
+<h5 id="%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97">查看日志</h5>
+<p>cd /logs</p>
+<p>日志分为sonar.log，es.log，web.log，若不明原因启动失败，可依次查看这几个日志。</p>
+<h6 id="es%E6%8A%A5%E9%94%99">es报错</h6>
+
+<pre class="language-none"><code class="language-none">ERROR: [3] bootstrap checks failed[1]: 
+max file descriptors [4096] for elasticsearch process is too low, increase to at least [65535]
+[2]: max number of threads [1024] for user [lee] is too low, increase to at least [4096]
+[3]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+
+</code></pre>
+<p>解决：切换到root用户，编辑limits.conf 添加类似如下内容</p>
+
+<pre class="language-none"><code class="language-none">vi /etc/security/limits.conf 
+* soft nofile 65536
+* hard nofile 131072
+* soft nproc 2048
+* hard nproc 4096
+</code></pre>
+
+<pre class="language-none"><code class="language-none">max number of threads [1024] for user [lish] likely too low, increase to at least [2048]
+</code></pre>
+<p>这个命令也可以 ulimit -u 2048</p>
+<p>vi /etc/security/limits.d/90-nproc.conf</p>
+<p>修改如下内容：</p>
+<ul>
+<li>soft nproc 1024</li>
+</ul>
+<h1 id="%E4%BF%AE%E6%94%B9%E4%B8%BA">修改为</h1>
+<ul>
+<li>soft nproc 2048</li>
+</ul>
+<p>问题</p>
+
+<pre class="language-none"><code class="language-none">：max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]
+</code></pre>
+<p>解决：切换到root用户修改配置sysctl.conf</p>
+<p>vi /etc/sysctl.conf</p>
+<p>添加下面配置：</p>
+<p>vm.max_map_count=655360</p>
+<p>并执行命令：</p>
+<p>sysctl -p</p>
+<h6 id="%E5%AE%98%E6%96%B9%E5%BB%BA%E8%AE%AE">官方建议</h6>
+<ul>
+<li>vm.max_map_count is greater or equals to 262144</li>
+<li>fs.file-max is greater or equals to 65536</li>
+<li>the user running SonarQube can open at least 65536 file descriptors</li>
+<li>the user running SonarQube can open at least 2048 threads</li>
+</ul>
+
+<pre class="language-none"><code class="language-none">sysctl -w vm.max_map_count=262144
+sysctl -w fs.file-max=65536
+ulimit -n 65536
+ulimit -u 2048
+</code></pre>
+<blockquote>
+<p>To set these values more permanently, you must update either /etc/sysctl.d/99-sonarqube.conf (or /etc/sysctl.conf as you wish) to reflect these values.</p>
+<p>If the user running SonarQube (sonarqube in this example) does not have the permission to have at least 65536 open descriptors, you must insert this line in /etc/security/limits.d/99-sonarqube.conf (or /etc/security/limits.conf as you wish):</p>
+</blockquote>
+
+<pre class="language-none"><code class="language-none">sonarqube   -   nofile   65536
+sonarqube   -   nproc    2048
+</code></pre>
+
+<pre class="language-none"><code class="language-none">es[][o.e.b.JNANatives] unable to install syscall filter:
+java.lang.UnsupportedOperationException: seccomp unavailable: requires kernel 3.5+ with CONFIG_SECCOMP and CONFIG_SECCOMP_FILTER compiled in
+        at org.elasticsearch.bootstrap.SystemCallFilter.linuxImpl(SystemCallFilter.java:329) ~[elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.bootstrap.SystemCallFilter.init(SystemCallFilter.java:617) ~[elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.bootstrap.JNANatives.tryInstallSystemCallFilter(JNANatives.java:260) [elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.bootstrap.Natives.tryInstallSystemCallFilter(Natives.java:113) [elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.bootstrap.Bootstrap.initializeNatives(Bootstrap.java:108) [elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:170) [elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:333) [elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:159) [elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:150) [elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:86) [elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:124) [elasticsearch-cli-6.6.2.jar:6.6.2]
+        at org.elasticsearch.cli.Command.main(Command.java:90) [elasticsearch-cli-6.6.2.jar:6.6.2]
+        at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:116) [elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:93) [elasticsearch-6.6.2.jar:6.6.2]
+
+</code></pre>
+<p>原因:  因为Centos6不支持SecComp,而ES默认bootstrap.system_call_filter为true进行检测,所以导致检测失败,失败后直接导致ES不能启动解决:修改elasticsearch.yml 添加一下内容 ：<br />
+bootstrap.system_call_filter: false</p>
+<p>或者在配置文件里<br />
+sonar.search.javaAdditionalOpts=-Dbootstrap.system_call_filter=false</p>
+
+<pre class="language-none"><code class="language-none">java.lang.RuntimeException: can not run elasticsearch as root
+        at org.elasticsearch.bootstrap.Bootstrap.initializeNatives(Bootstrap.java:103) ~[elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:170) ~[elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:333) [elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:159) [elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:150) [elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:86) [elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:124) [elasticsearch-cli-6.6.2.jar:6.6.2]
+        at org.elasticsearch.cli.Command.main(Command.java:90) [elasticsearch-cli-6.6.2.jar:6.6.2]
+        at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:116) [elasticsearch-6.6.2.jar:6.6.2]
+        at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:93) [elasticsearch-6.6.2.jar:6.6.2]
+
+</code></pre>
+<p>解决办法：以其他用户启动</p>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="/pugongyingbo@gmail.com">邮箱</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/static/js/theme_default/main.js"></script>
+    
+        <script src="/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/static/js/search/search_main.js"></script>
+    
+        <script src="/static/js/plugin_blog/main.js"></script>
+    
+        <script src="/static/js/custom.js"></script>
+    
+        <script type="text/javascript" src="/static/js/live.js"></script>
+    
+</body>
+
+</html>

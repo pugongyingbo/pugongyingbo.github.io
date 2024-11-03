@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"  class=" language_zh ">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="Java设计模式">
+    
+    
+    <meta name="description" content="None">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/static/css/search/style.css" type="text/css"/>
+        
+        <meta name="blog-generator" content="teedoc-plugin-blog">
+        
+        <link rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+        
+    
+    
+    <title>适配器模式 - 码上烟火</title>
+    
+    <script type="text/javascript">js_vars = {}</script>
+    <script type="text/javascript">metadata = {"tags": ["Java设计模式"], "date": "2018-04-23", "update": [], "ts": 1524412800, "author": "zzb", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/blog/">
+                
+                    <img class="site_logo" src="/static/image/logo.png" alt="hello world">
+                
+                
+                    <h2>码上烟火</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class="active"><a  href="/blog/">博客</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="">
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>适配器模式</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                                <li>Java设计模式</li>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                zzb
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2018-04-23">
+                                    2018-04-23
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/my_name/my_name.github.io/blob/main/blog/java/adapterPattern.md" target="_blank">
+                                    编辑本页
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <span id="blog_start"></span><h4 id="%E8%A7%A3%E9%87%8A">解释</h4>
+<ul>
+<li>现实世界例子</li>
+</ul>
+<blockquote>
+<p>想象你有一些图片在内存卡中，你需要传输它们到电脑。为了传输它们你需要一些兼容电脑接口的适配器，你才能连接电脑。在这个例子中，读卡器是一个适配器。另一个例子更加贴合适配器， 一个三叉口的插头不能插入两叉口的插座，它需要使用转换头。另一个例子是翻译工作。</p>
+</blockquote>
+<ul>
+<li>用浅显的话来说</li>
+</ul>
+<blockquote>
+<p>适配器模式允许你把一个不兼容的对象包装在适配器中，使其符合另一个类。</p>
+</blockquote>
+<ul>
+<li>维基百科</li>
+</ul>
+<blockquote>
+<p>在软件工程中，适配器模式是一种软件设计模式，允许将现有类的接口用作另一个接口。它经常被用来无需修改现有类的源码和其他类一起工作。</p>
+</blockquote>
+<h4 id="%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A">代码解释</h4>
+<p>想象一个船长只会划船不会航行。<br />
+首先我们有RowingBoat和FishingBoat接口</p>
+
+<pre class="language-none"><code class="language-none">public interface RowingBoat {
+  void row();
+}
+
+public class FishingBoat {
+  private static final Logger LOGGER = LoggerFactory.getLogger(FishingBoat.class);
+  public void sail() {
+    LOGGER.info(&quot;The fishing boat is sailing&quot;);
+  }
+}
+</code></pre>
+<p>另外船长期望实现一个划船接口可以移动。</p>
+
+<pre class="language-none"><code class="language-none">public class Captain implements RowingBoat {
+
+  private RowingBoat rowingBoat;
+
+  public Captain(RowingBoat rowingBoat) {
+    this.rowingBoat = rowingBoat;
+  }
+
+  @Override
+  public void row() {
+    rowingBoat.row();
+  }
+}
+</code></pre>
+<p>现在海盗即将到来，船长需要逃跑，但是这里只有一个渔船。我们需要创建一个适配器允许船长操作这个渔船用他的划船技巧。</p>
+
+<pre class="language-none"><code class="language-none">public class FishingBoatAdapter implements RowingBoat {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(FishingBoatAdapter.class);
+
+  private FishingBoat boat;
+
+  public FishingBoatAdapter() {
+    boat = new FishingBoat();
+  }
+
+  @Override
+  public void row() {
+    boat.sail();
+  }
+}
+</code></pre>
+<p>现在这个船长可以使用渔船躲避海盗了。</p>
+
+<pre class="language-none"><code class="language-none">Captain captain = new Captain(new FishingBoatAdapter());
+captain.row();
+</code></pre>
+<h4 id="%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8">什么时候使用</h4>
+<ul>
+<li>要使用现有类，但是其接口不匹配你的要求</li>
+<li>要创建一个可重用的类与合作无关的意料之外的类，那些不一定具有兼容接口的类。</li>
+<li>您需要使用几个现有的子类，但通过子类化每个子类来适配它们的接口是不切实际的。 对象适配器可以适配其父类的接口。</li>
+<li>大多数使用第三方库的应用程序都使用适配器作为应用程序和第三方库之间的中间层，以将应用程序与库分离。 如果必须使用另一个库，则只需要用于新库的适配器而无需更改应用程序代码。</li>
+</ul>
+<h4 id="%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8B">代码实例</h4>
+<ul>
+<li>java.util.Arrays#asList()</li>
+<li>java.util.Collections#list()</li>
+<li>java.util.Collections#enumeration()</li>
+<li>javax.xml.bind.annotation.adapters.XMLAdapter</li>
+</ul>
+<blockquote>
+<p>翻译自<a href="https://github.com/iluwatar/java-design-patterns"  target="_blank">java设计模式大全</a></p>
+</blockquote>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="/pugongyingbo@gmail.com">邮箱</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/static/js/theme_default/main.js"></script>
+    
+        <script src="/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/static/js/search/search_main.js"></script>
+    
+        <script src="/static/js/plugin_blog/main.js"></script>
+    
+        <script src="/static/js/custom.js"></script>
+    
+        <script type="text/javascript" src="/static/js/live.js"></script>
+    
+</body>
+
+</html>
